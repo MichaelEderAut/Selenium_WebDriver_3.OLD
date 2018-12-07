@@ -36,6 +36,7 @@ import org.openqa.selenium.edge.EdgeDriverService.Builder;
 // import org.apache.http.impl.auth.BasicScheme;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
@@ -128,6 +129,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			// new FirefoxOptions().setBinary(binary).setProfile(profile)
 			O_ff_opts = new FirefoxOptions();
 			O_ff_opts.setBinary(O_ff_bin);
+			O_ff_opts.setLogLevel(FirefoxDriverLogLevel.INFO);  // TRACE is most detailed.
 			O_ff_opts.setProfile(O_ff_prf);
 			//O_retval = new FirefoxDriver(O_ff_bin, O_ff_prf);
 			O_retval = new FirefoxDriver(O_ff_opts);
