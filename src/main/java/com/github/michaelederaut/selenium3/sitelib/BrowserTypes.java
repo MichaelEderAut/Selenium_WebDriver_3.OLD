@@ -17,7 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public enum BrowserTypes {
 	
-	FireFox(BrowserType.FIREFOX), InternetExplorer(BrowserType.IEXPLORE), Edge(BrowserType.EDGE);
+	FireFox(BrowserType.FIREFOX), 
+	Chrome(BrowserType.GOOGLECHROME), 
+	InternetExplorer(BrowserType.IEXPLORE), 
+	Edge(BrowserType.EDGE);
 	
 	public static final String S_pn_ie_bin   = "C:\\Program Files\\Internet Explorer\\iexplore.exe";
 	

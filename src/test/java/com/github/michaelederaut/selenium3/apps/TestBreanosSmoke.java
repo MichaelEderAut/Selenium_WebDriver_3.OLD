@@ -84,7 +84,7 @@ public class TestBreanosSmoke {
 		
 		O_logger.traceEntry();
 			
-      E_browser_type = BrowserTypes.FireFox;
+      E_browser_type = BrowserTypes.Edge;
  //    	E_browser_type = BrowserTypes.InternetExplorer;
 	    O_nav_utils = new NavigationUtils(E_browser_type);
 	    
