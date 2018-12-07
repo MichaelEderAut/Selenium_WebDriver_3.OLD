@@ -1,0 +1,9 @@
+/target/
+/bin/
+/build/
+**/_archive/
+.README.md.html
+.git.OLD/
+.git.old/
+/.classpath.old
+/.classpath.OLD
