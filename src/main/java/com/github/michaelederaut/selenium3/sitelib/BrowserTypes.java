@@ -2,6 +2,7 @@ package com.github.michaelederaut.selenium3.sitelib;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.service.DriverService;
 
 import com.github.michaelederaut.basics.ToolsBasics;
 
@@ -32,8 +33,8 @@ public enum BrowserTypes {
 	
 	public static final String S_pn_chrome_bin = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
 	public static final String S_bnt_chrome_srv_bin = "chromedriver-v2.44-win32";
-	public static final String S_bn_chrome_srv_bin = S_bnt_chrome_srv_bin + ToolsBasics.S_windows_suffix_exe;
-	public static final String S_dna_chrome_srv_bin = "H:\\10\\Editors_Explorers\\web\\Chrome\\Selenium Server";
+	public static final String S_bn_chrome_srv_bin = S_bnt_chrome_srv_bin + "." + ToolsBasics.S_windows_suffix_exe;
+	public static final String S_dna_chrome_srv_bin = "H:\\10\\Editors_Explorers\\web\\Chrome\\Selenium_Server";
     public static final String S_pn_chrome_srv_bin = S_dna_chrome_srv_bin + "\\" + S_bn_chrome_srv_bin;
 	
 	public static final String S_pn_ie_bin   = "C:\\Program Files\\Internet Explorer\\iexplore.exe";
@@ -52,13 +53,13 @@ public enum BrowserTypes {
     public static final String S_dna_edge_srv_bin =  "H:\\10\\Editors_Explorers\\web\\Edge_Server\\6.17134";
     public static final String S_pn_edge_srv_bin =  S_dna_edge_srv_bin + "\\" + S_bn_edge_srv_bin;
 	
-    
-	public  String S_pn_browser_binary;
-	public  String S_pna_drv_srv_binary;
 	public  String S_bn_drv_srv_bin  = null;
 	public  File F_browser_binary    = null;
 	public  File F_dna_srv_binary    = null;
 	public  File F_pn_drv_srv_binary = null;
+	public  String S_pn_browser_binary;
+	public  String S_pna_drv_srv_binary;
+//	public  DriverService O_drv_srv;
 	
 	private String S_broswer_name;
 //	private RemoteWebDriver O_remote_driver;
@@ -163,23 +164,23 @@ public enum BrowserTypes {
 			   E_rt = new RuntimeException(S_msg_2, E_io);
 			   throw E_rt; 
 		       }
-		 this.S_bn_drv_srv_bin     = S_bn_chrome_srv_bin;
-		 this.S_pna_drv_srv_binary = S_dna_chrome_srv_bin + "\\" + this.S_bn_drv_srv_bin;
-		 F_pn_drv_srv_binary = new File (S_pna_drv_srv_binary);
-		 if (!F_pn_drv_srv_binary.isFile()) {
-			 S_msg_1 = "Unable to locate Chrome-Driver: \"" + S_pna_drv_srv_binary + "\"";
-			 E_io = new IOException(S_msg_1);
-			 S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			 E_rt = new RuntimeException(S_msg_2, E_io);
-			 throw E_rt;
-			}
-		 if (!F_pn_drv_srv_binary.canExecute()) {
+		this.S_bn_drv_srv_bin     = S_bn_chrome_srv_bin;
+		this.S_pna_drv_srv_binary = S_dna_chrome_srv_bin + "\\" + this.S_bn_drv_srv_bin;
+		F_pn_drv_srv_binary = new File (S_pna_drv_srv_binary);
+		if (!F_pn_drv_srv_binary.isFile()) {
+		   S_msg_1 = "Unable to locate Chrome-Driver: \"" + S_pna_drv_srv_binary + "\"";
+		   E_io = new IOException(S_msg_1);
+		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+		   E_rt = new RuntimeException(S_msg_2, E_io);
+		   throw E_rt;
+		   }
+		if (!F_pn_drv_srv_binary.canExecute()) {
 			 S_msg_1 = "Unable to execute Chrome-Driver: \"" + S_pna_drv_srv_binary + "\"";
 		     E_io = new IOException(S_msg_1);
 		     S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		     E_rt = new RuntimeException(S_msg_2, E_io);
 			 throw E_rt;
-				 }
+			 }
 		
 	   	break;  // Google Chrome
 		
