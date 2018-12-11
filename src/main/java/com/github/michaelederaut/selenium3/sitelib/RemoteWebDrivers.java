@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeDriverService.Builder;
@@ -79,6 +81,8 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		FirefoxProfile O_ff_prf;
 		FirefoxBinary O_ff_bin;
 		FirefoxOptions O_ff_opts;
+		
+		ChromeOptions O_chrome_opts;
 		
 		IllegalArgumentException E_ill_arg;
 		ShutDownThread O_thread_shutdown;
@@ -134,6 +138,12 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			//O_retval = new FirefoxDriver(O_ff_bin, O_ff_prf);
 			O_retval = new FirefoxDriver(O_ff_opts);
 		    }
+		
+		else if (ChromeDriver.class.isAssignableFrom(PI_OT_clazz)) {
+			 E_browser_type = BrowserTypes.Chrome;
+			 O_retval = new ChromeDriver();
+		     }
+		
 		else if (InternetExplorerDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			
 			// appium.io/docs/en/drivers/windows/

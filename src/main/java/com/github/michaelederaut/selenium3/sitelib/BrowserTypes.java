@@ -5,10 +5,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.github.michaelederaut.basics.ToolsBasics;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeDriverService;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.File;
 import java.io.IOException;
@@ -126,7 +127,9 @@ public enum BrowserTypes {
 				 }
 		break; // FireFox
 	
+	case BrowserType.GOOGLECHROME:
 	case BrowserType.CHROME:
+		OT_webdriver = ChromeDriver.class;
 		S_pn_browser_binary = S_pn_chrome_bin;
 		if (StringUtils.isBlank(S_pn_chrome_bin)) {
 			S_msg_1 = "Invalid pathname for " + PI_S_browser_name + " runtime exectuable: \"" + S_pn_browser_binary + "\"";
