@@ -16,6 +16,7 @@ import com.sun.jna.platform.win32.WinReg.HKEY;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebDriverBuilder;
 import org.openqa.selenium.remote.service.DriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerDriverLogLevel;
@@ -28,7 +29,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+// import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,6 +43,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.GeckoDriverService;
 
 // import com.github.michaelederaut.selenium3.platform.DriverServers;
 import com.github.michaelederaut.basics.ExecUtils;
@@ -55,11 +57,13 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 	
 		// public String S_pna_drv_srv = null;
 		public BrowserTypes  E_browser_type;
+		public RemoteWebDriver O_rem_web_drv;
 		public DriverService O_drv_srv;
 		public ShutDownThread(
 				final BrowserTypes  PI_E_browser_type,
 				final DriverService PI_O_driver_service) {
 			this.E_browser_type = PI_E_browser_type;
+		
 			this.O_drv_srv      = PI_O_driver_service;
 		}
 	}
@@ -88,6 +92,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		FirefoxProfile O_ff_prf;
 		FirefoxBinary O_ff_bin;
 		FirefoxOptions O_ff_opts;
+		GeckoDriverService O_ff_drv_srv;
 		
 		ChromeOptions O_chrome_opts;
 		
@@ -143,9 +148,13 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			O_ff_opts = new FirefoxOptions();
 			O_ff_opts.setBinary(O_ff_bin);
 			O_ff_opts.setLogLevel(FirefoxDriverLogLevel.INFO);  // TRACE is most detailed.
-			O_ff_opts.setProfile(O_ff_prf);
-			//O_retval = new FirefoxDriver(O_ff_bin, O_ff_prf);
-			O_retval = new FirefoxDriver(O_ff_opts);
+			O_ff_opts.setProfile(O_ff_prf);  // FireFox Profile
+			O_ff_drv_srv = GeckoDriverService.createDefaultService();
+		
+		//	GeckoDriverService.
+			O_retval = new FirefoxDriver(O_ff_drv_srv, O_ff_opts);
+			// O_retval = new FirefoxDriver(O_ff_opts);
+			O_drv_srv = O_ff_drv_srv;
 		    }
 		
 		else if (ChromeDriver.class.isAssignableFrom(PI_OT_clazz)) {
@@ -292,15 +301,22 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 				O_drv_srv)  {	
 			@Override
 			public void run() {
+				RemoteWebDriverBuilder O_rem_web_drv_bldr;
+				DriverService O_drv_srv;
 				final String S_pna_drv_srv = this.E_browser_type.S_pna_drv_srv_binary;
 				
-				if (E_browser_type == BrowserTypes.Edge) {
-					DriverService O_drv_srv;
+		//		if (E_browser_type == BrowserTypes.Edge) {}
+				if (this.O_drv_srv != null)	{
 					O_drv_srv = this.O_drv_srv;
 				    if (O_drv_srv.isRunning()) {
 					   this.O_drv_srv.stop();
 				       }
 				    }
+				else {
+				//	O_rem_web_drv_bldr = this.O_rem_web_drv.builder();
+					O_rem_web_drv_bldr = RemoteWebDriver.builder();
+					
+				}
 				ExecUtils.FAL_get_processes_by_path(
 				   S_pna_drv_srv,
 				   true,  // kill
