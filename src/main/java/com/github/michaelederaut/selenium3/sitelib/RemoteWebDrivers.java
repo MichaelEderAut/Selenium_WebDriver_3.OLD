@@ -16,6 +16,7 @@ import com.sun.jna.platform.win32.WinReg.HKEY;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.service.DriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerDriverLogLevel;
 import org.openqa.selenium.ie.InternetExplorerDriverService;
@@ -51,10 +52,15 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 	
 	public static class ShutDownThread extends Thread {
 		
-	//	public String S_bn_drv_srv = null;
-		public String S_pna_drv_srv = null;
-		public ShutDownThread(final String PI_S_pna_drv_srv) {
-			this.S_pna_drv_srv = PI_S_pna_drv_srv;
+	
+		// public String S_pna_drv_srv = null;
+		public BrowserTypes  E_browser_type;
+		public DriverService O_drv_srv;
+		public ShutDownThread(
+				final BrowserTypes  PI_E_browser_type,
+				final DriverService PI_O_driver_service) {
+			this.E_browser_type = PI_E_browser_type;
+			this.O_drv_srv      = PI_O_driver_service;
 		}
 	}
 	
@@ -78,6 +84,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		
 	//	WindowsRegistry O_win_reg;
 		RemoteWebDriver O_retval;
+		DriverService   O_drv_srv;
 		FirefoxProfile O_ff_prf;
 		FirefoxBinary O_ff_bin;
 		FirefoxOptions O_ff_opts;
@@ -98,8 +105,9 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		Integer I_zoom_factor_raw;
 		int I_zoom_factor_percent_old, I_zoom_factor_new_raw_expexted, I_zoom_factor_percent_new_act,
 		    I_nbr_graph_dev_f1;
-		double L_width_tk,  L_height_tk,  L_height_ge, L_width_ge;
-	//	Object O_zoom_factor_raw;
+		double 
+		L_width_tk,  L_height_tk, // toolkit
+		L_height_ge, L_width_ge;  // graphics environment
 		
 		O_retval = null;
 		
@@ -115,6 +123,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		L_width_ge = O_display_mode_curr.getWidth();  // Graphics Environment
 		L_height_ge = O_display_mode_curr.getHeight();
 		
+		O_drv_srv = null;
 		if (FirefoxDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			E_browser_type = BrowserTypes.FireFox;
 			
@@ -152,7 +161,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			DesiredCapabilities O_ie_capabilities = DesiredCapabilities.internetExplorer();
             InternetExplorerOptions O_ie_options;
 	//		O_ie_capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, false);	
-    //   sqa.stackexchange.com/questions/9496/webdriver-clicking-button-issue-in-ie-11/13061		
+    //      sqa.stackexchange.com/questions/9496/webdriver-clicking-button-issue-in-ie-11/13061		
 			O_ie_capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);    
 	 		O_ie_capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, "accept");
 	 		O_ie_capabilities.setCapability("ignoreProtectedModeSettings", true);
@@ -260,6 +269,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			O_bldr_2 = O_bldr_1.usingDriverExecutable(E_browser_type.F_pn_drv_srv_binary);
 			O_bldr_3 = O_bldr_2.usingAnyFreePort();
 			O_edge_service = O_bldr_3.build();
+			O_drv_srv = O_edge_service;
 			try {
 				O_edge_service.start();
 			} catch (IOException PI_E_io) {
@@ -277,20 +287,30 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			throw E_ill_arg;
 		}
                                    
-		O_thread_shutdown = new ShutDownThread(E_browser_type.S_pna_drv_srv_binary)  {
-			
-		@Override
-		public void run() {
-			ExecUtils.FAL_get_processes_by_path(
-			   this.S_pna_drv_srv,
-			   true,  // kill
-			   false); // by force
-			ToolsBasics.FV_sleep(500); // 500 ms
-			ExecUtils.FAL_get_processes_by_path(
-			   this.S_pna_drv_srv,
-			   true,  // kill
-			   true); // by force
-		    }
+		O_thread_shutdown = new ShutDownThread(
+				E_browser_type,
+				O_drv_srv)  {	
+			@Override
+			public void run() {
+				final String S_pna_drv_srv = this.E_browser_type.S_pna_drv_srv_binary;
+				
+				if (E_browser_type == BrowserTypes.Edge) {
+					DriverService O_drv_srv;
+					O_drv_srv = this.O_drv_srv;
+				    if (O_drv_srv.isRunning()) {
+					   this.O_drv_srv.stop();
+				       }
+				    }
+				ExecUtils.FAL_get_processes_by_path(
+				   S_pna_drv_srv,
+				   true,  // kill
+				   false); // by force
+				ToolsBasics.FV_sleep(500); // 500 ms
+				ExecUtils.FAL_get_processes_by_path(
+				   S_pna_drv_srv,
+				   true,  // kill
+				   true); // by force
+			    }
 	    };
 
 	O_runtime = Runtime.getRuntime();
