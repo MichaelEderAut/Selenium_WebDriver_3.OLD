@@ -33,10 +33,10 @@ import java.net.URL;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeDriverService.Builder;
-//  import org.apache.http.impl.auth.BasicScheme;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
@@ -44,7 +44,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.GeckoDriverService;
 
-// import com.github.michaelederaut.selenium3.platform.DriverServers;
 import com.github.michaelederaut.basics.ExecUtils;
 import com.github.michaelederaut.basics.ToolsBasics;
 
@@ -85,7 +84,8 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		RuntimeException E_rt; 
 		AssertionError E_assert;
 		
-	//	WindowsRegistry O_win_reg;
+		DesiredCapabilities O_brws_capabilities;
+		
 		RemoteWebDriver O_retval;
 		DriverService   O_drv_srv;
 		FirefoxProfile O_ff_prf;
@@ -93,7 +93,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		FirefoxOptions O_ff_opts;
 		GeckoDriverService O_ff_drv_srv;
 		
-		ChromeOptions O_chrome_opts;
+		ChromeOptions       O_chrome_opts;
+		ChromeDriver        O_chrome_drv;
+		ChromeDriverService O_chrome_drv_srv;
+		
 		
 		IllegalArgumentException E_ill_arg;
 		ShutDownThread O_thread_shutdown;
@@ -127,7 +130,6 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		L_width_ge = O_display_mode_curr.getWidth();  // Graphics Environment
 		L_height_ge = O_display_mode_curr.getHeight();
 		
-		O_drv_srv = null;
 		if (FirefoxDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			E_browser_type = BrowserTypes.FireFox;
 			
@@ -150,31 +152,36 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			O_ff_opts.setProfile(O_ff_prf);  // FireFox Profile
 			O_ff_drv_srv = GeckoDriverService.createDefaultService();
 		
-		//	GeckoDriverService.
 			O_retval = new FirefoxDriver(O_ff_drv_srv, O_ff_opts);
-			// O_retval = new FirefoxDriver(O_ff_opts);
 			O_drv_srv = O_ff_drv_srv;
 		    }
 		
 		else if (ChromeDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			 E_browser_type = BrowserTypes.Chrome;
-			 O_retval = new ChromeDriver();
-		     }
+	//		 O_brws_capabilities = DesiredCapabilities.chrome();
+			 O_chrome_opts = new ChromeOptions();
+			 O_chrome_opts.setExperimentalOption("detach", true);
+			 System.setProperty("webdriver.chrome.driver", BrowserTypes.S_pn_chrome_srv_bin);
+			 O_chrome_drv_srv = ChromeDriverService.createDefaultService();
+			 O_chrome_drv     = new ChromeDriver(O_chrome_drv_srv, O_chrome_opts);
+			 O_retval = O_chrome_drv;
+			 O_drv_srv = O_chrome_drv_srv;
+		     } // end of Chrome
 		
 		else if (InternetExplorerDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			
 			// appium.io/docs/en/drivers/windows/
 			E_browser_type = BrowserTypes.InternetExplorer;
 			InternetExplorerDriverService O_ie_service;
-			DesiredCapabilities O_ie_capabilities = DesiredCapabilities.internetExplorer();
+		    O_brws_capabilities = DesiredCapabilities.internetExplorer();
             InternetExplorerOptions O_ie_options;
 	//		O_ie_capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, false);	
     //      sqa.stackexchange.com/questions/9496/webdriver-clicking-button-issue-in-ie-11/13061		
-			O_ie_capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);    
-	 		O_ie_capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, "accept");
-	 		O_ie_capabilities.setCapability("ignoreProtectedModeSettings", true);
-	 		O_ie_capabilities.setCapability("disable-popup-blocking", true);
-	 		O_ie_capabilities.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
+			O_brws_capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);    
+	 		O_brws_capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, "accept");
+	 		O_brws_capabilities.setCapability("ignoreProtectedModeSettings", true);
+	 		O_brws_capabilities.setCapability("disable-popup-blocking", true);
+	 		O_brws_capabilities.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
 	 		
 	 		// for 2K monitors and zoom factor 100 recommended setting is false, 
 	 		// for 4K monitors and zoom factor >100 recommended setting is true,
@@ -190,8 +197,8 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 	 		else {
 	 			I_requested_zoom_factor_ie = 200;
 	 		    }
-	 		O_ie_capabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true); 	// default = false
-	 		O_ie_capabilities.setJavascriptEnabled(true);
+	 		O_brws_capabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true); 	// default = false
+	 		O_brws_capabilities.setJavascriptEnabled(true);
 	 		
 			System.setProperty("webdriver.ie.driver", E_browser_type.S_pna_drv_srv_binary);
 			System.setProperty("webdriver.ie.driver.loglevel", InternetExplorerDriverLogLevel.ERROR.name());  // recommended setting
@@ -203,7 +210,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			Pointer O_pointer;
 			
 			O_pointer = REG_KEY_HANDLE.getPointer();
-			B_ignore_zoom_setting = (Boolean)O_ie_capabilities.getCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING);
+			B_ignore_zoom_setting = (Boolean)O_brws_capabilities.getCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING);
 			if (B_ignore_zoom_setting == Boolean.TRUE) {
 				I_zoom_factor_raw = null;
 				try {
@@ -259,9 +266,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 					    }
 				} // if zoom factor has to be adjusted
 			} // if zoom factor has to be checked for adjustment
-			O_ie_options = new InternetExplorerOptions(O_ie_capabilities);
+			O_ie_options = new InternetExplorerOptions(O_brws_capabilities);
 			O_ie_options.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
 			O_retval = new InternetExplorerDriver(O_ie_service, O_ie_options);
+			O_drv_srv = O_ie_service;
 			// org.openqa.selenium.SessionNotCreatedException
 			// Browser zoom level was set to 200%. It should be set to 100%
 		}  // end of IE
@@ -304,7 +312,6 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 				DriverService O_drv_srv;
 				final String S_pna_drv_srv = this.E_browser_type.S_pna_drv_srv_binary;
 				
-		//		if (E_browser_type == BrowserTypes.Edge) {}
 				if (this.O_drv_srv != null)	{
 					O_drv_srv = this.O_drv_srv;
 				    if (O_drv_srv.isRunning()) {
@@ -312,7 +319,6 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 				       }
 				    }
 				else {
-				//	O_rem_web_drv_bldr = this.O_rem_web_drv.builder();
 					O_rem_web_drv_bldr = RemoteWebDriver.builder();
 					
 				}

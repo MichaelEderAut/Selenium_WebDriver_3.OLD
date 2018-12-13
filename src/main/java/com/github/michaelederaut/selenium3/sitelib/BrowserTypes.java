@@ -59,6 +59,7 @@ public enum BrowserTypes {
 	public  File F_pn_drv_srv_binary = null;
 	public  String S_pn_browser_binary;
 	public  String S_pna_drv_srv_binary;
+	public  Throwable E_err;
 //	public  DriverService O_drv_srv;
 	
 	private String S_broswer_name;
@@ -82,7 +83,9 @@ public enum BrowserTypes {
 		    E_io = new IOException(S_msg_1);
 		    S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		    E_rt = new RuntimeException(S_msg_2, E_io);
-		    throw E_rt;
+		    this.E_err = E_rt;
+		    break;
+		    //   throw E_rt;
 		   }	
 		
 		F_browser_binary = new File (S_pn_browser_binary);
@@ -91,14 +94,18 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 	       S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		   // throw E_rt;
 		   }
 		if (!F_browser_binary.canExecute()) {
 			S_msg_1 = "Unable to exectute file: \"" + S_pn_browser_binary + "\"";
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			throw E_rt;
+			this.E_err = E_rt;
+			break;
+			// throw E_rt;
 			}
 		      
 		  F_dna_srv_binary = new File(S_dna_ff_srv_bin);
@@ -107,7 +114,9 @@ public enum BrowserTypes {
 			   E_io = new IOException(S_msg_1);
 			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt; 
+			   this.E_err = E_rt;
+			   break;
+			   // throw E_rt; 
 		       }
 		     this.S_bn_drv_srv_bin     = S_bn_ff_srv_bin;
 		     this.S_pna_drv_srv_binary = S_dna_ff_srv_bin + "\\" + this.S_bn_drv_srv_bin;
@@ -117,14 +126,18 @@ public enum BrowserTypes {
 				   E_io = new IOException(S_msg_1);
 				   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 				   E_rt = new RuntimeException(S_msg_2, E_io);
-				   throw E_rt;
+				   this.E_err = E_rt;
+			       break;
+				  // throw E_rt;
 				   }
 		     if (!F_pn_drv_srv_binary.canExecute()) {
 				 S_msg_1 = "Unable to execute Gecko-Driver: \"" + S_pna_drv_srv_binary + "\"";
 				 E_io = new IOException(S_msg_1);
 				 S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 				 E_rt = new RuntimeException(S_msg_2, E_io);
-				 throw E_rt;
+				 this.E_err = E_rt;
+			     break;
+				// throw E_rt;
 				 }
 		break; // FireFox
 	
@@ -137,7 +150,9 @@ public enum BrowserTypes {
 		    E_io = new IOException(S_msg_1);
 		    S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		    E_rt = new RuntimeException(S_msg_2, E_io);
-		    throw E_rt;
+		    this.E_err = E_rt;
+			break;
+		    //    throw E_rt;
 		   }	
 		
 		F_browser_binary = new File (S_pn_browser_binary);
@@ -146,14 +161,18 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 	       S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		 //  throw E_rt;
 		   }
 		if (!F_browser_binary.canExecute()) {
 			S_msg_1 = "Unable to exectute file: \"" + S_pn_browser_binary + "\"";
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			throw E_rt;
+			this.E_err = E_rt;
+			break;
+			// throw E_rt;
 			}
 		      
 		F_dna_srv_binary = new File(S_dna_chrome_srv_bin);
@@ -162,7 +181,9 @@ public enum BrowserTypes {
 			   E_io = new IOException(S_msg_1);
 			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt; 
+			   this.E_err = E_rt;
+			   break;
+			//   throw E_rt; 
 		       }
 		this.S_bn_drv_srv_bin     = S_bn_chrome_srv_bin;
 		this.S_pna_drv_srv_binary = S_dna_chrome_srv_bin + "\\" + this.S_bn_drv_srv_bin;
@@ -172,16 +193,19 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		//   throw E_rt;
 		   }
 		if (!F_pn_drv_srv_binary.canExecute()) {
 			 S_msg_1 = "Unable to execute Chrome-Driver: \"" + S_pna_drv_srv_binary + "\"";
 		     E_io = new IOException(S_msg_1);
 		     S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		     E_rt = new RuntimeException(S_msg_2, E_io);
-			 throw E_rt;
+		     this.E_err = E_rt;
+		     break;
+			 //  throw E_rt;
 			 }
-		
 	   	break;  // Google Chrome
 		
 	case BrowserType.IE: 
@@ -193,23 +217,29 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		  //  throw E_rt;
 		   }
 	
 	    F_browser_binary = new File(S_pn_browser_binary);
 		if (!F_browser_binary.isFile()) {
-			   S_msg_1 = "Unable to locate file: \"" + S_pn_browser_binary + "\"";
-			   E_io = new IOException(S_msg_1);
-			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt;
+			S_msg_1 = "Unable to locate file: \"" + S_pn_browser_binary + "\"";
+			E_io = new IOException(S_msg_1);
+			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+			E_rt = new RuntimeException(S_msg_2, E_io);
+			this.E_err = E_rt;
+		    break;
+			//   throw E_rt;
 			   }
 		if (!F_browser_binary.canExecute()) {
-			   S_msg_1 = "Unable to execute file: \"" + S_pn_browser_binary + "\"";
-			   E_io = new IOException(S_msg_1);
-			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt;
+			S_msg_1 = "Unable to execute file: \"" + S_pn_browser_binary + "\"";
+			E_io = new IOException(S_msg_1);
+			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+			E_rt = new RuntimeException(S_msg_2, E_io);
+			this.E_err = E_rt;
+		    break;
+			   //throw E_rt;
 			   }
 		
 		F_dna_srv_binary = new File(S_dna_ie_srv_bin);
@@ -218,25 +248,30 @@ public enum BrowserTypes {
 			   E_io = new IOException(S_msg_1);
 			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt; 
+			   this.E_err = E_rt;
+		       break;
+			  // throw E_rt; 
 		       }
 		this.S_bn_drv_srv_bin = S_bn_ie_srv_bin;
 		this.S_pna_drv_srv_binary = S_dna_ie_srv_bin + "\\" + this.S_bn_drv_srv_bin;
 		this.F_pn_drv_srv_binary = new File(S_pna_drv_srv_binary);
-		
 		if (!F_pn_drv_srv_binary.isFile()) {
 		   S_msg_1 = "Unable to locate file: \"" + S_pna_drv_srv_binary + "\""; 
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		   // throw E_rt;
 		   }
 		if (!F_pn_drv_srv_binary.canExecute()) {
 		   S_msg_1 = "Unable to execute file: \"" + S_pna_drv_srv_binary + "\"";
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		   // throw E_rt;
 		   }
 		
 		break;  // MS Internet Explorer
@@ -248,32 +283,40 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		   // throw E_rt;
 		   }
 	
 	    F_browser_binary = new File(S_pn_browser_binary);
 		if (!F_browser_binary.isFile()) {
-			   S_msg_1 = "Unable to locate file: \"" + S_pn_browser_binary + "\"";
-			   E_io = new IOException(S_msg_1);
-			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt;
+			S_msg_1 = "Unable to locate file: \"" + S_pn_browser_binary + "\"";
+			E_io = new IOException(S_msg_1);
+			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+			E_rt = new RuntimeException(S_msg_2, E_io);
+			this.E_err = E_rt;
+		    break;
+		    //	throw E_rt;
 			   }
 		if (!F_browser_binary.canExecute()) {
-			   S_msg_1 = "Unable to execute file: \"" + S_pn_browser_binary + "\"";
-			   E_io = new IOException(S_msg_1);
-			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt;
+			S_msg_1 = "Unable to execute file: \"" + S_pn_browser_binary + "\"";
+			E_io = new IOException(S_msg_1);
+			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+			E_rt = new RuntimeException(S_msg_2, E_io);
+			this.E_err = E_rt;
+		    break;
+			//   throw E_rt;
 			   }
 		
 		F_dna_srv_binary = new File(S_dna_edge_srv_bin);
 		if (!F_dna_srv_binary.isDirectory()) {
 			S_msg_1 = "Unable to locate folder: \"" + S_dna_edge_srv_bin + "\"";
-			   E_io = new IOException(S_msg_1);
-			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
-			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   throw E_rt; 
+			E_io = new IOException(S_msg_1);
+			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
+			E_rt = new RuntimeException(S_msg_2, E_io);
+			this.E_err = E_rt;
+		    break;
+		//	throw E_rt; 
 		       }
 		this.S_bn_drv_srv_bin = S_bn_edge_srv_bin;
 		this.S_pna_drv_srv_binary = S_dna_edge_srv_bin + "\\" + this.S_bn_drv_srv_bin;
@@ -284,14 +327,18 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		 //  throw E_rt;
 		   }
 		if (!F_pn_drv_srv_binary.canExecute()) {
 		   S_msg_1 = "Unable to execute file: \"" + S_pna_drv_srv_binary + "\"";
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   throw E_rt;
+		   this.E_err = E_rt;
+		   break;
+		//   throw E_rt;
 		   }
 		break; // Edge
 	default: 
