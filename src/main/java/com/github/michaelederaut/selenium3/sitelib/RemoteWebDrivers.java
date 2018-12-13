@@ -29,7 +29,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.io.IOException;
-// import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 import org.openqa.selenium.chrome.ChromeDriver;
