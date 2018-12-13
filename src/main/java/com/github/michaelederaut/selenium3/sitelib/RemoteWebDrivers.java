@@ -29,7 +29,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.io.IOException;
-// import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -37,7 +36,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeDriverService.Builder;
-// import org.apache.http.impl.auth.BasicScheme;
+//  import org.apache.http.impl.auth.BasicScheme;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
