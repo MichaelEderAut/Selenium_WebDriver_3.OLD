@@ -25,7 +25,7 @@ public enum BrowserTypes {
 	Edge(BrowserType.EDGE);
 	
 	
-	public static final String S_pn_ff_bin   = "H:\\10\\Editors_Explorers\\web\\FireFox\\63.0.3\\firefox.exe";
+	public static final String S_pn_ff_bin   = "H:\\10\\Editors_Explorers\\web\\FireFox\\64.0.0\\firefox.exe";
 	public static final String S_bnt_ff_srv_bin = "geckodriver-v0.21.0-win64";
 	public static final String S_bn_ff_srv_bin  = S_bnt_ff_srv_bin + "." + ToolsBasics.S_windows_suffix_exe;
 	public static final String S_dna_ff_srv_bin = "H:\\10\\Editors_Explorers\\web\\FireFox\\Selenium_Server";
