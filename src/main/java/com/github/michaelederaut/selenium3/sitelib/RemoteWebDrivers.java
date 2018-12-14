@@ -50,9 +50,16 @@ import com.github.michaelederaut.basics.ToolsBasics;
 
 public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 	
+	protected static final int I_nbr_browser_types_f1 = BrowserTypes.values().length;
+	public static final Throwable AE_err[] = new Throwable[I_nbr_browser_types_f1];
+	static {
+		for (Throwable O_throwable : AE_err) {
+			O_throwable = null;
+	     }
+	}
+	
 	public static class ShutDownThread extends Thread {
 		
-	
 		// public String S_pna_drv_srv = null;
 		public BrowserTypes  E_browser_type;
 		public RemoteWebDriver O_rem_web_drv;
