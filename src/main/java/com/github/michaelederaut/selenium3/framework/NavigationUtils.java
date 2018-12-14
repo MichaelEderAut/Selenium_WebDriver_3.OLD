@@ -530,8 +530,11 @@ public class NavigationUtils {
 	     E_ill_arg = new IllegalArgumentException(S_msg_1);
 	     throw E_ill_arg;
 	         }	  
-
-//	   S_cmd = "window.HS_retval = {}; " +
+	  
+// document.readyState: loading, interactive, complete 
+	   String PI_S_ready_state_required = "complete";
+	 
+//	   	   S_cmd = "window.HS_retval = {}; " +
 //               "window.S_ready_state_required = '" + PI_S_ready_state_required + "'; " +
 //			   
 //	   		   "function FHS_click() {" +
@@ -549,8 +552,9 @@ public class NavigationUtils {
 //	               "window.HS_retval['" + S_keyword_click_done + "'] = '0';" +
 //	               "I_time_stamp_current = new Date().getTime(); " +
 //	               "I_time_elapsed = I_time_stamp_current - window.I_time_stamp_start; " + 
+//	               "window.HS_retval['" + S_keyword_elapsed_time + "'] = I_time_elapsed; " +
 //	               "if (I_time_elapsed > " + PI_I_timeout_max + ") { " +
-//	                   "window.clearInterval(window.I_interv_id); " +
+//	                   "window.clearInterval(window.I_interv_id); " +	               
 //	                   "return; } " +
 //	               "S_ready_state = document.readyState; " +
 //	               "console.log('ready-state: ' + S_ready_state); " +
@@ -591,6 +595,9 @@ public class NavigationUtils {
 //		//	                   " S_log_cumm += ' - .click() done';" +
 //			                   "window.HS_retval['" + S_keyword_click_done + "'] = '1';" +
 //		                       "window.HS_retval['" + S_keyword_url_after  + "'] = window.location.href; " +
+//			                   "I_time_stamp_current = new Date().getTime(); " +
+//	                           "I_time_elapsed = I_time_stamp_current - window.I_time_stamp_start; " + 
+//	                           "window.HS_retval['" + S_keyword_elapsed_time + "'] = I_time_elapsed; " +
 //			                "} catch(PI_E_err) {" +
 //			                   "S_log_cumm += ' - Error: ' + PI_E_err; " +
 //			                   "window.HS_retval['" + S_keyword_click_done + "'] = '0'; }" +
@@ -598,14 +605,17 @@ public class NavigationUtils {
 //		                "else { " +
 //			                "if (PI_S_click_mode === '" + ClickMode.dispatchEvent.name() + "') {" +  
 //			                    "var O_evt = new Event('click'); " +
-//			                     "window.HS_retval['" + S_keyword_click_done + "'] = '1'; " +
-//			                     "window.HS_retval['" + S_keyword_url_after  + "'] = window.location.href; " + 
+//			                    "window.HS_retval['" + S_keyword_click_done + "'] = '1'; " +
+//			                    "window.HS_retval['" + S_keyword_url_after  + "'] = window.location.href; " + 
 //			                     "} " +
 //		                    "else {" +  
 //			                   "var O_evt = new MouseEvent('click');} " +
 //		                    "try {" + 
-//		                        "O_clickable_node.dispatchEvent(O_evt); " +    
-//		                      "} catch(PI_E_err) {" +
+//		                        "O_clickable_node.dispatchEvent(O_evt); " +  
+//		                        "I_time_stamp_current = new Date().getTime(); " +
+//	                            "I_time_elapsed = I_time_stamp_current - window.I_time_stamp_start; " + 
+//	                            "window.HS_retval['" + S_keyword_elapsed_time + "'] = I_time_elapsed; " +
+//		                        "} catch(PI_E_err) {" +
 //		                         "S_log_cumm += ' - Error: ' + PI_E_err; " +
 //		                         "window.HS_retval['" + S_keyword_click_done + "'] = '0'; " +
 //		                         "}" +		
@@ -627,19 +637,14 @@ public class NavigationUtils {
 //		            
 //	              "window.I_time_stamp_start = new Date().getTime(); " +
 //		          "FHS_click(0); " +
-//		          "window.I_interv_id = window.setInterval(FHS_click, 10, 1);" +
+//		          "window.I_interv_id = window.setInterval(FHS_click, " + I_polling_interval_click +  ", 1);" +
 //                  "console.log('interval-id: ' + window.I_interv_id); " + 
 //		          "return window.HS_retval;" ;
-	  
-// document.readyState: loading, interactive, complete 
-	   String PI_S_ready_state_required = "complete";
-	 
 	   
 	   S_cmd = "window.HS_retval = {}; " +
                "window.S_ready_state_required = '" + PI_S_ready_state_required + "'; " +
 			   
 	   		   "function FHS_click() {" +
-	     //    "var HS_retval = {}; " + 
 		           "var i1, I_time_stamp_current, I_time_elapsed; " +
 		   		   "var O_clickable_node; " + 
 		           "var S_ready_state; " + 
@@ -737,7 +742,9 @@ public class NavigationUtils {
 	                "return; } " +
 		            
 	              "window.I_time_stamp_start = new Date().getTime(); " +
+	              "console.log('trace-1'); " +
 		          "FHS_click(0); " +
+	              "console.log('trace-2'); " +
 		          "window.I_interv_id = window.setInterval(FHS_click, " + I_polling_interval_click +  ", 1);" +
                   "console.log('interval-id: ' + window.I_interv_id); " + 
 		          "return window.HS_retval;" ;

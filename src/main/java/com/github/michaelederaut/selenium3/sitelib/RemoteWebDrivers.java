@@ -51,9 +51,9 @@ import com.github.michaelederaut.basics.ToolsBasics;
 public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 	
 	protected static final int I_nbr_browser_types_f1 = BrowserTypes.values().length;
-	public static final Throwable AE_err[] = new Throwable[I_nbr_browser_types_f1];
+	public static final RuntimeException AE_rt[] = new RuntimeException[I_nbr_browser_types_f1];
 	static {
-		for (Throwable O_throwable : AE_err) {
+		for (RuntimeException O_throwable : AE_rt) {
 			O_throwable = null;
 	     }
 	}
@@ -118,7 +118,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		Boolean B_ignore_zoom_setting;
 		Integer I_zoom_factor_raw;
 		int I_zoom_factor_percent_old, I_zoom_factor_new_raw_expexted, I_zoom_factor_percent_new_act,
-		    I_nbr_graph_dev_f1;
+		    I_nbr_graph_dev_f1, I_idx_brws_f0;
 		double 
 		L_width_tk,  L_height_tk, // toolkit
 		L_height_ge, L_width_ge;  // graphics environment
@@ -139,6 +139,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		
 		if (FirefoxDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			E_browser_type = BrowserTypes.FireFox;
+			I_idx_brws_f0 = E_browser_type.ordinal();
+			if ((E_rt = AE_rt[I_idx_brws_f0]) != null) {
+				throw E_rt;
+			    }
 			
 			O_ff_bin = new FirefoxBinary(E_browser_type.F_browser_binary);
 			
@@ -165,6 +169,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 		
 		else if (ChromeDriver.class.isAssignableFrom(PI_OT_clazz)) {
 			 E_browser_type = BrowserTypes.Chrome;
+			 I_idx_brws_f0 = E_browser_type.ordinal();
+			 if ((E_rt = AE_rt[I_idx_brws_f0]) != null) {
+				throw E_rt;
+			    }
 	//		 O_brws_capabilities = DesiredCapabilities.chrome();
 			 O_chrome_opts = new ChromeOptions();
 			 O_chrome_opts.setExperimentalOption("detach", true);
@@ -179,6 +187,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			
 			// appium.io/docs/en/drivers/windows/
 			E_browser_type = BrowserTypes.InternetExplorer;
+			 I_idx_brws_f0 = E_browser_type.ordinal();
+			 if ((E_rt = AE_rt[I_idx_brws_f0]) != null) {
+				throw E_rt;
+			    }
 			InternetExplorerDriverService O_ie_service;
 		    O_brws_capabilities = DesiredCapabilities.internetExplorer();
             InternetExplorerOptions O_ie_options;
@@ -286,6 +298,10 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			EdgeDriverService O_edge_service;
 			
 			E_browser_type = BrowserTypes.Edge;
+			 I_idx_brws_f0 = E_browser_type.ordinal();
+			 if ((E_rt = AE_rt[I_idx_brws_f0]) != null) {
+				throw E_rt;
+			    }
 			
 			// O_edge_service = EdgeDriverService.createDefaultService();
 			O_bldr_1 = new EdgeDriverService.Builder();

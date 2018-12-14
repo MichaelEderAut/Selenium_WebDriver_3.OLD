@@ -86,7 +86,7 @@ public enum BrowserTypes {
 		    E_io = new IOException(S_msg_1);
 		    S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		    E_rt = new RuntimeException(S_msg_2, E_io);
-	        RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+	        RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    
 		    break;
 		   }	
@@ -97,7 +97,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 	       S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		if (!F_browser_binary.canExecute()) {
@@ -105,7 +105,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			break;
 			}
 		      
@@ -115,7 +115,7 @@ public enum BrowserTypes {
 			 E_io = new IOException(S_msg_1);
 			 S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			 E_rt = new RuntimeException(S_msg_2, E_io);
-			 RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			 RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			 break;
 		       }
 		   this.S_bn_drv_srv_bin     = S_bn_ff_srv_bin;
@@ -126,7 +126,7 @@ public enum BrowserTypes {
 			  E_io = new IOException(S_msg_1);
 			  S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			  E_rt = new RuntimeException(S_msg_2, E_io);
-			  RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			  RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			  break;
 			  }
 		    if (!F_pn_drv_srv_binary.canExecute()) {
@@ -134,7 +134,7 @@ public enum BrowserTypes {
 				E_io = new IOException(S_msg_1);
 				S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 				E_rt = new RuntimeException(S_msg_2, E_io);
-				RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+				RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			    break;
 				 }
 		break; // FireFox
@@ -149,7 +149,7 @@ public enum BrowserTypes {
 		    E_io = new IOException(S_msg_1);
 		    S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		    E_rt = new RuntimeException(S_msg_2, E_io);
-		    RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		    RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			break;
 		   }	
 		
@@ -159,7 +159,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 	       S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		if (!F_browser_binary.canExecute()) {
@@ -167,7 +167,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			break;
 			}
 		      
@@ -177,7 +177,7 @@ public enum BrowserTypes {
 			   E_io = new IOException(S_msg_1);
 			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 			   break;
 		       }
 		this.S_bn_drv_srv_bin     = S_bn_chrome_srv_bin;
@@ -188,7 +188,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		//   throw E_rt;
 		   }
@@ -197,7 +197,7 @@ public enum BrowserTypes {
 		     E_io = new IOException(S_msg_1);
 		     S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		     E_rt = new RuntimeException(S_msg_2, E_io);
-		     RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		     RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		     break;
 			 }
 	   	break;  // Google Chrome
@@ -212,7 +212,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 	
@@ -222,7 +222,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    break;
 			   }
 		if (!F_browser_binary.canExecute()) {
@@ -230,7 +230,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    break;
 			   }
 		
@@ -240,7 +240,7 @@ public enum BrowserTypes {
 			   E_io = new IOException(S_msg_1);
 			   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			   E_rt = new RuntimeException(S_msg_2, E_io);
-			   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		       break;
 		       }
 		this.S_bn_drv_srv_bin = S_bn_ie_srv_bin;
@@ -251,7 +251,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		if (!F_pn_drv_srv_binary.canExecute()) {
@@ -259,7 +259,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		
@@ -273,7 +273,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 	
@@ -283,7 +283,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    break;
 			   }
 		if (!F_browser_binary.canExecute()) {
@@ -291,7 +291,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    break;
 			   }
 		
@@ -301,7 +301,7 @@ public enum BrowserTypes {
 			E_io = new IOException(S_msg_1);
 			S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 			E_rt = new RuntimeException(S_msg_2, E_io);
-			RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+			RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		    break;
 		       }
 		this.S_bn_drv_srv_bin = S_bn_edge_srv_bin;
@@ -313,7 +313,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		if (!F_pn_drv_srv_binary.canExecute()) {
@@ -321,7 +321,7 @@ public enum BrowserTypes {
 		   E_io = new IOException(S_msg_1);
 		   S_msg_2 = "Unable to instantiate " + OT_webdriver.getSimpleName();
 		   E_rt = new RuntimeException(S_msg_2, E_io);
-		   RemoteWebDrivers.AE_err[I_idx_f0] = E_rt;
+		   RemoteWebDrivers.AE_rt[I_idx_f0] = E_rt;
 		   break;
 		   }
 		break; // Edge

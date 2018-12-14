@@ -85,8 +85,9 @@ public class TestBreanosSmoke {
 		O_logger.traceEntry();
 			
   //    E_browser_type = BrowserTypes.Edge;
-  //    	E_browser_type = BrowserTypes.InternetExplorer;
-     	E_browser_type = BrowserTypes.FireFox;
+     	E_browser_type = BrowserTypes.InternetExplorer;
+  //   	E_browser_type = BrowserTypes.FireFox;
+  //  	E_browser_type = BrowserTypes.Chrome;
 
 	    O_nav_utils = new NavigationUtils(E_browser_type);
 	    
@@ -107,6 +108,7 @@ public class TestBreanosSmoke {
     				new String[] {"dropdown", "mega", "mega-align-left" /*, "open" */},
     				"li"));
     
+    Assert.assertNotNull(O_web_ele_breanos_prducts_1);
     O_web_ele_breanos_prducts_2_1 = (RemoteWebElementXp)O_web_ele_breanos_prducts_1.findElement(Loc.loc(
     		  Locator.linkText, S_lnk_txt_breanos_products_de, "a"));
     
