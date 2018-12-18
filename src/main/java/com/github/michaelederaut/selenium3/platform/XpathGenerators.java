@@ -231,7 +231,13 @@ public class XpathGenerators {
 			  if (PI_S_locator.equals("class name")) {
 				  E_retval_locator = Locator.className; 
 			      }
-			  else if (PI_S_locator.equals("for")) {  // conflict with java keyword "for" !!!
+			  else if (PI_S_locator.equals("css selector")) {
+				  E_retval_locator = Locator.cssSelector; 
+			      }
+			  else if (PI_S_locator.equals("link text")) {
+				  E_retval_locator = Locator.linkText; 
+			      }
+			  else if (PI_S_locator.equals("for")) {  // conflict with java loop-specfic keyword "for" !!!
 		      	 E_retval_locator = Locator.forLabel;
 		         }
 			  else if (PI_S_locator.equals(RemoteWebElementXp.S_field_xpath_expression)) {
