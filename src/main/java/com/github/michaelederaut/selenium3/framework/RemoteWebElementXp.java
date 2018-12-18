@@ -50,8 +50,11 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums
 */
 public class RemoteWebElementXp extends RemoteWebElement {
 	
-//	protected static final String S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s*(.*)\\Z";
-	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+(\\w+)\\:\\s*(.*?)\\Z";
+
+//	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+(\\w+)\\:\\s*(.*?)\\Z";
+	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+" +
+			  "(\\w+|css selector|link text|class name)" +
+			  "\\:\\s*(.*?)\\Z";
 	protected static final Pattern P_driver_info = new Pattern(S_Re_driver_info);
 
 	protected static final String S_field_name_found_by      = "foundBy";
@@ -1455,6 +1458,16 @@ public String FS_get_style(final String PI_S_style_key) {
 	}
 	
 	public static LocatorSelector FO_get_loc_sel(
+			final String PI_S_found_by) {
+		LocatorSelector  O_retval_by_locator;
+		
+		O_retval_by_locator = RemoteWebElementXp.FO_get_loc_sel(
+				PI_S_found_by,
+				null); // PO_SB_drv_info
+		return O_retval_by_locator;
+	}
+	
+	public static LocatorSelector FO_get_loc_sel(
 			final String PI_S_found_by,
 			final StringBuffer PO_SB_drv_info) {
 		
@@ -1470,7 +1483,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		S_driver_info     = AS_numbered_groups[1];
 		if (PO_SB_drv_info != null) {
 			PO_SB_drv_info.append(S_driver_info);
-		   }
+		    }
 		S_locator         = AS_numbered_groups[2];
 		S_using           = AS_numbered_groups[3];
 		
