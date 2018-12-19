@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 // import org.openqa.selenium.support.ui.ExpectedConditions;
 // import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,6 +28,7 @@ import com.github.michaelederaut.selenium3.framework.ByXp.Loc;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils.ClickMode;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
@@ -58,21 +60,22 @@ public class TestUniqaSmoke {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		WebDriverWait O_waiter;
 		
+		LocatorSelector O_loc_sel_1, O_loc_sel_2;
 		List<RemoteWebElementXp>  AO_web_elements_navbar_dummy;
 		RemoteWebElementXp  O_web_ele_uniqa_div_presoftware, 
 		                    O_web_ele_uniqa_div_sw_closer,
 		                    O_web_ele_uniqa_closing_cross,
 		                    O_web_ele_home_page, O_web_element_kontakt, 
 		                    O_web_element_name_input, O_web_element_tel_nr_input, O_web_element_email_input,
-		                    O_web_element_betreff_input, O_web_element_nachricht_input;
+		                    O_web_element_betreff_input, O_web_element_nachricht_input, O_web_element_suche_input_field_xp;
 		 
-		RemoteWebElementXp  O_web_element_suche_input_field_xp;
-		// Object O_res_click_1,  O_res_click_2, O_res_click_3;
+		RemoteWebElement O_rem_web_ele_1, O_rem_web_ele_2;
+		
 
 		Class O_clazz;
 		Logger O_logger;
 		
-		String S_msg_1, S_parent_wdw_handle,S_parent_wdw_title, S_clazz_name_full;
+		String S_msg_1, S_parent_wdw_handle,S_parent_wdw_title, S_clazz_name_full, S_found_by_1, S_found_by_2;
 	//	Set<String> AS_sub_wdw_handles;
 		int I_nbr_rows_f1, I_nbr_rows_f0;
 
@@ -88,7 +91,7 @@ public class TestUniqaSmoke {
 		O_logger.traceEntry();
 			
         E_browser_type = BrowserTypes.Edge;
-  //   	E_browser_type = BrowserTypes.InternetExplorer;
+    	E_browser_type = BrowserTypes.InternetExplorer;
   //   	E_browser_type = BrowserTypes.FireFox;
   //  	E_browser_type = BrowserTypes.Chrome;
 
@@ -111,10 +114,20 @@ public class TestUniqaSmoke {
     		ByXp.loc(Locator.className, LocatorVariant.and,
     				AS_class_presoftware_visible, 
     				"div"));
-    if (O_web_ele_uniqa_div_presoftware  == null) {
+    if (O_web_ele_uniqa_div_presoftware == null) {
        if (E_browser_type == BrowserTypes.InternetExplorer) {
-          O_web_ele_uniqa_div_presoftware = (RemoteWebElementXp)NavigationUtils.O_rem_drv.findElement(
-    		ByXp.loc(Locator.className, LocatorVariant.and,
+    	//   O_rem_web_ele_1 = (RemoteWebElement)NavigationUtils.O_rem_drv.findElementByCssSelector("div.presoftware.visible");
+    	   O_rem_web_ele_1 = (RemoteWebElement) O_nav_utils.FO_find_fluent(
+    			   ByXp.loc(Locator.cssSelector, "div.presoftware.visible"), 
+    			   5000, 500);
+    	   
+    	   O_rem_web_ele_2 = (RemoteWebElement)NavigationUtils.O_rem_drv.findElementByXPath("//div[@class='presoftware visible']");
+    	   S_found_by_1 = RemoteWebElementXp.FS_get_found_by(O_rem_web_ele_1);
+    	   O_loc_sel_1  = RemoteWebElementXp.FO_get_loc_sel(S_found_by_1);
+    	   S_found_by_2 = RemoteWebElementXp.FS_get_found_by(O_rem_web_ele_2);
+    	   O_loc_sel_2  = RemoteWebElementXp.FO_get_loc_sel(S_found_by_2);
+           O_web_ele_uniqa_div_presoftware = (RemoteWebElementXp)NavigationUtils.O_rem_drv.findElement(
+    	       ByXp.loc(Locator.className, LocatorVariant.and,
     				"presoftware", 
     				"div"));
             }}
