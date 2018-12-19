@@ -1471,13 +1471,24 @@ public String FS_get_style(final String PI_S_style_key) {
 			final String PI_S_found_by,
 			final StringBuffer PO_SB_drv_info) {
 		
+		IllegalArgumentException E_ill_arg;
+		RuntimeException E_rt;
+		
 		DomVectorExtendedSelector O_using;
-		String S_driver_info, S_locator, S_using, AS_numbered_groups[];
+		String S_msg_1, S_msg_2, S_driver_info, S_locator, S_using, AS_numbered_groups[];
 		LocatorSelectorXp  O_retval_by_locator = null;
 		
 		GroupMatchResult O_grp_match_result;
 		
 		O_grp_match_result = RegexpUtils.FO_match(PI_S_found_by, P_driver_info);
+		if (O_grp_match_result.I_array_size_f1 < 4) {
+		   S_msg_1 = "Argument string: \'" + PI_S_found_by + "\' doesn't match the Pattern: \'" + P_driver_info.toString() + "\'";
+		   E_ill_arg = new IllegalArgumentException(S_msg_1);
+		   S_msg_2 = "Unable to extract the locator and selector from String: \'" + PI_S_found_by + "\'.";
+		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
+	       E_rt.printStackTrace(System.out);
+		   return O_retval_by_locator;
+		   }
 		  
 		AS_numbered_groups = O_grp_match_result.AS_numbered_groups;
 		S_driver_info     = AS_numbered_groups[1];
