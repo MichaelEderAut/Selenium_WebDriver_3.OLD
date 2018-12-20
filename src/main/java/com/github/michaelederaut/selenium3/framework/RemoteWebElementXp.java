@@ -50,10 +50,8 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums
 */
 public class RemoteWebElementXp extends RemoteWebElement {
 	
-
-//	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+(\\w+)\\:\\s*(.*?)\\Z";
 	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+" +
-			  "(\\w+|css selector|link text|class name)" +
+			  "(" + NavigationUtils.S_re_locator_alternatives + ")" +
 			  "\\:\\s*(.*?)\\Z";
 	protected static final Pattern P_driver_info = new Pattern(S_Re_driver_info);
 

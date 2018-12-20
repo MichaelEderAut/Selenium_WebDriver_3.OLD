@@ -60,7 +60,7 @@ public class TestUniqaSmoke {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		WebDriverWait O_waiter;
 		
-		LocatorSelector O_loc_sel_1, O_loc_sel_2;
+		LocatorSelector O_loc_sel_1, O_loc_sel_1_native, O_loc_sel_2;
 		List<RemoteWebElementXp>  AO_web_elements_navbar_dummy;
 		RemoteWebElementXp  O_web_ele_uniqa_div_presoftware, 
 		                    O_web_ele_uniqa_div_sw_closer,
@@ -69,13 +69,14 @@ public class TestUniqaSmoke {
 		                    O_web_element_name_input, O_web_element_tel_nr_input, O_web_element_email_input,
 		                    O_web_element_betreff_input, O_web_element_nachricht_input, O_web_element_suche_input_field_xp;
 		 
-		RemoteWebElement O_rem_web_ele_1, O_rem_web_ele_2;
+		RemoteWebElement O_rem_web_ele_1, O_rem_web_ele_1_native, O_rem_web_ele_2;
 		
 
 		Class O_clazz;
 		Logger O_logger;
 		
-		String S_msg_1, S_parent_wdw_handle,S_parent_wdw_title, S_clazz_name_full, S_found_by_1, S_found_by_2;
+		String S_msg_1, S_parent_wdw_handle, S_parent_wdw_title, S_clazz_name_full, 
+		S_found_by_1, S_found_by_1_native, S_found_by_2;
 	//	Set<String> AS_sub_wdw_handles;
 		int I_nbr_rows_f1, I_nbr_rows_f0;
 
@@ -121,6 +122,9 @@ public class TestUniqaSmoke {
     			   ByXp.loc(Locator.cssSelector, "div.presoftware.visible"), 
     			   5000, 500);
     	   
+    	   O_rem_web_ele_1_native = (RemoteWebElement) NavigationUtils.O_rem_drv.findElementByCssSelector("div.presoftware.visible");
+    	   S_found_by_1_native = RemoteWebElementXp.FS_get_found_by(O_rem_web_ele_1_native);
+    	   O_loc_sel_1_native =  RemoteWebElementXp.FO_get_loc_sel(S_found_by_1_native);
     	   O_rem_web_ele_2 = (RemoteWebElement)NavigationUtils.O_rem_drv.findElementByXPath("//div[@class='presoftware visible']");
     	   S_found_by_1 = RemoteWebElementXp.FS_get_found_by(O_rem_web_ele_1);
     	   O_loc_sel_1  = RemoteWebElementXp.FO_get_loc_sel(S_found_by_1);
