@@ -1676,111 +1676,11 @@ public abstract class ByXp extends By {
     	   return O_retval_by_loc;   
        }         
          
-
-
+	  
+	//----------- E N D   R E G U L A R 
+	  
 	  
 	//---------- I R R E G U L A R  -  S T A R T 
-
-
-	  
-	  //----------- E N D   R E G U L A R 
-	  
-	  /**
-	   * @deprecated use loc(...) instead
-	   * 
-	   * @param PI_S_tag_expected html-tag 
-	   * @param PI_S_prefix prefix preceding the html-tag
-	   * @return a ByXp which locates elements by the value of the "tag", the "id" attribute and the prefix 
-	   */
-	  public static ByXp tagName(final String PI_S_tag_expected, final int PI_I_idx_f0, final String PI_S_prefix) {
-		  
-	    RuntimeException         E_rt;
-		InvalidArgumentException E_ill_arg;
-		
-		String S_msg_1, S_msg_2;
-        ByTagName O_retval_by_tag_name = null;
-		
-		S_msg_1 = null;
-		if (StringUtils.isBlank(PI_S_tag_expected))  {
-		    S_msg_1 = "Invalid tag \'"  + PI_S_tag_expected + "\'.";
-		    }
-		
-		if (S_msg_1 != null) {
-		   E_ill_arg = new InvalidArgumentException(S_msg_1);
-		   S_msg_2 = "Unable to instantiate new object of type: \'" + ByTagName.class.getName() + "\'.";
-		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
-		   throw E_rt;
-		   }
-		O_retval_by_tag_name = new ByTagName(PI_S_tag_expected, PI_I_idx_f0, PI_S_prefix);
-//		O_retval_by_tag_name.O_by_locator_xp.M_ctor =  ConstructorUtils.getAccessibleConstructor(
-//	    		  ByTagName.class, new Class<?>[]{String.class, int.class, String.class});
-	    return O_retval_by_tag_name;
-	    }
-	  
-	  public static ByXp tagName(final String PI_S_tag_expected, final int PI_I_idx_f0) {
-		  ByTagName O_retval_by_tag_name;
-		  O_retval_by_tag_name = new ByTagName(PI_S_tag_expected, PI_I_idx_f0);
-//		  O_retval_by_tag_name.O_by_locator_xp.M_ctor =  ConstructorUtils.getAccessibleConstructor(
-//		        ByTagName.class, new Class<?>[]{String.class, int.class});
-		  return O_retval_by_tag_name;  
-	      }
-	  
-	 
-	  public static ByXp tagName(final String PI_S_tag_expected) {
-		  ByTagName O_retval_by_tag_name;
-		  O_retval_by_tag_name = new ByTagName(PI_S_tag_expected);
-//		  O_retval_by_tag_name.O_by_locator_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(
-//	            ByTagName.class, String.class);
-		  return O_retval_by_tag_name;  
-	      }
-
-	  
-	  /**
-	   * 
-	   * @param xpathExpression The xpath to use
-	   * @return a By which locates elements via XPath
-	   */
-//	  public static ByXp xpath(final String xpathExpression, final int PI_I_idx_f0) {
-//		  RuntimeException         E_rt;
-//			InvalidArgumentException E_ill_arg;
-//		  
-//		  String S_msg_1, S_msg_2;
-//		  ByXpath O_retval_by_xpath = null;
-//		  
-//		  S_msg_1 = null;
-//		  if (StringUtils.isBlank(xpathExpression)) {
-//			  S_msg_1 = "Invalid xpath \'"  + xpathExpression + "\'.";
-//		      }
-//		  if (S_msg_1 != null) {
-//			   E_ill_arg = new InvalidArgumentException(S_msg_1);
-//			   S_msg_2 = "Unable to instantiate new object of type: \'" +  ByXpath.class.getName() + "\'.";
-//			   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
-//			   throw E_rt;
-//			   }
-//
-//	    O_retval_by_xpath = new ByXpath(xpathExpression, PI_I_idx_f0);
-// //	    O_retval_by_xpath.O_by_locator_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(ByXpath.class, 
-// //                  new Class<?>[] {String.class, int.class}); 
-//	    return O_retval_by_xpath;
-//	  }
-//
-//	  public static ByXp xpath(final String xpathExpression) {
-//		  ByXpath O_retval_by_xpath;
-//		  
-//		  O_retval_by_xpath = new ByXpath(xpathExpression);
-// //		  O_retval_by_xpath.O_by_locator_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(ByXpath.class, String.class); 
-//		  return O_retval_by_xpath;
-//	  }  
-//		    
-//	  public static ByXp domOffsets (final DomOffset PI_AO_DOM_offset_vector[]) {
-//		  
-//		  ByDomOffsets O_retval_by_dom_offsets;
-//		  
-//		  O_retval_by_dom_offsets = new ByDomOffsets(PI_AO_DOM_offset_vector);
-//		  O_retval_by_dom_offsets.O_loc_sel_xp.M_ctor = 
-//				  ConstructorUtils.getAccessibleConstructor(ByDomOffsets.class, DomOffset[].class); 
-//		  return O_retval_by_dom_offsets;   
-//	  }
 	  
      public static ByXp domOffsets (final int PI_AI_DOM_offset_vector[]) {
 		  
@@ -1800,47 +1700,6 @@ public abstract class ByXp extends By {
 	   * @param selector css expression
 	   * @return a By which locates elements by CSS.
 	   */
-     
-     public static ByXp cssSelector(final String selector, final int PI_I_idx_f0) {
-		  RuntimeException         E_rt;
-			InvalidArgumentException E_ill_arg;
-			
-			String S_msg_1, S_msg_2;
-			
-			ByCssSelector  O_retval_css_sel = null; 
-		  
-	    if (StringUtils.isBlank(selector)) {
-		   S_msg_1 = "Invalid value \'" + selector + "\' for attribute: css-selector.";
-		   E_ill_arg = new InvalidArgumentException(S_msg_1);
-		   S_msg_2 = "Unable to instantiate new object of type: \'" + ByCssSelector.class.getName() + "\'.";
-		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
-		   throw E_rt;
-		   }
-	    
-	    O_retval_css_sel = new ByCssSelector(selector, PI_I_idx_f0);
-	    return O_retval_css_sel;
-	  }
-     
-     
-	  public static ByXp cssSelector(final String selector) {
-		  RuntimeException         E_rt;
-			InvalidArgumentException E_ill_arg;
-			
-			String S_msg_1, S_msg_2;
-			
-			ByCssSelector  O_retval_css_sel = null; 
-		  
-	    if (StringUtils.isBlank(selector)) {
-		   S_msg_1 = "Invalid value \'" + selector + "\' for attribute: css-selector.";
-		   E_ill_arg = new InvalidArgumentException(S_msg_1);
-		   S_msg_2 = "Unable to instantiate new object of type: \'" + ByCssSelector.class.getName() + "\'.";
-		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
-		   throw E_rt;
-		   }
-	    
-	    O_retval_css_sel = new ByCssSelector(selector);
-	    return O_retval_css_sel;
-	  }
 	  
 	  @Override
 	  public boolean equals(final Object PI_O_other) {
