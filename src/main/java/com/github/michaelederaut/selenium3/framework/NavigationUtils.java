@@ -134,7 +134,6 @@ public class NavigationUtils {
 			return B_retval_equ;
 	};
 	
-	// https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState
 	/**
 	 * @author Mr. Michael Eder
 	 * @see <a href=https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState>Document.ready.State</a> 
@@ -453,6 +452,7 @@ public class NavigationUtils {
 	   O_retval_click_result = FO_click_js(
 			   PI_O_web_element,
 			   ClickMode.click,
+			   ReadyState.complete,
 			   I_timeout_click_dflt);
 	   return O_retval_click_result;
   }
@@ -466,10 +466,40 @@ public class NavigationUtils {
 	   O_retval_click_result = FO_click_js(
 			   PI_O_web_element,
 			   PI_E_click_mode,
+			   ReadyState.complete,
+			   I_timeout_click_dflt);
+	   return O_retval_click_result;
+  }
+   
+    public static ClickResult FO_click_js(
+		   final WebElement PI_O_web_element,
+		   final ReadyState PI_E_ready_state_required) {
+	  
+	   ClickResult O_retval_click_result;
+	   
+	   O_retval_click_result = FO_click_js(
+			   PI_O_web_element,
+			   ClickMode.click,
+			   PI_E_ready_state_required,
 			   I_timeout_click_dflt);
 	   return O_retval_click_result;
   }
   
+    public static ClickResult FO_click_js(
+		   final WebElement PI_O_web_element,
+		   final ClickMode  PI_E_click_mode,
+		   final ReadyState PI_E_ready_state_required ) {
+	  
+	   ClickResult O_retval_click_result;
+	   
+	   O_retval_click_result = FO_click_js(
+			   PI_O_web_element,
+			   PI_E_click_mode,
+			   PI_E_ready_state_required,
+			   I_timeout_click_dflt);
+	   return O_retval_click_result;
+    }
+    
     public static ClickResult FO_click_js(
 		   final WebElement PI_O_web_element,
 		   final int  PI_I_timeout) {
@@ -479,15 +509,32 @@ public class NavigationUtils {
 	   O_retval_click_result = FO_click_js(
 			   PI_O_web_element,
 			   ClickMode.click,
+			   ReadyState.complete,
 			   PI_I_timeout);
 	   return O_retval_click_result;
   }
-   
+
+   public static ClickResult FO_click_js(
+		   final WebElement PI_O_web_element,
+		   final ReadyState PI_E_ready_state_required,
+		   final int  PI_I_timeout) {
+	  
+	   ClickResult O_retval_click_result;
+	   
+	   O_retval_click_result = FO_click_js(
+			   PI_O_web_element,
+			   ClickMode.click,
+			   PI_E_ready_state_required,
+			   PI_I_timeout);
+	   return O_retval_click_result;
+  }  
+    
    
   public static ClickResult FO_click_js(
-		  final WebElement PI_O_web_element,
-		  final ClickMode  PI_E_click_mode,
-		  final int        PI_I_timeout_max) {
+		  final WebElement  PI_O_web_element,
+		  final ClickMode   PI_E_click_mode,
+		  final ReadyState  PI_E_ready_state_required,
+		  final int         PI_I_timeout_max) {
 	   
 	   NullPointerException     E_np;
 	   IllegalArgumentException E_ill_arg;
@@ -532,7 +579,7 @@ public class NavigationUtils {
 	         }	  
 	  
 // document.readyState: loading, interactive, complete 
-	   String PI_S_ready_state_required = "complete";
+	   String S_ready_state_required = PI_E_ready_state_required.name() ;
 	 
 //	   	   S_cmd = "window.HS_retval = {}; " +
 //               "window.S_ready_state_required = '" + PI_S_ready_state_required + "'; " +
@@ -642,7 +689,7 @@ public class NavigationUtils {
 //		          "return window.HS_retval;" ;
 	   
 	   S_cmd = "window.HS_retval = {}; " +
-               "window.S_ready_state_required = '" + PI_S_ready_state_required + "'; " +
+               "window.S_ready_state_required = '" + S_ready_state_required + "'; " +
 			   
 	   		   "function FHS_click() {" +
 		           "var i1, I_time_stamp_current, I_time_elapsed; " +
