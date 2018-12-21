@@ -1624,9 +1624,9 @@ public abstract class ByXp extends By {
   		          }
 		       
 		       if (using == null) {
-		    	     S_msg_1 = "Argument for selector(s) must not be null"; 
-		    	     E_cause = new NullPointerException(S_msg_1); 
-		    	     throw E_cause;
+		    	  S_msg_1 = "Argument for selector(s) must not be null"; 
+		    	  E_cause = new NullPointerException(S_msg_1); 
+		    	  throw E_cause;
 		             }
 		       if (using instanceof String) {
     			   S_selector = (String)using; 
