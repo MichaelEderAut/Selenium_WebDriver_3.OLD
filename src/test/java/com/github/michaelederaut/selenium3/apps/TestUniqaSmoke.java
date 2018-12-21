@@ -70,6 +70,7 @@ public class TestUniqaSmoke {
 		                    O_web_element_betreff_input, O_web_element_nachricht_input, O_web_element_suche_input_field_xp;
 		 
 		RemoteWebElement O_rem_web_ele_1, O_rem_web_ele_1_native, O_rem_web_ele_2;
+		WebElement       O_web_ele_native;
 		
 
 		Class O_clazz;
@@ -93,7 +94,7 @@ public class TestUniqaSmoke {
 			
         E_browser_type = BrowserTypes.Edge;
     	E_browser_type = BrowserTypes.InternetExplorer;
-  //   	E_browser_type = BrowserTypes.FireFox;
+  // 	E_browser_type = BrowserTypes.FireFox;
   //  	E_browser_type = BrowserTypes.Chrome;
 
 	    O_nav_utils = new NavigationUtils(E_browser_type);
@@ -136,6 +137,7 @@ public class TestUniqaSmoke {
     				"div"));
             }}
     if (O_web_ele_uniqa_div_presoftware != null) {
+    	O_web_ele_native = O_web_ele_uniqa_div_presoftware.findElementByCssSelector(".presoftware-closer");
         O_web_ele_uniqa_div_sw_closer = (RemoteWebElementXp)O_web_ele_uniqa_div_presoftware.findElement(Loc.loc(
     		  Locator.className, S_class_name_sw_closer, "div"));
        if (O_web_ele_uniqa_div_presoftware != null) {
