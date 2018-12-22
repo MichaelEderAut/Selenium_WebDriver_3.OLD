@@ -119,7 +119,7 @@ public class XpathGenerators {
 	 *
 	 */
 	public static enum LocatorVariant {
-		regular, partial, prefix, suffix, and, or}
+		regular, partial, prefix, prefixWord, suffix, regexp, and, or}
 	
 	/**
 	 * The way to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
@@ -1025,6 +1025,11 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 				 S_bool_op = " and ";
 			     }
 		      }
+		  else {
+			  S_msg_1 = "Invalid locator variant: " + E_locator_variant.name();
+			  E_ill_arg = new IllegalArgumentException(S_msg_1);
+		      throw E_ill_arg;
+		      }
 		  for (i1 = 0; i1 < I_nbr_selectors_f1; i1 ++) {   // check for duplicate class names
 		      S_using = PI_AS_using[i1];
 		    //--- https://benfrain.com/when-and-where-you-can-use-numbers-in-id-and-class-names/
@@ -1164,6 +1169,11 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 		 case prefix:
 			 S_xpath += "[starts-with(" + S_attr + ", '" + S_using + "')]";
 			 break TABLE_LOC_VARIANT;
+		 case prefixWord:
+		 case regexp:
+			 S_msg_1 = E_locator_variant.name() + " is invalid in this context";
+			 E_ill_arg = new IllegalArgumentException(S_msg_1);
+			 throw E_ill_arg;
 		 case suffix:
 			 S_xpath += "[substring('" + S_attr + ", string-length(" + S_attr_name_prefix + S_locator + ") - string-length('" + S_using + "') + 1) = '" + S_using + "']";
 			 break TABLE_LOC_VARIANT;
@@ -1233,110 +1243,6 @@ public static String FS_containing_word(
 
 	return S_retval_containing_word;
   }
-
-@Deprecated
-public static DomVectorExtendedSelector FSBO_get_xpath_from_class_names(
-		final String PI_AS_using[], 
-		final String PI_S_tag,
-		final int    PI_I_idx_f0,
-		final String PI_S_prefix,
-		final DomOffset PI_AO_dom_offsets[],
-		final boolean PI_B_or) {
-	
-	IllegalArgumentException E_ill_arg;
-	RuntimeException         E_rt;
-	NullPointerException     E_np;
-	ArrayList<String>        AS_class_names;
-	
-	GroupMatchResult O_grp_match_result;
-	
-	int                      I_nbr_class_names_f1, I_nbr_class_names_f0, i1, I_idx_old_f0;
-  //  StrBuilder               SB_xpath;
-	TextStringBuilder          SB_xpath;
-	DomVectorExtendedSelector       SB_retval_xpath;
-	String                   S_xpath, S_containing_word, S_prefix, S_class_name, S_bool_op, S_msg_1, S_msg_2;
-	
-	if (PI_AS_using == null) {
-	   S_msg_1 = "Array containing class-names must no be null";
-	   E_np = new NullPointerException(S_msg_1);
-	   S_msg_2 = "Parameter for class-names invalid";
-	   E_ill_arg = new IllegalArgumentException(S_msg_2, E_np);
-	   throw E_ill_arg;
-	   }
-	I_nbr_class_names_f1 = PI_AS_using.length;
-	if (I_nbr_class_names_f1 <= 0) {
-		S_msg_1 = "Size of srray containing class-names must not be " + I_nbr_class_names_f1;
-		E_ill_arg = new IllegalArgumentException(S_msg_1);
-		throw E_ill_arg;
-	    }
-	
-	if (PI_S_prefix == null) {
-	   S_prefix = EMPTY_PREFIX;
-	      }
-	else if (PI_S_prefix.equals("")) {
-	    S_prefix = PI_S_prefix;
-	    }
-	else if (StringUtils.isBlank(PI_S_prefix)) { 
-	   	   S_msg_1 = "Xpath-Prefix: \'" + PI_S_prefix + "\' must not be blank.";
-	       E_ill_arg = new IllegalArgumentException(S_msg_1);
-		    throw E_ill_arg;
-	       }
-	 else {
-	     S_prefix = PI_S_prefix;
-	       }
-	
-	AS_class_names = new ArrayList<String>();
-	for (i1 = 0; i1 < I_nbr_class_names_f1; i1 ++) {
-		S_class_name = PI_AS_using[i1];
-		//--- https://benfrain.com/when-and-where-you-can-use-numbers-in-id-and-class-names/
-		// ^\p{Alpha}[\w\-]*$
-		O_grp_match_result = RegexpUtils.FO_match(S_class_name, P_clazz_name);
-		if (O_grp_match_result.I_array_size_f1 == 0) { 
-		   S_msg_1 = "Class-name parameter " + i1 + " \'" + S_class_name + "\' must be alpha-numeric with - or _";
-		   E_ill_arg = new IllegalArgumentException(S_msg_1);
-		   throw E_ill_arg;
-		   }
-		I_idx_old_f0 = AS_class_names.indexOf(S_class_name);
-		if (I_idx_old_f0 > 0) {
-		   S_msg_1 = "Duplicate class-name parameter " + i1 + " \'" + S_class_name + "\' already occurs at position :" + I_idx_old_f0;
-		   E_ill_arg = new IllegalArgumentException(S_msg_1);
-		   throw E_ill_arg;
-		}
-	    AS_class_names.add(S_class_name);
-	}
-	
-	O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, P_tag_name);
-	if (O_grp_match_result.I_array_size_f1 == 0) { 
-    	S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
-    	E_ill_arg = new IllegalArgumentException(S_msg_1);
-    	throw E_ill_arg;
-        }
-	  
-	if (PI_B_or) {
-		S_bool_op = " or ";  
-	    }
-	else {
-		S_bool_op = " and ";
-	    }
-	I_nbr_class_names_f0 = I_nbr_class_names_f1 - 1;
-	
-    SB_xpath = new TextStringBuilder(S_prefix + PI_S_tag + "[");
-
-	 for (i1 = 0; i1 < I_nbr_class_names_f1; i1 ++) {
-		S_class_name = PI_AS_using[i1];
-		S_containing_word = FS_containing_word("class", S_class_name);
-		SB_xpath.append(S_containing_word);
-		if (i1 < I_nbr_class_names_f0) {
-			SB_xpath.append(S_bool_op);
-		    }
-	     }
-	SB_xpath.append("]");
-	S_xpath = SB_xpath.toString();
-
-	SB_retval_xpath = FSBO_index_xpath(S_xpath, PI_I_idx_f0);
-	SB_retval_xpath.AO_dom_offsets = PI_AO_dom_offsets;
-	return SB_retval_xpath;
-}
 
 // https://www.jooq.org/products/jOOX/javadoc/1.2.0/org/joox/selector/CSS2XPath.html
 public static DomVectorExtendedSelector FS_get_xpath_from_css_selector(final String PI_S_using, final int PI_I_idx_f0) {
