@@ -962,7 +962,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		return SB_retval_document_root;
 	}
 	
-	public static StringBuilder FS_get_root_element (final DomOffset PI_AO_dom_offsets[]) {
+	public static StringBuilder FS_generate_root_element (final DomOffset PI_AO_dom_offsets[]) {
 		StringBuilder SB_retval_document_root;
 		int AI_DOM_offsets[];
 		
@@ -1005,7 +1005,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		
 		O_by_locator_xp = PI_O_locator.O_loc_sel_xp;
 		AO_DOM_offset_vector_requested = O_by_locator_xp.SBO_using.AO_dom_offsets;
-		SB_document_root = FS_get_root_element(AO_DOM_offset_vector_requested);
+		SB_document_root = FS_generate_root_element(AO_DOM_offset_vector_requested);
 		
 		SB_xpath_equivalent =  O_by_locator_xp.SBO_using;
 		S_xpath_unindexed = XpathConcatenator.FS_unindex(SB_xpath_equivalent);

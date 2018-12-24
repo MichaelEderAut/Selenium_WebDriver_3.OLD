@@ -94,12 +94,31 @@ public class TestQuerySelectorPoc {
 	          "var AA_vectors = []; " +
 			  "var HS_elem_1 = {}; " +
 			  "var HS_elem_2 = {}; " +
+			  
 	          "I_nbr_elemens_f1 = document.childElementCount; " +
 			  "console.log('document.childElementCount: ' + I_nbr_elemens_f1); "  +
+	          
+			  "S_id = document.children[0].tagName; " +
 			  "I_nbr_elemens_f1 = document.children[0].childElementCount; " +
-	 		  "S_id = document.children[0].tagName; " +
-	           "console.log('document.children[0].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
-			  "AO_elems = document.children[0].querySelectorAll('" + ".xf_check" + "'); " +
+	          "console.log('document.children[0].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+	 		  "S_id = document.children[0].children[0].tagName; " +
+	 		  "I_nbr_elemens_f1 = document.children[0].children[0].childElementCount; " +
+	 		  "console.log('document.children[0].children[0].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+	 		  "S_id = document.children[0].children[1].tagName; " +
+	 		  "I_nbr_elemens_f1 = document.children[0].children[1].childElementCount; " +
+	 		  "console.log('document.children[0].children[1].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+	 		  "S_id = document.children[0].children[1].children[0].tagName; " +
+	 		  "I_nbr_elemens_f1 = document.children[0].children[1].children[0].childElementCount; " +
+	 		  "console.log('document.children[0].children[1].children[0].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+	 		  "S_id = document.body.tagName; " +
+	 		  "I_nbr_elemens_f1 = document.body.childElementCount; " +
+	 		  "console.log('document.body.childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+			  "AO_elems = document.children[0].children[1].querySelectorAll('" + ".xf_check" + "'); " +
 			  "if (AO_elems) {" +
 	               "I_nbr_elemens_f1 = AO_elems.length;} " +
 			  "else { " +
