@@ -2,11 +2,14 @@ package com.github.michaelederaut.selenium3.framework;
 
 import java.util.List;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
+
+import static org.apache.commons.lang3.StringUtils.LF;
 
 /**
  * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;ByCssSelector">Mr. Michael Eder</a>
