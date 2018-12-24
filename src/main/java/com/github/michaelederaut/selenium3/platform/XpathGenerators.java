@@ -1,26 +1,20 @@
 package com.github.michaelederaut.selenium3.platform;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Parameter;
+import static org.apache.commons.lang3.StringUtils.LF;
+
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
-import org.apache.commons.lang3.reflect.MethodUtils;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.text.StrBuilder;
 // import org.apache.commons.text.StrBuilder;
 import org.apache.commons.text.TextStringBuilder;
-import regexodus.Pattern;
 import org.joox.selector.CSS2XPath;
-import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.basics.RegexpUtils;
@@ -29,19 +23,8 @@ import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.lang3.mutable.MutableObject;
-
-import static org.apache.commons.lang3.StringUtils.LF;
+import regexodus.Pattern;
 
 /**
 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;XpathGenerators">Mr. Michael Eder</a>
@@ -1091,7 +1074,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 				   throw E_rt;
 		           }
 			   S_msg_1 = "Locator " + E_locator.name() + " discouraged in this context " + LF +
-					     "Use " + ByCssS.Loc.class.getName() + " instead.";
+					     "Use " + ByCssS.Loc.class.getName() + " to use the native css-selector api, instead.";
 			   E_ill_arg = new IllegalArgumentException(S_msg_1);
 			   E_ill_arg.printStackTrace(System.out);
 	           S_css_selector = PI_AS_using[0]; 
