@@ -16,28 +16,6 @@ import static org.apache.commons.lang3.StringUtils.LF;
  */
 public abstract class ByCssS extends By {
 	
-	public static class LinkText {
-		public String         S_selector;  // using
-		public LocatorVariant E_variant;
-		
-		private LinkText() {
-			return;
-		}
-		
-		public LinkText (final String using) {
-			this.S_selector     = using;
-			this.E_variant      = LocatorVariant.regular;
-		    }
-		
-		public LinkText (
-				final String using,
-				final LocatorVariant PI_E_variant) {
-			this.S_selector     = using;
-			this.E_variant      = LocatorVariant.regular;
-		    }
-		
-	}
-	
 	public static class Loc extends ByCssS {
 		@Override
 			public List<WebElement> findElements(SearchContext context) {	
