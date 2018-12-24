@@ -136,13 +136,13 @@
    </dependency>
    
    <!--  css to xpath -->
-  
    <!--  www.jooq.org/products/jOOX/javadoc/1.2.0/org/joox/selector/CSS2XPath.html -->
    <!--  https://javalibs.com/artifact/org.jooq/joox -->
+   <!--  https://github.com/jOOQ/jOOX/tree/master/jOOX/src/main/java/org/joox/selector -->
     <dependency>
     <groupId>org.jooq</groupId>
     <artifactId>joox</artifactId>
-    <version>1.4.0</version>
+    <version>1.6.0</version>
     </dependency>
    
    <!--  https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->

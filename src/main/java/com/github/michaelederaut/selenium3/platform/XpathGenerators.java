@@ -25,6 +25,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
+import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
@@ -39,6 +40,8 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.mutable.MutableObject;
+
+import static org.apache.commons.lang3.StringUtils.LF;
 
 /**
 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;XpathGenerators">Mr. Michael Eder</a>
@@ -1052,7 +1055,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 		    }
 		  I_nbr_selectors_f0 = I_nbr_selectors_f1 - 1;
 		    
-		  SB_xpath = new TextStringBuilder(PI_S_prefix + PI_S_tag + "["); // TODO PI_S_prefix
+		  SB_xpath = new TextStringBuilder(PI_S_prefix + PI_S_tag + "[");
 
 	      for (i1 = 0; i1 < I_nbr_selectors_f1; i1 ++) {
 		     S_using = PI_AS_using[i1];
@@ -1076,7 +1079,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 	           }
 	       S_xpath = PI_AS_using[0];
 		   break;
-		 case cssSelector: 
+	   case cssSelector: 
 			   
 			   String S_css_selector;
 			   
@@ -1087,12 +1090,16 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 				   E_rt = new IllegalArgumentException(S_msg_2, E_ill_arg);
 				   throw E_rt;
 		           }
-	         S_css_selector = PI_AS_using[0]; 
-	         S_xpath = CSS2XPath.css2xpath(S_css_selector);
+			   S_msg_1 = "Locator " + E_locator.name() + " discouraged in this context " + LF +
+					     "Use " + ByCssS.Loc.class.getName() + " instead.";
+			   E_ill_arg = new IllegalArgumentException(S_msg_1);
+			   E_ill_arg.printStackTrace(System.out);
+	           S_css_selector = PI_AS_using[0]; 
+	           S_xpath = CSS2XPath.css2xpath(S_css_selector);
 //	         SBO_retval_xpath = FSBO_index_xpath(S_xpath, PI_I_idx_f0); 
 		     break;
 		   
-		 case tagName:
+	   case tagName:
 			  if (I_nbr_selectors_f1 > 1) {
 		    	   S_msg_1 = "Number of selectors exceeding 1";
 		    	   E_ill_arg = new IllegalArgumentException(S_msg_1);
