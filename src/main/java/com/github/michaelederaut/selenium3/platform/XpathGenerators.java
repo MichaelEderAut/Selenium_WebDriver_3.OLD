@@ -354,10 +354,12 @@ public class XpathGenerators {
 	// private static final ByClassNameDummy OT_by_class_name = new ByClassNameDummy(null);
 	
 	/**
-	 * 
-	 * This class contains 2 attributes for the context node<ul>
+	 * This class can be used to generate a node element in an <a href='https://www.guru99.com/xpath-selenium.html#3'><i>Absolute Xpath</i></a>.<br>
+	 * It  contains 2 attributes for the context node<ul>
 	 * <li><b>I_idx_f0</b>: <tt>int</tt> number of previous sibling elements<br>
-	 *  For second parameter <i>contextNode</i> of method <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate"><tt>document.evaluate(...)</tt></a><br>
+	 *  For second parameter <i>contextNode</i> of method 
+	 *  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate"><tt>document.evaluate(...)</tt></a><br>
+	 *  or the beginning of the only argument of method <a href='https://developer.mozilla.org/de/docs/Web/API/Document/querySelector'><tt>document.QuerySelector(...)</tt></a>.
 	 *  </li>
 	 * <li><b>S_node_name</b>: {@link String} HTML-tag of this element, defaults to <tt>null</tt>.</li>
 	 * </ul>
