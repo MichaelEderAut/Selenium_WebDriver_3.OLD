@@ -1681,7 +1681,7 @@ public abstract class ByXp extends By {
 	  
 	  
 	//---------- I R R E G U L A R  -  S T A R T 
-	  
+@Deprecated	  
      public static ByXp domOffsets (final int PI_AI_DOM_offset_vector[]) {
 		  
 		  ByDomOffsets O_retval_by_dom_offsets;
@@ -2245,72 +2245,11 @@ public abstract class ByXp extends By {
 	  //------------------------------------------------------------------
 	  //  S T A R T - I R R E G U L A R
 	  
-	  /**
-	   * 
-	   * @deprecated use loc(...) instead
-	   *
-	   */
-	  public static class ByCssSelector extends ByXp implements Serializable {
-		  
-		  private static final Class<? extends ByXp> T_clazz = ByCssSelector.class;
-		  
-		  private final String S_selector;
-		  
-      public ByCssSelector(final String selector) {
-		      this.S_selector           = selector;
-		      this.O_loc_sel_xp          = this.FO_get_loc_sel_xp();	
-		      this.O_loc_sel_xp.S_tag_expected    = "";
-		      this.O_loc_sel_xp.I_idx_f0 = IGNORED_IDX;
-		      this.O_loc_sel_xp.S_prefix = "";
-		      this.O_loc_sel_xp.M_ctor =  ConstructorUtils.getAccessibleConstructor(T_clazz, String.class);
-		      this.O_loc_sel_xp.SBO_using = XpathGenerators.FS_get_xpath_from_css_selector(selector);
-		    }
-	
-      public ByCssSelector(final String selector, final int PI_I_idx_f0) {
-	      this.S_selector            = selector;
-	      this.O_loc_sel_xp          = this.FO_get_loc_sel_xp();	
-	      this.O_loc_sel_xp.S_tag_expected    = "";
-	      this.O_loc_sel_xp.I_idx_f0 = PI_I_idx_f0;
-	      this.O_loc_sel_xp.S_prefix = "";
-	      this.O_loc_sel_xp.M_ctor =  ConstructorUtils.getAccessibleConstructor(T_clazz, String.class);
-	      this.O_loc_sel_xp.SBO_using = XpathGenerators.FS_get_xpath_from_css_selector(selector);
-	    }
-      
-	    @Override
-		public List<WebElement> findElements(SearchContext context) {	
-		    	
-            List<WebElement> AO_retval_web_elems;
-
-            this.O_loc_sel_xp.I_idx_f0 = XpathGenerators.ALL_IDX;
-            AO_retval_web_elems = RemoteWebElementXp.FAO_find_elements_by_xpath(this);
-		    return AO_retval_web_elems;	
-		    }
-
-		  @Override
-		      public WebElement findElement(SearchContext context) {
-		    
-	          WebElement    O_retval_web_elem;
-		    	
-		      O_retval_web_elem = RemoteWebElementXp.FO_find_element_by_xpath(this);
-		      return O_retval_web_elem;
-		      }
-      
-	 @Override
-	 public String toString() {
-	    String S_retval;
-	    S_retval =  this.getClass().getSuperclass().getSimpleName() + "." + this.getClass().getSimpleName() + ":" + 
-	        this.O_loc_sel_xp.toString();
-        return S_retval;
-	    } 
-	 }
-	  
 
 /**
   * @deprecated use newer class {@link Loc} instead
   * 
-*/		  
-
-	  
+  */		  
 	  public static class ByDomOffsets extends ByXp implements Serializable {
 		  
 		  private static final Class<? extends ByXp> T_clazz = ByDomOffsets.class;
