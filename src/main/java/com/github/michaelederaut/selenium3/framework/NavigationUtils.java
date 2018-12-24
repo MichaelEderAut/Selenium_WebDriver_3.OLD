@@ -565,7 +565,7 @@ public class NavigationUtils {
 		 S_xpath = FS_get_xpath(PI_O_web_element);
 	     }
 	  
-	  SB_document_root = RemoteWebElementXp.FS_get_root_element(AO_DOM_offset_vector); 
+	  SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector); 
 	
 	  if (StringUtils.isEmpty(S_xpath)) {
 		  S_xpath = ".";
