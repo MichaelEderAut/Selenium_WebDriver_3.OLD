@@ -139,11 +139,11 @@
    <!--  www.jooq.org/products/jOOX/javadoc/1.2.0/org/joox/selector/CSS2XPath.html -->
    <!--  https://javalibs.com/artifact/org.jooq/joox -->
    <!--  https://github.com/jOOQ/jOOX/tree/master/jOOX/src/main/java/org/joox/selector -->
-    <dependency>
+ <!--    <dependency>
     <groupId>org.jooq</groupId>
     <artifactId>joox</artifactId>
     <version>1.6.0</version>
-    </dependency>
+    </dependency> -->
    
    <!--  https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
   <dependency>
@@ -206,8 +206,6 @@
   <artifactId>Saxon-Repack</artifactId>
   <version>9.8.0-6</version>
    </dependency> -->
-   
- 
    
   <dependency>
     <groupId>com.github.michaelederaut</groupId>
