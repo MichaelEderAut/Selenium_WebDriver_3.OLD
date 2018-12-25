@@ -12,7 +12,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 // import org.apache.commons.text.StrBuilder;
 import org.apache.commons.text.TextStringBuilder;
-import org.joox.selector.CSS2XPath;
+// import org.joox.selector.CSS2XPath; version 1.6.0
+import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -105,7 +106,17 @@ public class XpathGenerators {
 	 *
 	 */
 	public static enum LocatorVariant {
-		regular, partial, prefix, prefixWord, suffix, regexp, and, or}
+		regular, 
+		partial, 
+		prefix, 
+		prefixWord, // prefix, matching a (dash separated) word - applicable for css selectors only
+		suffix, 
+		regexp, 
+		and,
+		or,
+		orPrefixWithSeparatePos // if a prefix is given it is prepended before the entire boolean expression
+		                        // applicalbe for css selectors only
+		}
 	
 	/**
 	 * The way to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
@@ -1163,7 +1174,8 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 			 break TABLE_LOC_VARIANT;
 		 case prefixWord:
 		 case regexp:
-			 S_msg_1 = E_locator_variant.name() + " is invalid in this context";
+		 case orPrefixWithSeparatePos:
+			 S_msg_1 = E_locator_variant.name() + " is invalid in this context.";
 			 E_ill_arg = new IllegalArgumentException(S_msg_1);
 			 throw E_ill_arg;
 		 case suffix:

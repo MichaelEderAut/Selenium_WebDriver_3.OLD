@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
@@ -46,7 +47,8 @@ public class TestQuerySelectorPoc {
 		
 		String S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
-		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof;
+		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof,
+		       S_xpath_1, S_xpath_2;
 		long L_nbr_elems_f1;
 		int i1;
 		
@@ -65,7 +67,10 @@ public class TestQuerySelectorPoc {
 		O_logger = LogManager.getLogger(O_clazz);
 		
 		O_logger.traceEntry();
-			
+		S_xpath_1 = CSS2XPath.css2xpath(".gh_loc_bt");
+		S_xpath_2 = CSS2XPath.css2xpath(".gh_loc_bt", false);
+		System.out.println("S_xpath_1, true : "  + S_xpath_1);
+		System.out.println("S_xpath_2, false: " + S_xpath_2);
 	    E_browser_type = BrowserTypes.FireFox;
 //		E_browser_type = BrowserTypes.InternetExplorer;
 	    O_nav_utils = new NavigationUtils(E_browser_type);  // Explorer/Popup 1
@@ -84,6 +89,7 @@ public class TestQuerySelectorPoc {
 
 	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_1);
+	
 
 	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_2);
