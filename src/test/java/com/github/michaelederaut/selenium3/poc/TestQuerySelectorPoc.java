@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.script.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -34,18 +36,26 @@ public class TestQuerySelectorPoc {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		FirefoxBinary O_ff_bin;
 		
+		ScriptEngineManager O_scr_eng_mgr;
+		ScriptEngineFactory O_scr_eng_fact;
+		List<ScriptEngineFactory> AO_scr_eng_factories;
+		List<String>        AO_engine_names_inner;
+		
 		WebElement         O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 		                   O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
-		Object O_res_execute_1, O_res_web_element, O_res_vectors;
+		Object O_res_execute_1, O_res_execute_1_bindings, O_res_vectors;
         ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
         String S_txt, S_tag;
 
 		Class O_clazz;
 		Logger O_logger;
 		
-		String S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
+		String S_msg_1, S_msg_2, S_line_out, 
+		             S_script_engine_name_outer, 
+		             S_script_engine_name_inner,
+		             S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof,
 		       S_xpath_1, S_xpath_2;
@@ -71,6 +81,18 @@ public class TestQuerySelectorPoc {
 		S_xpath_2 = CSS2XPath.css2xpath(".gh_loc_bt", false);
 		System.out.println("S_xpath_1, true : "  + S_xpath_1);
 		System.out.println("S_xpath_2, false: " + S_xpath_2);
+		
+		O_scr_eng_mgr = new ScriptEngineManager();
+		AO_scr_eng_factories = O_scr_eng_mgr.getEngineFactories();
+		for (ScriptEngineFactory O_scr_engine_fact: AO_scr_eng_factories) {
+			S_script_engine_name_outer = O_scr_engine_fact.getEngineName();
+			System.out.println(S_script_engine_name_outer);
+			AO_engine_names_inner = O_scr_engine_fact.getNames();
+			for (String S_scr_engine_name_inner : AO_engine_names_inner) {
+				System.out.println("\t" + S_scr_engine_name_inner);	
+			}
+		}
+		
 	    E_browser_type = BrowserTypes.FireFox;
 //		E_browser_type = BrowserTypes.InternetExplorer;
 	    O_nav_utils = new NavigationUtils(E_browser_type);  // Explorer/Popup 1
@@ -91,7 +113,7 @@ public class TestQuerySelectorPoc {
 	Assert.assertNotNull(O_web_element_miser_loc_1);
 	
 
-	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
+	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.className, "gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_2);
 	 
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
@@ -141,6 +163,7 @@ public class TestQuerySelectorPoc {
 	
 	O_res_execute_1 = NavigationUtils.O_rem_drv.executeScript(S_cmd_1);
 	Assert.assertNotNull(O_web_element_miser_loc_1);
+//	O_res_execute_1_bindings = (Bindings)O_res_execute_1; // --> ClassCasException
 	HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_execute_1;
 	
 	L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));
