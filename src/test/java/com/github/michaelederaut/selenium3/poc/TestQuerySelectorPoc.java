@@ -1,6 +1,10 @@
 package com.github.michaelederaut.selenium3.poc;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +12,10 @@ import java.util.Set;
 
 import javax.script.*;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.plexus.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -19,9 +25,14 @@ import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import junit.framework.Assert;
 
 public class TestQuerySelectorPoc {
@@ -37,28 +48,33 @@ public class TestQuerySelectorPoc {
 		FirefoxBinary O_ff_bin;
 		
 		ScriptEngineManager O_scr_eng_mgr;
-		ScriptEngineFactory O_scr_eng_fact;
+		ScriptEngine        O_scr_eng_1, O_scr_eng_2;
+		ScriptEngineFactory O_scr_eng_fact_2;
+		ScriptObjectMirror  O_scr_obj_mirror;
 		List<ScriptEngineFactory> AO_scr_eng_factories;
 		List<String>        AO_engine_names_inner;
+		List<String>        AO_engine_versions_outer;
 		
 		WebElement         O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 		                   O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
-		Object O_res_execute_1, O_res_execute_1_bindings, O_res_vectors;
+		Object O_res_execute_1, O_res_execute_1_bindings, O_res_exec_js;
+		DomVectorExtendedSelector O_res_sel_1, O_res_sel_2, O_res_sel_3;
         ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
-        String S_txt, S_tag;
+        String S_txt, S_tag, S_script_js;
 
 		Class O_clazz;
 		Logger O_logger;
 		
 		String S_msg_1, S_msg_2, S_line_out, 
 		             S_script_engine_name_outer, 
+		             S_script_engine_version_outer, 
 		             S_script_engine_name_inner,
 		             S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof,
-		       S_xpath_1, S_xpath_2;
+		       S_xpath_1, S_xpath_2, S_xpath_3;
 		long L_nbr_elems_f1;
 		int i1;
 		
@@ -81,16 +97,63 @@ public class TestQuerySelectorPoc {
 		S_xpath_2 = CSS2XPath.css2xpath(".gh_loc_bt", false);
 		System.out.println("S_xpath_1, true : "  + S_xpath_1);
 		System.out.println("S_xpath_2, false: " + S_xpath_2);
+		O_res_sel_1 = XpathGenerators.FSBO_get_xpath(new LocatorEnums(Locator.cssSelector), ".class1");
+		S_xpath_1 = O_res_sel_1.FS_get_buffer();
+		System.out.println("S_xpath_1:" + S_xpath_1);
+		O_res_sel_2 = XpathGenerators.FSBO_get_xpath(new LocatorEnums(Locator.cssSelector), ".class2");
+		S_xpath_2 = O_res_sel_2.FS_get_buffer();
+		System.out.println("S_xpath_2:" + S_xpath_2);
+		O_res_sel_3 = XpathGenerators.FSBO_get_xpath(new LocatorEnums(Locator.cssSelector), ".class3");
+		S_xpath_3 = O_res_sel_3.FS_get_buffer();
+	    System.out.println("S_xpath_3:" + S_xpath_3);
 		
 		O_scr_eng_mgr = new ScriptEngineManager();
 		AO_scr_eng_factories = O_scr_eng_mgr.getEngineFactories();
 		for (ScriptEngineFactory O_scr_engine_fact: AO_scr_eng_factories) {
-			S_script_engine_name_outer = O_scr_engine_fact.getEngineName();
-			System.out.println(S_script_engine_name_outer);
+			S_script_engine_name_outer    = O_scr_engine_fact.getEngineName();
+			S_script_engine_version_outer = O_scr_engine_fact.getEngineVersion();
+			System.out.println("name: " + S_script_engine_name_outer + " - version: " + S_script_engine_version_outer);
 			AO_engine_names_inner = O_scr_engine_fact.getNames();
 			for (String S_scr_engine_name_inner : AO_engine_names_inner) {
 				System.out.println("\t" + S_scr_engine_name_inner);	
 			}
+		}
+		
+		O_scr_eng_1 = O_scr_eng_mgr.getEngineByName("js");
+		
+		// stackoverflow.com/questions/48911937/can-i-run-ecmascript-6-from-java-9-nashorn-engine
+		O_scr_eng_fact_2 = new NashornScriptEngineFactory();
+		System.setProperty("nashorn.args", "--language=es6");
+		O_scr_eng_2 = O_scr_eng_mgr.getEngineByName("Nashorn");
+		
+	//	FileInputStream F_inp_str;
+		InputStream O_inp_str;
+		String S_pn_js = "/xpath_to_css.js";	
+//		try {
+//			 F_inp_str = new FileInputStream(S_pn_js);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+		
+		O_inp_str = TestQuerySelectorPoc.class.getResourceAsStream(S_pn_js);
+		Assert.assertNotNull(O_inp_str);
+//		https://github.com/jonathanp/xpath-to-css/blob/master/index.js
+		O_res_execute_1_bindings = null;
+		try {
+			S_script_js = IOUtils.toString(O_inp_str, StandardCharsets.UTF_8.name());
+		} catch (IOException PI_E_io) {
+			PI_E_io.printStackTrace(System.err);
+			S_script_js = null;
+		    }
+		if (StringUtils.isNotBlank(S_script_js)) {
+			try {
+			  O_res_execute_1_bindings = O_scr_eng_2.eval(S_script_js);
+		   } catch (ScriptException PI_E_scr) {
+			   PI_E_scr.printStackTrace(System.err);
+		   }
+		   if (O_res_execute_1_bindings != null) {
+			   O_scr_obj_mirror = (ScriptObjectMirror)O_res_execute_1_bindings;
+		   }
 		}
 		
 	    E_browser_type = BrowserTypes.FireFox;
@@ -163,7 +226,7 @@ public class TestQuerySelectorPoc {
 	
 	O_res_execute_1 = NavigationUtils.O_rem_drv.executeScript(S_cmd_1);
 	Assert.assertNotNull(O_web_element_miser_loc_1);
-//	O_res_execute_1_bindings = (Bindings)O_res_execute_1; // --> ClassCasException
+//	O_res_execute_1_bindings = (Bindings)O_res_execute_1; // --> ClassCastException
 	HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_execute_1;
 	
 	L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));

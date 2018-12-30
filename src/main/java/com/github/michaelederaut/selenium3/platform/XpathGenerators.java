@@ -14,6 +14,9 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.text.TextStringBuilder;
 // import org.joox.selector.CSS2XPath; version 1.6.0
 import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
+import com.github.michaelederaut.basics.cssselectortoxpath.utilities.CssElementCombinatorPairsToXpath;
+import com.github.michaelederaut.basics.cssselectortoxpath.utilities.NiceCssSelectorStringForOutputException;
+
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -65,12 +68,8 @@ public class XpathGenerators {
 	/**
 	 * trailing dom offsets
 	 */
-//	public static final Class<?>[] AT_strings_5_dom_offsets = new Class<?>[] {
-//		String.class, 
-//		String.class, 
-//		int.class, 
-//		String.class, 
-//		DomOffset[].class};
+
+	public static CssElementCombinatorPairsToXpath O_css_element_combinator_pairs_to_xpath = null;
 	
 		
 	public enum LocatorRegularity {irregular, /* selectorIsSingleField,*/ xpathgen, regular}
@@ -1073,9 +1072,9 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 	           }
 	       S_xpath = PI_AS_using[0];
 		   break;
-	   case cssSelector: 
+	   case cssSelector:
 			   
-			   String S_css_selector;
+			   String S_css_selector, AS_css_selector[];
 			   
 			   if (I_nbr_selectors_f1 > 1) {
 		    	   S_msg_1 = "Number of selectors exceeding 1";
@@ -1084,12 +1083,25 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 				   E_rt = new IllegalArgumentException(S_msg_2, E_ill_arg);
 				   throw E_rt;
 		           }
-			   S_msg_1 = "Locator " + E_locator.name() + " discouraged in this context " + LF +
-					     "Use " + ByCssS.Loc.class.getName() + " to use the native css-selector api, instead.";
-			   E_ill_arg = new IllegalArgumentException(S_msg_1);
-			   E_ill_arg.printStackTrace(System.out);
-	           S_css_selector = PI_AS_using[0]; 
-	           S_xpath = CSS2XPath.css2xpath(S_css_selector);
+			   
+	           S_css_selector = PI_AS_using[0];
+	           if (XpathGenerators.O_css_element_combinator_pairs_to_xpath == null) {
+	        	  XpathGenerators.O_css_element_combinator_pairs_to_xpath = new CssElementCombinatorPairsToXpath();
+	        	  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
+					         "Use " + ByCssS.Loc.class.getName() + " to use the native css-selector browser api, instead.";
+			      E_ill_arg = new IllegalArgumentException(S_msg_1);
+			      E_ill_arg.printStackTrace(System.out);  
+	           }
+	           AS_css_selector = new String[]{S_css_selector};
+	           //    S_xpath = CSS2XPath.css2xpath(S_css_selector);
+			   try {
+				   S_xpath = XpathGenerators.O_css_element_combinator_pairs_to_xpath.mainGo(AS_css_selector) ;
+				} catch (NiceCssSelectorStringForOutputException PI_E_css_err) {
+				   S_msg_1 = "Unable to convert css-selector \'" + S_css_selector + "\' to xpath";
+				   E_ill_arg = new IllegalArgumentException(S_msg_1, PI_E_css_err);
+				   throw E_ill_arg;
+				}
+	
 //	         SBO_retval_xpath = FSBO_index_xpath(S_xpath, PI_I_idx_f0); 
 		     break;
 		   
@@ -1098,6 +1110,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 		    	   S_msg_1 = "Number of selectors exceeding 1";
 		    	   E_ill_arg = new IllegalArgumentException(S_msg_1);
 		    	   S_msg_2 = "Implementation restriction: Operation \'" + E_locator.name() + "\' not eligible for multiple selectors.";
+		    
 				   E_rt = new IllegalArgumentException(S_msg_2, E_ill_arg);
 				   throw E_rt;
 		           }
