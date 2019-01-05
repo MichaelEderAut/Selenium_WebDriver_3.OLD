@@ -1,11 +1,16 @@
 package com.github.michaelederaut.selenium3.platform;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.TextStringBuilder;
 
 import com.github.michaelederaut.basics.ExecUtils;
+import com.github.michaelederaut.basics.ExecUtils.ExecResult;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
@@ -36,9 +41,12 @@ public class CssSGenerators {
 //	
 	public static final String EMPTY_PREFIX  = DEFAULT_PREFIX;
 	public static final String S_bn_python = "python.exe";
+	public static final String S_bn_script = "cssify.py";
+	public static final String S_bnr_script = "/" + S_bn_script;
 	
 	protected static String S_dna_parent_py;
-	protected static String S_pna_parent_py;
+	protected static String S_pna_py;
+	protected static File F_pna_py, F_dna_parent_script;
 	
 	
 //	public static final EndCriterion O_end_crit_where = 
@@ -264,8 +272,10 @@ public class CssSGenerators {
 		final DomOffset PI_AO_dom_offsets[]) {
 		
 		RuntimeException         E_rt;
+		AssertionError           E_assert;
 	    IllegalArgumentException E_ill_arg;
 	    NullPointerException     E_np;
+	    IndexOutOfBoundsException E_ind_out_of_boundary; 
 	    IOException              E_io;
 	//  AssertionError           E_assert;
 	    
@@ -468,22 +478,108 @@ public class CssSGenerators {
 	      S_csss = SB_csss.toString();        
 		  break; // id
 	   case xpath:
+		   
+		   ExecResult O_exec_res;
+		   List<String> AAS_retvals[], AS_retvals;
+		   URL O_url_script;
+		   File F_pna_script;
+		   String S_pna_script, S_pnr_script, AS_cmd[];
+		  
+		   S_pna_script = null;
 		   if (S_dna_parent_py == null) {
-			    S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
+			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 					         "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
 			      E_ill_arg = new IllegalArgumentException(S_msg_1);
 			      E_ill_arg.printStackTrace(System.out);  
-			   S_dna_parent_py = ExecUtils.FS_get_parent_of_executable(S_bn_python);
-			   if (S_dna_parent_py == null) {
-				  S_msg_1 = "Unable to find: \'" + S_bn_python + "\'.";
-				  E_io = new IOException(S_msg_1);
-				  S_msg_2 = "Unable to convert an xpath to css-selector";
-				  E_rt = new RuntimeException(S_msg_2, E_io);
-				  throw E_rt;
-			      }
-			   S_pna_parent_py = S_dna_parent_py + FS + S_bn_python;
-		   }
-		   break;
+			  S_dna_parent_py = ExecUtils.FS_get_parent_of_executable(S_bn_python);
+			  try {
+				if (S_dna_parent_py == null) {
+					 S_msg_1 = "Unable to find: \'" + S_bn_python + "\'.";
+					 E_io = new IOException(S_msg_1);
+					 throw E_io;
+				     }
+				   S_pna_py = S_dna_parent_py + FS + S_bn_python;
+				   F_pna_py = new File(S_pna_py);
+				   if (!F_pna_py.canExecute()) {
+					   S_msg_1 = "Unable to execute: \'" + S_pna_py + "\'."; 
+					   E_io = new IOException(S_msg_1);
+					   throw E_io;
+				      }
+				   O_url_script = CssSGenerators.class.getResource(S_bnr_script);
+				   if (O_url_script == null) {
+					  S_msg_1 = "Unable to find script: \'" + S_bn_script + "\'.";
+					  E_io = new IOException(S_msg_1);
+					  throw E_io;
+				     }
+				   S_pnr_script = O_url_script.getPath();
+				   if (S_pnr_script.startsWith("/")) {
+					  S_pna_script = S_pnr_script.substring(1);
+				       }
+				   else {
+					  S_pna_script = S_pnr_script;
+				      }
+				   F_pna_script = new File(S_pna_script);
+				   if (!F_pna_script.canRead()) {
+					   S_msg_1 = "Unable to open script file: \"" + S_pna_script + "\" for reading."; 
+					   E_io = new IOException(S_msg_1);
+					   throw E_io;
+				      }
+				   F_dna_parent_script =  F_pna_script.getParentFile();
+			} catch (IOException PI_E_io) {
+				 S_msg_2 = "Unable to convert an xpath to css-selector";
+				 E_rt = new RuntimeException(S_msg_2, PI_E_io);
+				 throw E_rt;
+			   }
+			//  O_exec_res = ExecUtils.FAAS_exec_sync(PI_S_cmd, PI_AS_envp, PI_F_wd);
+			 
+		   } // end if script part not yet initilized;
+		   S_using = PI_AS_using[0];
+		   AS_cmd = new String[] {S_pna_py, S_pna_script, S_using};
+		   O_exec_res = ExecUtils.FAAS_exec_sync(AS_cmd, (String[])null, F_dna_parent_script);
+		   AAS_retvals = O_exec_res.AAS_retvals;
+		   try {
+			 if (O_exec_res.I_exit_code != 0) {
+				 S_msg_1 = "Exit code returned from script interpertor: \"" + S_pna_py + "\" : " + O_exec_res.I_exit_code + ".";
+				 E_io = new IOException(S_msg_1);
+				 throw E_io;
+			 }
+			 if (AAS_retvals == null) {
+				   S_msg_1 = "Unable to get any result from script interperter: \"" + S_pna_py + "\" on stdout and stederr.";
+				   E_np = new NullPointerException(S_msg_1);
+				   throw E_np;
+			       }
+			if (AAS_retvals.length == 0) {
+				 S_msg_1 = "Unable to get any result from script interperter: \"" + S_pna_py + "\" on stdout.";
+				 E_ind_out_of_boundary = new IndexOutOfBoundsException(S_msg_1);
+				 throw E_ind_out_of_boundary;
+			     }
+			AS_retvals = AAS_retvals[0];
+			if (AS_retvals == null) {
+				 S_msg_1 = "Unable to get any lines from script interperter: \"" + S_pna_py + "\" on stdout.";
+				 E_np = new NullPointerException(S_msg_1);
+				 throw E_np;
+			    }
+			if (AS_retvals.size() == 0) {
+				 S_msg_1 = "Unable to get any lines from script interperter: \"" + S_pna_py + "\" on stdout.";
+				 E_ind_out_of_boundary = new IndexOutOfBoundsException(S_msg_1);
+				 throw E_ind_out_of_boundary; 
+			     }
+			S_csss = AS_retvals.get(0);
+			if (StringUtils.isBlank(S_csss)) {
+				S_msg_1 = "Invalid first line " 
+						   + "\'" + S_csss + "\'" +
+						   "returned by script interperter: \"" + S_pna_py + "\" on stdout.";
+				E_assert = new AssertionError(S_msg_1);
+				throw E_assert;
+			}
+		} catch (AssertionError | IndexOutOfBoundsException | IOException | NullPointerException PI_E_assert) {
+			S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
+			E_rt = new RuntimeException(S_msg_2, PI_E_assert);
+			throw E_rt;
+		}
+		   
+		   S_csss = O_exec_res.AAS_retvals[0].get(0);
+		   break; // xpath.
 	      }
     if (S_csss.equals("")) {
 	   S_csss = "*";

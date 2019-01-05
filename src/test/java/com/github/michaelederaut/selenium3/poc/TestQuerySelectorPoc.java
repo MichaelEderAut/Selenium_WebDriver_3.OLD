@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class TestQuerySelectorPoc {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		FirefoxBinary O_ff_bin;
 		
+		URL                 O_url_script;
 		ScriptEngineManager O_scr_eng_mgr;
 		ScriptEngine        O_scr_eng_1, O_scr_eng_2;
 		ScriptEngineFactory O_scr_eng_fact_2;
@@ -74,7 +76,7 @@ public class TestQuerySelectorPoc {
 		             S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof,
-		       S_xpath_1, S_xpath_2, S_xpath_3;
+		       S_xpath_1, S_xpath_2, S_xpath_3, S_pn_script;
 		long L_nbr_elems_f1;
 		int i1;
 		
@@ -128,14 +130,18 @@ public class TestQuerySelectorPoc {
 		
 	//	FileInputStream F_inp_str;
 		InputStream O_inp_str;
-		String S_pn_js = "/xpath_to_css.js";	
+		String S_bn_js = "/xpath_to_css.js";	
 //		try {
 //			 F_inp_str = new FileInputStream(S_pn_js);
 //		} catch (FileNotFoundException e) {
 //			e.printStackTrace();
 //		}
 		
-		O_inp_str = TestQuerySelectorPoc.class.getResourceAsStream(S_pn_js);
+		O_url_script  = TestQuerySelectorPoc.class.getResource(S_bn_js);
+		S_pn_script = O_url_script.getPath();
+		
+		O_inp_str = TestQuerySelectorPoc.class.getResourceAsStream(S_bn_js);
+		 TestQuerySelectorPoc.class.getResource(S_bn_js).getPath();
 		Assert.assertNotNull(O_inp_str);
 //		https://github.com/jonathanp/xpath-to-css/blob/master/index.js
 		O_res_execute_1_bindings = null;

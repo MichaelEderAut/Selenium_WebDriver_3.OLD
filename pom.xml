@@ -64,8 +64,7 @@
     </repository>
  </repositories>
   
-  
-  <dependencies>
+ <dependencies>
   <!-- https://mvnrepository.com/artifact/com.github.tommyettinger/regexodus -->
       <dependency>
          <groupId>com.github.tommyettinger</groupId>
@@ -110,11 +109,11 @@
     <version>4.12</version>
    </dependency>
    
-   <dependency>
+ <!--   <dependency>
     <groupId>com.github.tommyettinger</groupId>
     <artifactId>regexodus</artifactId>
-    <version>0.1.10</version>
-</dependency>
+    <version>0.1.10</version> 
+</dependency> -->
    <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-junit -->
    <dependency>
     <groupId>org.hamcrest</groupId>
@@ -201,23 +200,24 @@
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/xalan/xalan -->
-<dependency>
-    <groupId>xalan</groupId>
-    <artifactId>xalan</artifactId>
-    <version>2.7.2</version>
-</dependency>
+	<dependency>
+	   <groupId>xalan</groupId>
+	   <artifactId>xalan</artifactId>
+	   <version>2.7.2</version>
+	</dependency>
  
- <!--    <dependency>
-   <groupId>net.sf.saxon</groupId>
-  <artifactId>Saxon-Repack</artifactId>
-  <version>9.8.0-6</version>
+   <!--  <dependency>
+     <groupId>net.sf.saxon</groupId>
+     <artifactId>Saxon-Repack</artifactId>
+     <version>9.8.0-6</version>
    </dependency> -->
    
   <dependency>
     <groupId>com.github.michaelederaut</groupId>
     <artifactId>basics</artifactId>
     <version>0.0.1-SNAPSHOT</version>
- </dependency>
+  </dependency>
    
-  </dependencies>
+</dependencies>
+
 </project>
