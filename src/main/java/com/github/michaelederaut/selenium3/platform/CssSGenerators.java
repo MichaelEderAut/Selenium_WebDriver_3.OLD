@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.xpath.XPathException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.text.TextStringBuilder;
 
 import com.github.michaelederaut.basics.ExecUtils;
@@ -17,7 +19,7 @@ import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
 import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
@@ -39,14 +41,16 @@ public class CssSGenerators {
 //	public static final String S_re_end_criterion_where = "^(.*?)\\(python.exe)";
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
 //	
-	public static final String EMPTY_PREFIX  = DEFAULT_PREFIX;
+	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
 	public static final String S_bn_python = "python.exe";
 	public static final String S_bn_script = "cssify.py";
 	public static final String S_bnr_script = "/" + S_bn_script;
+	public static final EndCriterion O_dflt_end_criterion = new EndCriterion();
 	
 	protected static String S_dna_parent_py;
 	protected static String S_pna_py;
 	protected static File F_pna_py, F_dna_parent_script;
+	protected static String S_pna_py_scr;
 	
 	
 //	public static final EndCriterion O_end_crit_where = 
@@ -75,7 +79,7 @@ public class CssSGenerators {
 		
 	}
 	
-	public static class ExtendedCssSelector extends DomVectorExtendedSelector	{
+	public static class ExtendedCssSelector extends DomVectorExtendedSelectorXp	{
 	   public LinkText O_lnk_txt;
 	   
 	   public ExtendedCssSelector() {
@@ -284,24 +288,34 @@ public class CssSGenerators {
 	            S_using, S_bool_op, S_tag_name;
 	    Locator        E_locator;
 	    LocatorVariant E_locator_variant;
+	    ExtendedCssSelector SBO_retval_csss; 
 
-	    if (PI_O_locator_enums == null) {
-			S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
-			E_np = new NullPointerException(S_msg_1);
-			S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
-			E_rt = new RuntimeException(S_msg_2 ,E_np) ;
-		    throw E_rt;
+	    if (PI_O_link_text == null) { 
+	       if (PI_O_locator_enums == null) {
+			  S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
+			  E_np = new NullPointerException(S_msg_1);
+			  S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
+			  E_rt = new RuntimeException(S_msg_2 ,E_np) ;
+		      throw E_rt;
+	          }
+	       SBO_retval_csss = new ExtendedCssSelector();
+	       }
+	    else {
+	    	SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
 	    }
 	
 	    E_locator_variant = PI_O_locator_enums.E_locator_variant;
+	    E_locator =  PI_O_locator_enums.E_locator;
 	    
-	    if (PI_AS_using == null) {
-		   S_msg_1 = "2nd argument for selector(s) of type \'" + String[].class.getName() + "\' must not be null.";
-		   E_np = new NullPointerException(S_msg_1);
-		   S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
-		   E_rt = new RuntimeException(S_msg_2 ,E_np) ;
-		   throw E_rt;
-	       }
+	    if (PI_O_link_text == null) {
+	       if (PI_AS_using == null) {
+		      S_msg_1 = "2nd argument for selector(s) of type \'" + String[].class.getName() + "\' must not be null.";
+		      E_np = new NullPointerException(S_msg_1);
+		      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
+		      E_rt = new RuntimeException(S_msg_2 ,E_np) ;
+		      throw E_rt;
+	          }
+	    }
 	    if (PI_S_tag == null) {
 		   S_tag_name = "";
 	      }
@@ -323,7 +337,7 @@ public class CssSGenerators {
 		   S_prefix = PI_S_prefix;
 	    }
 	     
-	  ExtendedCssSelector SBO_retval_csss = new ExtendedCssSelector();
+	 
 	
 	  int I_nbr_selectors_f1, I_nbr_selectors_f0, i1;
 	  String S_csss_single_term;
@@ -331,14 +345,17 @@ public class CssSGenerators {
 	
 	I_nbr_selectors_f1 = PI_AS_using.length;
 	
-	if (I_nbr_selectors_f1 == 0) {
-		S_msg_1 = "Size of array containing class-names must not be " + I_nbr_selectors_f1;
-		E_ill_arg = new IllegalArgumentException(S_msg_1);
-		throw E_ill_arg;
-	    }
+	if (PI_O_link_text == null) {
+		if (I_nbr_selectors_f1 == 0) {
+			S_msg_1 = "Size of array containing class-names must not be " + I_nbr_selectors_f1;
+			E_ill_arg = new IllegalArgumentException(S_msg_1);
+			throw E_ill_arg;
+		    }
+	     }
 	
-	E_locator = PI_O_locator_enums.E_locator;
+	// E_locator = PI_O_locator_enums.E_locator;
 	S_csss    = "";
+	S_using   = null;
 	
 	switch (E_locator) {
 	   case className:
@@ -412,7 +429,17 @@ public class CssSGenerators {
 	      S_csss = SB_csss.toString();        
 		 
 	      break; // classname
-	      
+	   
+	   case cssSelector:
+		   if (I_nbr_selectors_f1 > 1) {
+	    	   S_msg_1 = "Number of selectors exceeding 1";
+	    	   E_ill_arg = new IllegalArgumentException(S_msg_1);
+	    	   S_msg_2 = "Implementation restriction: Operation \'" + E_locator.name() + "\' not (yet) eligible for multiple (css-)selectors.";
+			   E_rt = new IllegalArgumentException(S_msg_2, E_ill_arg);
+			   throw E_rt;
+		       }
+		   S_csss = PI_AS_using[0];
+		   break; // css-selector
 	   case id:
 		  ArrayList<String>        AS_id_names;
 		 	
@@ -477,15 +504,27 @@ public class CssSGenerators {
 	         }
 	      S_csss = SB_csss.toString();        
 		  break; // id
+		  
+		case tagName:
+			  if (I_nbr_selectors_f1 > 1) {
+		    	 S_msg_1 = "Number of selectors exceeding 1";
+		    	 E_ill_arg = new IllegalArgumentException(S_msg_1);
+		    	 S_msg_2 = "Implementation restriction: Operation \'" + E_locator.name() + "\' not eligible for multiple selectors.";
+		    
+				 E_rt = new IllegalArgumentException(S_msg_2, E_ill_arg);
+				 throw E_rt;
+		         }
+			  S_csss = PI_S_prefix + PI_AS_using[0]; 
+			 break;  
+			 
 	   case xpath:
-		   
+		   XPathException E_xp;
 		   ExecResult O_exec_res;
 		   List<String> AAS_retvals[], AS_retvals;
 		   URL O_url_script;
 		   File F_pna_script;
-		   String S_pna_script, S_pnr_script, AS_cmd[];
+		   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
 		  
-		   S_pna_script = null;
 		   if (S_dna_parent_py == null) {
 			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 					         "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
@@ -513,14 +552,17 @@ public class CssSGenerators {
 				     }
 				   S_pnr_script = O_url_script.getPath();
 				   if (S_pnr_script.startsWith("/")) {
-					  S_pna_script = S_pnr_script.substring(1);
+					  S_pna_py_scr = S_pnr_script.substring(1);
 				       }
 				   else {
-					  S_pna_script = S_pnr_script;
+					  S_pna_py_scr = S_pnr_script;
 				      }
-				   F_pna_script = new File(S_pna_script);
+				  if (SystemUtils.IS_OS_WINDOWS) {
+					 S_pna_py_scr =  StringUtils.replaceChars(S_pna_py_scr, "/", "\\");
+				     }
+				   F_pna_script = new File(S_pna_py_scr);
 				   if (!F_pna_script.canRead()) {
-					   S_msg_1 = "Unable to open script file: \"" + S_pna_script + "\" for reading."; 
+					   S_msg_1 = "Unable to open script file: \"" + S_pna_py_scr + "\" for reading."; 
 					   E_io = new IOException(S_msg_1);
 					   throw E_io;
 				      }
@@ -534,12 +576,12 @@ public class CssSGenerators {
 			 
 		   } // end if script part not yet initilized;
 		   S_using = PI_AS_using[0];
-		   AS_cmd = new String[] {S_pna_py, S_pna_script, S_using};
-		   O_exec_res = ExecUtils.FAAS_exec_sync(AS_cmd, (String[])null, F_dna_parent_script);
+		   AS_cmd = new String[] {S_pna_py, S_pna_py_scr, S_using};
+		   O_exec_res = ExecUtils.FAAS_exec_sync(AS_cmd, (String[])null, F_dna_parent_script, O_dflt_end_criterion);
 		   AAS_retvals = O_exec_res.AAS_retvals;
 		   try {
-			 if (O_exec_res.I_exit_code != 0) {
-				 S_msg_1 = "Exit code returned from script interpertor: \"" + S_pna_py + "\" : " + O_exec_res.I_exit_code + ".";
+			 if (O_exec_res.I_exit_value != 0) {
+				 S_msg_1 = "Exit code returned from script interperter: \"" + S_pna_py + "\" : " + O_exec_res.I_exit_value + ".";
 				 E_io = new IOException(S_msg_1);
 				 throw E_io;
 			 }
@@ -572,14 +614,40 @@ public class CssSGenerators {
 				E_assert = new AssertionError(S_msg_1);
 				throw E_assert;
 			}
+			if (S_csss.startsWith("Invalid or unsupported Xpath:")) {
+				S_msg_1 = "Error occurred during conversion" + LF +
+						  S_csss;
+				E_xp = new XPathException(S_msg_1);
+				S_msg_2 = "Unable to convert xpath:" + LF + 
+						  "\t" + S_using + LF +
+						   "to a css-selector.";
+				E_rt = new RuntimeException(S_msg_2, E_xp);
+				throw E_rt;		
+				
+			}
 		} catch (AssertionError | IndexOutOfBoundsException | IOException | NullPointerException PI_E_assert) {
 			S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
 			E_rt = new RuntimeException(S_msg_2, PI_E_assert);
 			throw E_rt;
-		}
+		    }
 		   
 		   S_csss = O_exec_res.AAS_retvals[0].get(0);
 		   break; // xpath.
+	   default:
+		   if (E_locator_variant == LocatorVariant.regular) {
+	    	  if (I_nbr_selectors_f1 > 1) {
+	    		E_locator_variant = LocatorVariant.or;
+	    	    }
+	         }
+		   if (E_locator == Locator.linkText) {
+			  S_msg_1  = "Implementation restriction: Current version of css doesn't support Operation \'" + E_locator.name() + "\'." + LF +
+					     "Use separate parameter link-text instead.";
+			  E_ill_arg = new IllegalArgumentException(S_msg_1);
+			  S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
+			  E_rt = new RuntimeException(S_msg_2,  E_ill_arg);
+
+		    }
+	   break;
 	      }
     if (S_csss.equals("")) {
 	   S_csss = "*";

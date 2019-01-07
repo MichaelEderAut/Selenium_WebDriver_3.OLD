@@ -442,7 +442,7 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 		   S_msg_1 = "Invalid negative offset: " + I_offset_f0 + " at index: " + i1;
 		   E_ill_arg = new InvalidArgumentException(S_msg_1);
 		   S_msg_2 = "Unable to init actual parameter of type array of \'" + DomOffset.class.getName() + "\'";
-		   E_rt = new WebDriverException(S_msg_2, E_ill_arg);
+		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
 		   throw E_rt;
 		   }
 		O_dom_offset = new DomOffset(I_offset_f0, null);
@@ -455,11 +455,11 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 		public int I_starting_pos_of_idx = -1;
 		
 		public IndexedStrBuilder() {
-			super ();
+			super();
 			return;
 		}
 		public IndexedStrBuilder(final String PI_S_value) {
-			super (PI_S_value);
+			super(PI_S_value);
 			return;
 		}
 		
@@ -558,19 +558,19 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 		}
 	}
 	
-	public static DomVectorExtendedSelector FSBO_index_xpath(
+	public static DomVectorExtendedSelectorXp FSBO_index_xpath(
 			  final String PI_S_xpath,
 			  final int PI_I_idx_f0) {
 		
-		DomVectorExtendedSelector SB_retval_xpath;
+		DomVectorExtendedSelectorXp SB_retval_xpath;
 		int I_idx_xpath;
 		boolean B_needs_parenthesing;
 		
 		  if (PI_I_idx_f0 == IGNORED_IDX) {
-		     SB_retval_xpath = new DomVectorExtendedSelector(PI_S_xpath);
+		     SB_retval_xpath = new DomVectorExtendedSelectorXp(PI_S_xpath);
 		     }
 		  else {
-		     SB_retval_xpath = new DomVectorExtendedSelector();
+		     SB_retval_xpath = new DomVectorExtendedSelectorXp();
 		     B_needs_parenthesing = XpathConcatenator.FB_needs_parenthesing(PI_S_xpath, true);
              if (B_needs_parenthesing) {
              	SB_retval_xpath.append("(");
@@ -593,72 +593,75 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 	     return SB_retval_xpath;   
 	  }
 
-	public static class DomVectorExtendedSelector extends IndexedStrBuilder	{
+	public static class DomVectorExtendedSelectorXp extends IndexedStrBuilder	{
 		public DomOffset AO_dom_offsets[];
 		
-		public DomVectorExtendedSelector() {
+		public DomVectorExtendedSelectorXp() {
 			super();
 			return;
 		}
 		
-		public DomVectorExtendedSelector(final String PI_S_using) {
+		public DomVectorExtendedSelectorXp(final String PI_S_using) {
 			super (PI_S_using);
 			return;
 		}
 		
-		public DomVectorExtendedSelector(final String PI_S_using, final int PI_I_starting_pos_of_idx) {
+		public DomVectorExtendedSelectorXp(final String PI_S_using, final int PI_I_starting_pos_of_idx) {
 			super(PI_S_using, PI_I_starting_pos_of_idx);
 			return;
 		}
 		
-		public DomVectorExtendedSelector(final IndexedStrBuilder PI_SB_indexed) {
+		public DomVectorExtendedSelectorXp(final IndexedStrBuilder PI_SB_indexed) {
 			super(PI_SB_indexed);
 			return;
 		    }
 		
-		public DomVectorExtendedSelector(final DomOffset PI_AO_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final DomOffset PI_AO_dom_offsets[]) {
 			super();
 			this.AO_dom_offsets = PI_AO_dom_offsets;
 			return;
 		    }
 		
-		public DomVectorExtendedSelector(final String PI_S_using, final DomOffset PI_AO_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final String PI_S_using, final DomOffset PI_AO_dom_offsets[]) {
 			super(PI_S_using);
 			this.AO_dom_offsets = PI_AO_dom_offsets;
 			return;
 		    }
 		
-		public DomVectorExtendedSelector(final String PI_S_using, final int PI_I_starting_pos_of_idx, final DomOffset PI_AO_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(
+				final String PI_S_using, 
+				final int PI_I_starting_pos_of_idx, 
+				final DomOffset PI_AO_dom_offsets[]) {
 			super(PI_S_using, PI_I_starting_pos_of_idx);
 			this.AO_dom_offsets = PI_AO_dom_offsets;
 			return;
 		}
 		
-		public DomVectorExtendedSelector(final IndexedStrBuilder PI_SB_indexed, final DomOffset PI_AO_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final IndexedStrBuilder PI_SB_indexed, final DomOffset PI_AO_dom_offsets[]) {
 				super(PI_SB_indexed);
 				this.AO_dom_offsets = PI_AO_dom_offsets;
 				return;
 		}
 		
-		public DomVectorExtendedSelector(final int PI_AI_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final int PI_AI_dom_offsets[]) {
 			super();
 			this.AO_dom_offsets = FAO_create_DOM_offsets(PI_AI_dom_offsets);
 			return;
 		    }
 		
-		public DomVectorExtendedSelector(final String PI_S_value, final int PI_AI_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final String PI_S_value, final int PI_AI_dom_offsets[]) {
 			super(PI_S_value);
 			this.AO_dom_offsets = FAO_create_DOM_offsets(PI_AI_dom_offsets);
 			return;
 		    }
 		
-		public DomVectorExtendedSelector(final String PI_S_using, final int PI_I_starting_pos_of_idx, final int PI_AI_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final String PI_S_using, final int PI_I_starting_pos_of_idx, final int PI_AI_dom_offsets[]) {
 			super(PI_S_using, PI_I_starting_pos_of_idx);
 			this.AO_dom_offsets = FAO_create_DOM_offsets(PI_AI_dom_offsets);
 			return;
 		}
 		
-		public DomVectorExtendedSelector(final IndexedStrBuilder PI_SB_indexed, final int PI_AI_dom_offsets[]) {
+		public DomVectorExtendedSelectorXp(final IndexedStrBuilder PI_SB_indexed, final int PI_AI_dom_offsets[]) {
 				super(PI_SB_indexed);
 				this.AO_dom_offsets = FAO_create_DOM_offsets(PI_AI_dom_offsets);
 				return;
@@ -704,10 +707,10 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 
 // R E G U L A R - S T A R T	
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorSelector PI_O_loc_sel) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	String S_using;
 	
 	S_using = PI_O_loc_sel.SBO_using.FS_get_buffer();
@@ -723,11 +726,11 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }		
 	
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -740,11 +743,11 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }	
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String[] PI_AS_using) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -757,12 +760,12 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using, 
 		final String PI_S_tag) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -775,12 +778,12 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String[] PI_AS_using, 
 		final String PI_S_tag) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -793,13 +796,13 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using, 
 		final String PI_S_tag, 
 		final int    PI_I_idx_f0) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -812,13 +815,13 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String[] PI_AS_using, 
 		final String PI_S_tag, 
 		final int    PI_I_idx_f0) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -831,14 +834,14 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using, 
 		final String PI_S_tag, 
 		final int    PI_I_idx_f0,
 		final String PI_S_prefix) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -851,14 +854,14 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String[] PI_AS_using, 
 		final String PI_S_tag, 
 		final int    PI_I_idx_f0,
 		final String PI_S_prefix) {
 	
-	DomVectorExtendedSelector O_retval_xpath;
+	DomVectorExtendedSelectorXp O_retval_xpath;
 	
 	O_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -871,7 +874,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath(
 	return O_retval_xpath;				
 }
 
-public static DomVectorExtendedSelector FSBO_get_xpath (
+public static DomVectorExtendedSelectorXp FSBO_get_xpath (
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using, 
 		final String PI_S_tag, 
@@ -879,7 +882,7 @@ public static DomVectorExtendedSelector FSBO_get_xpath (
 		final String PI_S_prefix,
 		final int PI_AI_dom_offsets[]) {
 	
-	DomVectorExtendedSelector SBO_retval_xpath;
+	DomVectorExtendedSelectorXp SBO_retval_xpath;
 		
 	SBO_retval_xpath = FSBO_get_xpath(
 			PI_O_locator_enums,
@@ -893,7 +896,7 @@ public static DomVectorExtendedSelector FSBO_get_xpath (
 	return SBO_retval_xpath;
 }
 
-public static DomVectorExtendedSelector FSBO_get_xpath(
+public static DomVectorExtendedSelectorXp FSBO_get_xpath(
 		final LocatorEnums PI_O_locator_enums,
 		final String[] PI_AS_using, 
 		final String PI_S_tag, 
@@ -901,7 +904,7 @@ public static DomVectorExtendedSelector FSBO_get_xpath(
 		final String PI_S_prefix,
 		final int PI_AI_dom_offsets[]) {
 	
-	DomVectorExtendedSelector SBO_retval_xpath;
+	DomVectorExtendedSelectorXp SBO_retval_xpath;
 	
 	DomOffset AO_dom_offsets[];
 	
@@ -918,7 +921,7 @@ public static DomVectorExtendedSelector FSBO_get_xpath(
 	return SBO_retval_xpath;
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath (
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath (
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_S_using, 
 		final String PI_S_tag, 
@@ -927,7 +930,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 		final DomOffset PI_AO_dom_offsets[]) {
 	
 	String AS_using[];
-	DomVectorExtendedSelector SBO_retval_xpath;
+	DomVectorExtendedSelectorXp SBO_retval_xpath;
 	
 	AS_using = new String[] {PI_S_using};
 	SBO_retval_xpath = FSBO_get_xpath(
@@ -943,7 +946,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 	
 }
 
-public static DomVectorExtendedSelector	FSBO_get_xpath (
+public static DomVectorExtendedSelectorXp	FSBO_get_xpath (
 		final LocatorEnums PI_O_locator_enums,
 		final String PI_AS_using[], 
 		final String PI_S_tag, 
@@ -964,7 +967,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 	if (PI_O_locator_enums == null) {
 		S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
 		E_np = new NullPointerException(S_msg_1);
-		S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
+		S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
 		E_rt = new RuntimeException(S_msg_2 ,E_np) ;
 		throw E_rt;
 	    }
@@ -972,7 +975,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 	if (PI_AS_using == null) {
 		S_msg_1 = "2nd argument for selector(s) of type \'" + String[].class.getName() + "\' must not be null.";
 		E_np = new NullPointerException(S_msg_1);
-		S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
+		S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
 		E_rt = new RuntimeException(S_msg_2 ,E_np) ;
 		throw E_rt;
 	    }
@@ -984,7 +987,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
     	throw E_ill_arg;
         }
 	
-	DomVectorExtendedSelector SBO_retval_xpath = new DomVectorExtendedSelector("");
+	DomVectorExtendedSelectorXp SBO_retval_xpath = new DomVectorExtendedSelectorXp("");
 	
 	int I_nbr_selectors_f1, I_nbr_selectors_f0, i1;
 	StringBuffer SB_xpath_tail;
@@ -1115,7 +1118,6 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 				   throw E_rt;
 		           }
 			  S_xpath = PI_S_prefix + PI_AS_using[0]; 
-//	          SBO_retval_xpath = FSBO_index_xpath(S_xpath, PI_I_idx_f0); 
 			 break;
 	   default:
 		 if (E_locator_variant == LocatorVariant.regular) {
@@ -1262,10 +1264,10 @@ public static String FS_containing_word(
   }
 
 // https://www.jooq.org/products/jOOX/javadoc/1.2.0/org/joox/selector/CSS2XPath.html
-public static DomVectorExtendedSelector FS_get_xpath_from_css_selector(final String PI_S_using, final int PI_I_idx_f0) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_css_selector(final String PI_S_using, final int PI_I_idx_f0) {
 	
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	
 	String  S_xpath, S_msg_1;
 	
@@ -1281,9 +1283,9 @@ public static DomVectorExtendedSelector FS_get_xpath_from_css_selector(final Str
     return SB_retval_xpath;
     }
 
-public static DomVectorExtendedSelector FS_get_xpath_from_css_selector(final String PI_S_using) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_css_selector(final String PI_S_using) {
 	
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	
 	SB_retval_xpath =  FS_get_xpath_from_css_selector(PI_S_using, IGNORED_IDX);
 	
@@ -1294,14 +1296,14 @@ public static DomVectorExtendedSelector FS_get_xpath_from_css_selector(final Str
 // ----- LinkText Start
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext(
 		final String PI_S_using, 
 		final String PI_S_tag,
 		final int PI_I_idx_f0,
 		final String PI_S_prefix) {
 
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	String S_xpath, S_prefix, S_msg_1;
 
 	if (StringUtils.isBlank(PI_S_using)) {
@@ -1337,28 +1339,28 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext(
 }
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext(
 		final String PI_S_using, 
 		final String PI_S_tag, 
 		final int PI_I_idx_f0) {
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext(PI_S_using, PI_S_tag, PI_I_idx_f0, DEFAULT_PREFIX);
 	return SB_retval_xpath;   
 }		
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext(final String PI_S_using, final String PI_S_tag) {
-	DomVectorExtendedSelector SB_retval_xpath;
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext(final String PI_S_using, final String PI_S_tag) {
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext(PI_S_using, PI_S_tag, IGNORED_IDX, DEFAULT_PREFIX);
 	return SB_retval_xpath;   
 }		
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext(final String PI_S_using) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext(final String PI_S_using) {
 
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext(PI_S_using, DEFAULT_TAG_LINK, IGNORED_IDX, DEFAULT_PREFIX);
 
@@ -1366,14 +1368,14 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext(final String 
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_partial(
 		final String PI_S_using,
 		final String PI_S_tag,
 		final int PI_I_idx_f0,
 		final String PI_S_prefix) {
 
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	String S_xpath, S_prefix, S_msg_1;
 
 	if (StringUtils.isBlank(PI_S_using)) {
@@ -1409,11 +1411,11 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(
 }
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_partial(
 		final String PI_S_using, 
 		final String PI_S_tag, 
 		final int PI_I_idx_f0) {
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_partial(
 			PI_S_using, PI_S_tag, PI_I_idx_f0, DEFAULT_PREFIX);
@@ -1421,8 +1423,8 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(final String PI_S_using, final String PI_S_tag) {
-	DomVectorExtendedSelector SB_retval_xpath;
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_partial(final String PI_S_using, final String PI_S_tag) {
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_partial(
 			PI_S_using, PI_S_tag, IGNORED_IDX, DEFAULT_PREFIX);
@@ -1430,23 +1432,23 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial(final
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_partial (final String PI_S_using) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_partial (final String PI_S_using) {
 
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	SB_retval_xpath = FS_get_xpath_from_linktext_partial(PI_S_using, DEFAULT_TAG, IGNORED_IDX, DEFAULT_PREFIX);
 
 	return SB_retval_xpath;   
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_prefix(
 		final String PI_S_using, 
 		final String PI_S_tag,
 		final int PI_I_idx_f0,
 		final String PI_S_prefix) {
 
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	String  S_xpath, S_prefix, S_msg_1;
 
 	if (StringUtils.isBlank(PI_S_using)) {
@@ -1482,11 +1484,11 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix(
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_prefix(
 		final String PI_S_using, 
 		final String PI_S_tag,
 		final int PI_I_idx_f0) {
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_prefix(
 			PI_S_using,
@@ -1497,17 +1499,17 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix(
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix(final String PI_S_using, final String PI_S_tag) {
-	DomVectorExtendedSelector SB_retval_xpath;
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_prefix(final String PI_S_using, final String PI_S_tag) {
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_prefix(PI_S_using, PI_S_tag, IGNORED_IDX, DEFAULT_PREFIX);
 	return SB_retval_xpath;   
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix (final String PI_S_using) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_prefix (final String PI_S_using) {
 
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_prefix(PI_S_using, DEFAULT_TAG, IGNORED_IDX, DEFAULT_PREFIX);
 
@@ -1515,14 +1517,14 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_prefix (final
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_suffix(
 		final String PI_S_using,
 		final String PI_S_tag,
 		final int PI_I_idx_f0,
 		final String PI_S_prefix) {
 
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	String S_xpath, S_msg_1, S_prefix;
 
 	if (PI_S_using == null) {
@@ -1558,27 +1560,27 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(
 }
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_suffix(
 		final String PI_S_using, 
 		final String PI_S_tag, 
 		final int PI_I_idx_f0) {
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_suffix(PI_S_using, PI_S_tag, PI_I_idx_f0, DEFAULT_PREFIX);
 	return SB_retval_xpath;   
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(final String PI_S_using, final String PI_S_tag) {
-	DomVectorExtendedSelector SB_retval_xpath;
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_suffix(final String PI_S_using, final String PI_S_tag) {
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_suffix(PI_S_using, PI_S_tag, IGNORED_IDX, DEFAULT_PREFIX);
 	return SB_retval_xpath;   
 }	
 
 @Deprecated
-public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(final String PI_S_using) {
-	DomVectorExtendedSelector SB_retval_xpath;
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_linktext_suffix(final String PI_S_using) {
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_linktext_suffix(PI_S_using, DEFAULT_TAG, IGNORED_IDX, DEFAULT_PREFIX);
 
@@ -1586,10 +1588,10 @@ public static DomVectorExtendedSelector FS_get_xpath_from_linktext_suffix(final 
 }
 
 //tagname - START
-public static DomVectorExtendedSelector FS_get_xpath_from_tagname(final String PI_S_tag, final int PI_I_idx_f0, final String PI_S_prefix) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_tagname(final String PI_S_tag, final int PI_I_idx_f0, final String PI_S_prefix) {
 
 	IllegalArgumentException E_ill_arg;
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 	String S_xpath, S_prefix, S_msg_1;
 
 	if (PI_S_prefix == null) {
@@ -1619,18 +1621,18 @@ public static DomVectorExtendedSelector FS_get_xpath_from_tagname(final String P
 }
 
 
-public static DomVectorExtendedSelector FS_get_xpath_from_tagname(final String PI_S_tag, final int PI_I_idx_f0) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_tagname(final String PI_S_tag, final int PI_I_idx_f0) {
 
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_tagname(PI_S_tag, PI_I_idx_f0, DEFAULT_PREFIX);
 
 	return SB_retval_xpath;   
 }
 
-public static DomVectorExtendedSelector FS_get_xpath_from_tagname(final String PI_S_tag) {
+public static DomVectorExtendedSelectorXp FS_get_xpath_from_tagname(final String PI_S_tag) {
 
-	DomVectorExtendedSelector SB_retval_xpath;
+	DomVectorExtendedSelectorXp SB_retval_xpath;
 
 	SB_retval_xpath = FS_get_xpath_from_tagname(PI_S_tag, IGNORED_IDX, DEFAULT_PREFIX);
 

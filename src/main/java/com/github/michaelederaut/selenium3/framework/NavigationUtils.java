@@ -25,7 +25,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
@@ -355,7 +355,7 @@ public class NavigationUtils {
 		  RemoteWebElement   O_remote_web_element;
 		  GroupMatchResult O_grp_match_res;
 		  MutableObject<String> SB_suffix;
-		  DomVectorExtendedSelector SBO_xpath;
+		  DomVectorExtendedSelectorXp SBO_xpath;
 		  String S_msg_1, S_msg_2, S_found_by, S_suffix, S_locator_leftmost, S_left_square_brackets,
 		  S_selector, S_selector_leftmost, S_xpath, S_xpath_old;
 		  int i1, i2, I_nbr_matching_groups_f1, I_nbr_left_square_brackets_f1, I_nbr_iterations_required, I_offset_loc_sel_idx_f1;
@@ -556,7 +556,7 @@ public class NavigationUtils {
 	     }
 	  
 	  if (PI_O_web_element instanceof RemoteWebElementXp) {
-		 DomVectorExtendedSelector SBO_xpath = ((RemoteWebElementXp)PI_O_web_element).SBO_xpath;
+		 DomVectorExtendedSelectorXp SBO_xpath = ((RemoteWebElementXp)PI_O_web_element).SBO_xpath;
 		 S_xpath = SBO_xpath.FS_get_buffer();
 		 AO_DOM_offset_vector = SBO_xpath.AO_dom_offsets;
 	     }
