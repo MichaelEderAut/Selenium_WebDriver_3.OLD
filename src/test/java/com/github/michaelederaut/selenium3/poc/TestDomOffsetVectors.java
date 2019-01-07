@@ -9,7 +9,7 @@ import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 

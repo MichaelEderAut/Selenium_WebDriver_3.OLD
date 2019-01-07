@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ProcessBuilder.Redirect;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
@@ -25,10 +26,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
+
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -48,6 +53,10 @@ public class TestQuerySelectorPoc {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		FirefoxBinary O_ff_bin;
 		
+		ProcessBuilder      O_proc_bldr;
+		Process             O_proc;
+		InputStream O_proc_stream_out, O_proc_stream_err;
+		
 		URL                 O_url_script;
 		ScriptEngineManager O_scr_eng_mgr;
 		ScriptEngine        O_scr_eng_1, O_scr_eng_2;
@@ -61,11 +70,13 @@ public class TestQuerySelectorPoc {
 		                   O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
+		byte AC_input_stream[];
 		Object O_res_execute_1, O_res_execute_1_bindings, O_res_exec_js;
-		DomVectorExtendedSelector O_res_sel_1, O_res_sel_2, O_res_sel_3;
+		DomVectorExtendedSelectorXp O_res_sel_1, O_res_sel_err, O_res_sel_2, O_res_sel_3;
         ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
         String S_txt, S_tag, S_script_js;
 
+        
 		Class O_clazz;
 		Logger O_logger;
 		
@@ -75,6 +86,7 @@ public class TestQuerySelectorPoc {
 		             S_script_engine_name_inner,
 		             S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
+		       S_pna_python_path,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof,
 		       S_xpath_1, S_xpath_2, S_xpath_3, S_pn_script;
 		long L_nbr_elems_f1;
@@ -105,10 +117,70 @@ public class TestQuerySelectorPoc {
 		O_res_sel_2 = XpathGenerators.FSBO_get_xpath(new LocatorEnums(Locator.cssSelector), ".class2");
 		S_xpath_2 = O_res_sel_2.FS_get_buffer();
 		System.out.println("S_xpath_2:" + S_xpath_2);
+		
+		O_proc_bldr = new ProcessBuilder(
+				"python.exe", 
+				"G:\\ws\\Exercises\\_eclipse\\Selenium_WebDriver_3\\src\\main\\resources\\cssify.py", 
+				"//div");
+//		O_proc_bldr = O_proc_bldr.redirectOutput(Redirect.INHERIT);
+//		O_proc_bldr = O_proc_bldr.redirectError(Redirect.INHERIT);
+		try {
+			O_proc = O_proc_bldr.start();
+		} catch (IOException PI_E_IO) {
+			O_proc = null;
+			PI_E_IO.printStackTrace(System.err);
+		}
+		AC_input_stream = null;
+		O_proc_stream_out = O_proc.getInputStream();
+		try {
+			AC_input_stream = O_proc_stream_out.readAllBytes();
+		} catch (IOException PI_E_io) {
+			PI_E_io.printStackTrace(System.err);
+		    }
+        S_pna_python_path = new String(AC_input_stream);
 		O_res_sel_3 = XpathGenerators.FSBO_get_xpath(new LocatorEnums(Locator.cssSelector), ".class3");
 		S_xpath_3 = O_res_sel_3.FS_get_buffer();
 	    System.out.println("S_xpath_3:" + S_xpath_3);
-		
+	    
+	    O_res_sel_1 = CssSGenerators.FSBO_get_csss(
+	    		new LocatorEnums(Locator.xpath), 
+	    		new String[] {"//div"}, // using
+	    		(String) null,  // tag
+	    		(LinkText)null,
+	    		XpathGenerators.IGNORED_IDX,
+	    		(String)null, // prefix 
+	    		(DomOffset[]) null);
+	    
+	    O_res_sel_err = CssSGenerators.FSBO_get_csss(
+	    		new LocatorEnums(Locator.xpath), 
+	    		new String[] {"xxx yyy zzz ???"}, // using
+	    		(String) null,  // tag
+	    		(LinkText)null,
+	    		XpathGenerators.IGNORED_IDX,
+	    		(String)null, // prefix 
+	    		(DomOffset[]) null);
+	    
+	    O_res_sel_2 = CssSGenerators.FSBO_get_csss(
+	    		new LocatorEnums(Locator.xpath), 
+	    		new String[] {"//div[@class='myClass1']"}, // using
+	    		(String) null,  // tag
+	    		(LinkText)null,
+	    		XpathGenerators.IGNORED_IDX,
+	    		(String)null, // prefix 
+	    		(DomOffset[]) null);
+	     
+	    O_res_sel_3 = CssSGenerators.FSBO_get_csss(
+	    		new LocatorEnums(Locator.xpath), 
+	    		new String[] {"//div[@id='myId1']"}, // using
+	    		(String) null,  // tag
+	    		(LinkText)null,
+	    		XpathGenerators.IGNORED_IDX,
+	    		(String)null, // prefix 
+	    		(DomOffset[]) null); 
+	    
+	    S_xpath_1 = O_res_sel_1.FS_get_buffer();
+		System.out.println("S_xpath_1:" + S_xpath_1);
+
 		O_scr_eng_mgr = new ScriptEngineManager();
 		AO_scr_eng_factories = O_scr_eng_mgr.getEngineFactories();
 		for (ScriptEngineFactory O_scr_engine_fact: AO_scr_eng_factories) {
