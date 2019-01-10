@@ -19,7 +19,7 @@ import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
 import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
@@ -42,6 +42,8 @@ public class CssSGenerators {
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
 //	
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
+	public static final String S_re_tag_name = "^[a-z]*)$";
+	public static final regexodus.Pattern P_tag_name = regexodus.Pattern.compile(S_re_tag_name);
 	public static final String S_bn_python = "python.exe";
 	public static final String S_bn_script = "cssify.py";
 	public static final String S_bnr_script = "/" + S_bn_script;
@@ -76,10 +78,11 @@ public class CssSGenerators {
 			this.S_selector     = using;
 			this.E_variant      = PI_E_variant;
 		    }
-		
 	}
 	
-	public static class ExtendedCssSelector extends DomVectorExtendedSelectorXp	{
+		
+	public static class ExtendedCssSelector extends DomVectorExtendedSelector {
+		public boolean B_identity; // equivalent to xpath "."
 	   public LinkText O_lnk_txt;
 	   
 	   public ExtendedCssSelector() {
@@ -266,7 +269,7 @@ public class CssSGenerators {
 		}	
 	}
 	
-	public static ExtendedCssSelector FSBO_get_csss (
+	public static DomVectorExtendedSelector FSBO_get_csss (
 		final LocatorEnums PI_O_locator_enums,
 		final String    PI_AS_using[], 
 		final String    PI_S_tag, 
@@ -281,22 +284,42 @@ public class CssSGenerators {
 	    NullPointerException     E_np;
 	    IndexOutOfBoundsException E_ind_out_of_boundary; 
 	    IOException              E_io;
-	//  AssertionError           E_assert;
 	    
-	    GroupMatchResult         O_grp_match_result;
+	    GroupMatchResult O_grp_match_result;
 	    String  S_msg_1, S_msg_2, S_csss, S_prefix,
 	            S_using, S_bool_op, S_tag_name;
 	    Locator        E_locator;
 	    LocatorVariant E_locator_variant;
-	    ExtendedCssSelector SBO_retval_csss; 
+	    ExtendedCssSelector SBO_retval_csss;
+	    boolean B_has_valid_tag_name, B_identity;
+	    
+	    B_identity = false;
+	    if (PI_S_tag == null) {
+	    	B_has_valid_tag_name = false;
+	        }
+	    else {
+	        O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, CssSGenerators.P_tag_name);
+	        if (O_grp_match_result.I_array_size_f1 > 0) { 
+	    	   B_has_valid_tag_name = true; 
+	           }
+	       else {
+	    	   B_has_valid_tag_name = false;
+	           }
+	    	
+    	    S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
+    	    E_ill_arg = new IllegalArgumentException(S_msg_1);
+    	    throw E_ill_arg;
+        }
 
 	    if (PI_O_link_text == null) { 
 	       if (PI_O_locator_enums == null) {
-			  S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
-			  E_np = new NullPointerException(S_msg_1);
-			  S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
-			  E_rt = new RuntimeException(S_msg_2 ,E_np) ;
-		      throw E_rt;
+	    	  if (!B_has_valid_tag_name) {
+			      S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
+			      E_np = new NullPointerException(S_msg_1);
+			      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
+			      E_rt = new RuntimeException(S_msg_2 ,E_np) ;
+		          throw E_rt;
+	    	      }
 	          }
 	       SBO_retval_csss = new ExtendedCssSelector();
 	       }
@@ -311,7 +334,7 @@ public class CssSGenerators {
 	       if (PI_AS_using == null) {
 		      S_msg_1 = "2nd argument for selector(s) of type \'" + String[].class.getName() + "\' must not be null.";
 		      E_np = new NullPointerException(S_msg_1);
-		      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelectorXp.class.getName() + "\'";
+		      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
 		      E_rt = new RuntimeException(S_msg_2 ,E_np) ;
 		      throw E_rt;
 	          }

@@ -33,7 +33,7 @@ import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -72,7 +72,7 @@ public class TestQuerySelectorPoc {
 //		JavascriptExecutor O_js_exexutor;
 		byte AC_input_stream[];
 		Object O_res_execute_1, O_res_execute_1_bindings, O_res_exec_js;
-		DomVectorExtendedSelectorXp O_res_sel_1, O_res_sel_err, O_res_sel_2, O_res_sel_3;
+		DomVectorExtendedSelector O_res_sel_1, O_res_sel_err, O_res_sel_2, O_res_sel_3;
         ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
         String S_txt, S_tag, S_script_js;
 
@@ -151,14 +151,14 @@ public class TestQuerySelectorPoc {
 	    		(String)null, // prefix 
 	    		(DomOffset[]) null);
 	    
-	    O_res_sel_err = CssSGenerators.FSBO_get_csss(
-	    		new LocatorEnums(Locator.xpath), 
-	    		new String[] {"xxx yyy zzz ???"}, // using
-	    		(String) null,  // tag
-	    		(LinkText)null,
-	    		XpathGenerators.IGNORED_IDX,
-	    		(String)null, // prefix 
-	    		(DomOffset[]) null);
+//	    O_res_sel_err = CssSGenerators.FSBO_get_csss(
+//	    		new LocatorEnums(Locator.xpath), 
+//	    		new String[] {"xxx yyy zzz ???"}, // using
+//	    		(String) null,  // tag
+//	    		(LinkText)null,
+//	    		XpathGenerators.IGNORED_IDX,
+//	    		(String)null, // prefix 
+//	    		(DomOffset[]) null);
 	    
 	    O_res_sel_2 = CssSGenerators.FSBO_get_csss(
 	    		new LocatorEnums(Locator.xpath), 
@@ -229,9 +229,9 @@ public class TestQuerySelectorPoc {
 		   } catch (ScriptException PI_E_scr) {
 			   PI_E_scr.printStackTrace(System.err);
 		   }
-		   if (O_res_execute_1_bindings != null) {
-			   O_scr_obj_mirror = (ScriptObjectMirror)O_res_execute_1_bindings;
-		   }
+//		   if (O_res_execute_1_bindings != null) {
+//			   O_scr_obj_mirror = (ScriptObjectMirror)O_res_execute_1_bindings;
+//		   }
 		}
 		
 	    E_browser_type = BrowserTypes.FireFox;
@@ -283,11 +283,22 @@ public class TestQuerySelectorPoc {
 	 		  "I_nbr_elemens_f1 = document.children[0].children[1].children[0].childElementCount; " +
 	 		  "console.log('document.children[0].children[1].children[0].childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
 	 		  
+	 		  "S_id = document.children[0].children[1].children[0].tagName; " +
+	 		  "I_nbr_elemens_f1 = document.children[0].children[1].children[0].querySelectorAll('div').length; " +
+	 		  "console.log('document.children[0].children[1].children[0].querySelectorAll(div).length: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
+	 		  "S_id = document.children[0].children[1].children[0].tagName; " +
+	 		  "I_nbr_elemens_f1 = document.children[0].children[1].children[0].querySelectorAll(':root').length; " +
+	 		  "console.log('document.children[0].children[1].children[0].querySelectorAll(:root).length: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
+	 		  
 	 		  "S_id = document.body.tagName; " +
 	 		  "I_nbr_elemens_f1 = document.body.childElementCount; " +
 	 		  "console.log('document.body.childElementCount: ' + I_nbr_elemens_f1 + ' - id: ' + S_id); " +
 	 		  
-			  "AO_elems = document.children[0].children[1].querySelectorAll('" + ".xf_check" + "'); " +
+//			  "AO_elems = document.children[0].children[1].querySelectorAll('" + ".xf_check" + "'); " +
+//			  "AO_elems = document.children[0].children[1].children[0].querySelectorAll('" + ":root" + "'); " +
+//            "AO_elems = document.querySelectorAll('" + ":root" + "'); " +
+              "AO_elems = document.children[0].children[1].children[0].querySelectorAll('" + "" + "'); " +
 			  "if (AO_elems) {" +
 	               "I_nbr_elemens_f1 = AO_elems.length;} " +
 			  "else { " +
