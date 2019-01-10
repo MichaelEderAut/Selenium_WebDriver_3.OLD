@@ -31,7 +31,7 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorRegularity;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 
 import regexodus.Pattern;
 
@@ -542,8 +542,8 @@ public abstract class ByXp extends By {
 				throw E_rt;
 			    } 
 		  }
-		 DomVectorExtendedSelectorXp O_using;
-		 O_using = new DomVectorExtendedSelectorXp(S_selector);
+		 DomVectorExtendedSelector O_using;
+		 O_using = new DomVectorExtendedSelector(S_selector);
 		 O_retval_loc_sel_xp = new LocatorSelectorXp(
 				  E_locator, 
 				  E_locator_variant, 
@@ -2259,7 +2259,7 @@ public abstract class ByXp extends By {
 		    	this.domOffsets = PI_AO_DOM_offset_vector;
 		    	this.O_loc_sel_xp = this.FO_get_loc_sel_xp();	
 		    	this.O_loc_sel_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, DomOffset[].class);
-		    	this.O_loc_sel_xp.SBO_using = new DomVectorExtendedSelectorXp(".");
+		    	this.O_loc_sel_xp.SBO_using = new DomVectorExtendedSelector(".");
 		        return;
 		        }
 		    	    
@@ -2271,7 +2271,7 @@ public abstract class ByXp extends By {
 		    	this.domOffsets = XpathGenerators.FAO_create_DOM_offsets(PI_AI_DOM_offset_vector);
 		    	this.O_loc_sel_xp = this.FO_get_loc_sel_xp();	
 		    	this.O_loc_sel_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, int[].class);
-		    	this.O_loc_sel_xp.SBO_using = new DomVectorExtendedSelectorXp(".");
+		    	this.O_loc_sel_xp.SBO_using = new DomVectorExtendedSelector(".");
 		    }
 		    
 		    @Override

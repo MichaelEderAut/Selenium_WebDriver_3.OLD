@@ -39,7 +39,7 @@ import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
@@ -66,7 +66,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	
 	public static final String S_clazz_ByXP = ByXp.class.getName();
 	
-	public DomVectorExtendedSelectorXp SBO_xpath;
+	public DomVectorExtendedSelector SBO_xpath;
 	public StringBuffer SB_xpath_cummulated = new StringBuffer();
 	public FoundBy      O_found_by;
 	public int          I_nbr_duplicates_f1; // nbr elems with idential xpath
@@ -78,13 +78,13 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	public PropertyContainer O_attrs, O_comp_styles, O_styles;
 	
 	public static class LocatorSelector extends LocatorEnums {
-       public DomVectorExtendedSelectorXp SBO_using;
+       public DomVectorExtendedSelector SBO_using;
 	
 	public static void FV_ctor(
 			final LocatorSelector     PO_O_by_locator,
 			final Locator             PI_E_locator,
 			final LocatorVariant      PI_E_locator_variant,
-			DomVectorExtendedSelectorXp PI_O_using
+			DomVectorExtendedSelector PI_O_using
 			) {
 		
 		PO_O_by_locator.E_locator         = PI_E_locator;
@@ -97,7 +97,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final LocatorSelector PO_O_by_locator,
 			final String          PI_S_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp PI_O_using
+			final DomVectorExtendedSelector PI_O_using
 			) {
 		
 		 RuntimeException E_rt;
@@ -130,14 +130,14 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	   final String             PI_S_locator,
 	   final String             PI_S_using) {
     super (PI_S_locator, LocatorVariant.regular);
-	this.SBO_using = new DomVectorExtendedSelectorXp(PI_S_using) ;	
+	this.SBO_using = new DomVectorExtendedSelector(PI_S_using) ;	
     return;
 	}
 	
 	public LocatorSelector(
 	   final String             PI_S_locator,
 	   final LocatorVariant     PI_E_locator_variant,
-	   final DomVectorExtendedSelectorXp PI_O_using) {
+	   final DomVectorExtendedSelector PI_O_using) {
 		
 	super (PI_S_locator, PI_E_locator_variant);
 	this.SBO_using = PI_O_using;	
@@ -147,7 +147,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
    public LocatorSelector(
 	   final Locator        PI_E_locator,
 	   final LocatorVariant PI_E_locator_variant,
-	   final DomVectorExtendedSelectorXp PI_O_using) {
+	   final DomVectorExtendedSelector PI_O_using) {
 	   
 	   super (PI_E_locator, PI_E_locator_variant);
 	   this.SBO_using = PI_O_using; 
@@ -156,7 +156,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
    
    public LocatorSelector(
 		   final LocatorEnums              PI_E_locator_enums,
-		   final DomVectorExtendedSelectorXp PI_O_using) {
+		   final DomVectorExtendedSelector PI_O_using) {
 	   
 	   this(PI_E_locator_enums.E_locator, PI_E_locator_enums.E_locator_variant, PI_O_using);
 	   return;
@@ -168,7 +168,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	   this(
 	      PI_E_locator_enums.E_locator,
 	      PI_E_locator_enums.E_locator_variant, 
-	      (DomVectorExtendedSelectorXp)null);
+	      (DomVectorExtendedSelector)null);
 	   return;
    }
    
@@ -245,7 +245,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 		 public LocatorSelectorXp (
 					final String         PI_S_locator,
 					final LocatorVariant PI_E_locator_variant,
-					final DomVectorExtendedSelectorXp   PI_O_using,
+					final DomVectorExtendedSelector   PI_O_using,
 					final String         PI_S_tag_expected,
 					final int            PI_I_idx_f0,
 					final String         PI_S_prefix,
@@ -282,7 +282,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	      public  LocatorSelectorXp (
 	     			final Locator        PI_E_locator,
 	     			final LocatorVariant PI_E_locator_variant,
-	     			final DomVectorExtendedSelectorXp         PI_O_using,
+	     			final DomVectorExtendedSelector         PI_O_using,
 	     			final String         PI_S_tag_expected,
 	     			final int            PI_I_idx_f0,
 					final String         PI_S_prefix,
@@ -320,7 +320,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final SearchContext   PI_O_driver_info,
 			final Object          PI_O_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp  PI_O_using,
+			final DomVectorExtendedSelector  PI_O_using,
 			final String          PI_S_tag_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
@@ -345,7 +345,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final SearchContext   PI_O_driver_info,
 			final String          PI_S_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp  PI_O_using,
+			final DomVectorExtendedSelector  PI_O_using,
 			final String          PI_S_tag_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
@@ -368,7 +368,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final SearchContext   PI_O_driver_info,
 			final Locator         PI_E_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp PI_O_using,
+			final DomVectorExtendedSelector PI_O_using,
 			final String          PI_S_tag_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
@@ -625,7 +625,7 @@ public String FS_get_style(final String PI_S_style_key) {
 	public void FV_add (
 			final String         PI_S_locator,
 			final LocatorVariant PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp PI_O_using,
+			final DomVectorExtendedSelector PI_O_using,
 			final String         PI_S_tag_expected,
 			final int            PI_I_idx_f0,
 			final String         PI_S_prefix,
@@ -720,7 +720,7 @@ public String FS_get_style(final String PI_S_style_key) {
 			final WebElement      PI_O_web_ele,
 			final Locator         PI_E_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp PI_O_using,
+			final DomVectorExtendedSelector PI_O_using,
 			final String          PI_S_tag_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
@@ -763,7 +763,7 @@ public String FS_get_style(final String PI_S_style_key) {
 			final WebElement         PI_O_web_elem,
 			final Locator            PI_E_locator,
 			final LocatorVariant     PI_E_locator_variant,
-			final DomVectorExtendedSelectorXp PI_O_using,
+			final DomVectorExtendedSelector PI_O_using,
 			final String             PI_S_tag_expected,
 			final int                PI_I_idx_f0,
 			final String             PI_S_prefix,
@@ -894,7 +894,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		 PO_O_rem_web_elem_xp.setFileDetector(O_file_detector);
 		 PO_O_rem_web_elem_xp.setParent(O_parent);
 		 FV_set_found_by(PO_O_rem_web_elem_xp, S_found_by);
-	     PO_O_rem_web_elem_xp.SBO_xpath             = new DomVectorExtendedSelectorXp(PI_AO_dom_offset_vector);
+	     PO_O_rem_web_elem_xp.SBO_xpath             = new DomVectorExtendedSelector(PI_AO_dom_offset_vector);
 		
 		 PO_O_rem_web_elem_xp.SB_xpath_cummulated  = new StringBuffer(PI_O_using.FS_get_buffer());
 		 
@@ -993,7 +993,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		
 		LocatorSelectorXp O_by_locator_xp;
 		StringBuilder     SB_document_root;
-		DomVectorExtendedSelectorXp SB_xpath_equivalent;
+		DomVectorExtendedSelector SB_xpath_equivalent;
 		String S_xpath_unindexed, S_cmd_js_multiple, S_web_driver_parent, S_found_by, 
 		       S_dom_node_name, S_err_msg, S_tag_received, S_inner_txt, S_txt_content, S_inner_html;
 		boolean B_retry_needed;
@@ -1354,10 +1354,10 @@ public String FS_get_style(final String PI_S_style_key) {
     // stackoverflow.com/questions/2631820/im-storing-click-coordinates-in-my-db-and-then-reloading-them-later-and-showing/2631931#2631931
 	protected void setFoundBy(SearchContext PI_O_found_from, String PI_S_locator, String PI_S_using) {
 		FoundBy O_found_by;
-		DomVectorExtendedSelectorXp O_using;
+		DomVectorExtendedSelector O_using;
 		
 		super.setFoundBy(PI_O_found_from, PI_S_locator, PI_S_using);
-		O_using = new DomVectorExtendedSelectorXp(PI_S_using);
+		O_using = new DomVectorExtendedSelector(PI_S_using);
 		if (this.O_found_by == null) {
 		   O_found_by = new FoundBy(
 				   PI_O_found_from, 
@@ -1472,7 +1472,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		IllegalArgumentException E_ill_arg;
 		RuntimeException E_rt;
 		
-		DomVectorExtendedSelectorXp O_using;
+		DomVectorExtendedSelector O_using;
 		String S_msg_1, S_msg_2, S_driver_info, S_locator, S_using, AS_numbered_groups[];
 		LocatorSelectorXp  O_retval_by_locator = null;
 		
@@ -1496,7 +1496,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		S_locator         = AS_numbered_groups[2];
 		S_using           = AS_numbered_groups[3];
 		
-		O_using = new DomVectorExtendedSelectorXp(S_using);
+		O_using = new DomVectorExtendedSelector(S_using);
 		O_retval_by_locator = new LocatorSelectorXp(
 				S_locator, 
 				LocatorVariant.regular, 

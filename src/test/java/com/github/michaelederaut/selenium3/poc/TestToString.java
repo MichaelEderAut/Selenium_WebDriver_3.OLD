@@ -8,7 +8,7 @@ import org.apache.commons.lang3.reflect.ConstructorUtils;
 // import static com.github.michaelederaut.basics.PropertyContainerUtils.AT_s1;
 
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelectorXp;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
@@ -32,22 +32,22 @@ public class TestToString {
 	ByXp.ByClassName O_by_cls_and_1, O_by_cls_and_2, O_by_cls_and_3, O_by_cls_and_4;
 	Constructor <? extends ByXp> O_ctor_1;
 	
-	DomVectorExtendedSelectorXp SB_xpath_1;
+	DomVectorExtendedSelector SB_xpath_1;
 	String S_xpath_1, S_dump_locator_1, S_dump_locator_xp_1,
 	       S_by_id_1, S_by_id_2, S_by_id_3, S_by_id_4,
 	       S_by_cls_and_1, S_by_cls_and_2, S_by_cls_and_3, S_by_cls_and_4,
 	       S_dom_vect_ext_selector_1, S_dom_vect_ext_selector_2;
-    DomVectorExtendedSelectorXp O_using_1, O_using_2,  O_dom_vect_ext_selector_1,  O_dom_vect_ext_selector_2;
+    DomVectorExtendedSelector O_using_1, O_using_2,  O_dom_vect_ext_selector_1,  O_dom_vect_ext_selector_2;
     
 	O_by_cls_and_1 = new ByXp.ByClassName("gh_loc_bt");
 	S_by_cls_and_1 = O_by_cls_and_1.toString();
 	System.out.println("S_by_cls_and_1: " + S_by_cls_and_1);
 	
-	O_dom_vect_ext_selector_1 = new DomVectorExtendedSelectorXp(new int[]{0, 2, 1});
+	O_dom_vect_ext_selector_1 = new DomVectorExtendedSelector(new int[]{0, 2, 1});
 	S_dom_vect_ext_selector_1 = O_dom_vect_ext_selector_1.toString();
 	System.out.println("dom-vect-extended_sel_1:" + S_dom_vect_ext_selector_1);
 	
-	O_dom_vect_ext_selector_2 = new DomVectorExtendedSelectorXp(new DomOffset[]{
+	O_dom_vect_ext_selector_2 = new DomVectorExtendedSelector(new DomOffset[]{
 			new DomOffset(0, "div"),
 			new DomOffset(2, "a"),
 			new DomOffset(1, "span"),
@@ -66,7 +66,7 @@ public class TestToString {
 	SB_xpath_1  = XpathGenerators.FSBO_get_xpath(E_locator_enum_1, "myId"); 
 	S_xpath_1 = SB_xpath_1.toString();
 	
-	O_using_1 = new DomVectorExtendedSelectorXp("myid");
+	O_using_1 = new DomVectorExtendedSelector("myid");
 	
 	O_loc_enums = new LocatorEnums("id");
 	O_loc_sel = new LocatorSelector(O_loc_enums);
