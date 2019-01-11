@@ -106,9 +106,10 @@ public class XpathGenerators {
 	 */
 	public static enum LocatorVariant {
 		regular, 
-		partial, 
+		partial,
+		partialWord,  // applicable for css selectors only
 		prefix, 
-		prefixWord, // prefix, matching a (dash separated) word - applicable for css selectors only
+		prefixWord,   // prefix, matching a (dash separated) word - applicable for css selectors only
 		suffix, 
 		regexp, 
 		and,
@@ -1188,6 +1189,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 			 S_xpath += "[starts-with(" + S_attr + ", '" + S_using + "')]";
 			 break TABLE_LOC_VARIANT;
 		 case prefixWord:
+		 case partialWord:
 		 case regexp:
 		 case orPrefixWithSeparatePos:
 			 S_msg_1 = E_locator_variant.name() + " is invalid in this context.";
