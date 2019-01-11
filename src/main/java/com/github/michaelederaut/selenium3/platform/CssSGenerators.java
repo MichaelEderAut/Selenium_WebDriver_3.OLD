@@ -42,7 +42,7 @@ public class CssSGenerators {
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
 //	
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
-	public static final String S_re_tag_name = "^[a-z]*)$";
+	public static final String S_re_tag_name = "^(\\*|[a-z]*)$";
 	public static final regexodus.Pattern P_tag_name = regexodus.Pattern.compile(S_re_tag_name);
 	public static final String S_bn_python = "python.exe";
 	public static final String S_bn_script = "cssify.py";
@@ -269,7 +269,7 @@ public class CssSGenerators {
 		}	
 	}
 	
-	public static DomVectorExtendedSelector FSBO_get_csss (
+	public static DomVectorExtendedSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
 		final String    PI_AS_using[], 
 		final String    PI_S_tag, 
@@ -286,96 +286,69 @@ public class CssSGenerators {
 	    IOException              E_io;
 	    
 	    GroupMatchResult O_grp_match_result;
-	    String  S_msg_1, S_msg_2, S_csss, S_prefix,
-	            S_using, S_bool_op, S_tag_name;
+	    String S_msg_1, S_msg_2, S_csss, S_prefix,
+	           S_using, S_bool_op, S_tag_name;
 	    Locator        E_locator;
 	    LocatorVariant E_locator_variant;
 	    ExtendedCssSelector SBO_retval_csss;
 	    boolean B_has_valid_tag_name, B_identity;
 	    
 	    B_identity = false;
+	    
+	    if (PI_O_locator_enums == null) {
+	    	E_locator         = Locator.domOffsets;
+	    	E_locator_variant = LocatorVariant.regular;
+	        }
+	    else {
+	    	E_locator = PI_O_locator_enums.E_locator;
+	    	E_locator_variant = PI_O_locator_enums.E_locator_variant;
+	        }
 	    if (PI_S_tag == null) {
-	    	B_has_valid_tag_name = false;
+	    	S_tag_name = "";
 	        }
 	    else {
 	        O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, CssSGenerators.P_tag_name);
 	        if (O_grp_match_result.I_array_size_f1 > 0) { 
 	    	   B_has_valid_tag_name = true; 
+	    	   S_tag_name = PI_S_tag;
 	           }
 	       else {
-	    	   B_has_valid_tag_name = false;
-	           }
-	    	
-    	    S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
-    	    E_ill_arg = new IllegalArgumentException(S_msg_1);
-    	    throw E_ill_arg;
-        }
+    	       S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
+    	       E_ill_arg = new IllegalArgumentException(S_msg_1);
+    	       throw E_ill_arg;
+               }
+	       }
 
-	    if (PI_O_link_text == null) { 
-	       if (PI_O_locator_enums == null) {
-	    	  if (!B_has_valid_tag_name) {
-			      S_msg_1 = "1st argument of type \'" + LocatorEnums.class.getName() + "\' must not be null.";
-			      E_np = new NullPointerException(S_msg_1);
-			      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
-			      E_rt = new RuntimeException(S_msg_2 ,E_np) ;
-		          throw E_rt;
-	    	      }
-	          }
-	       SBO_retval_csss = new ExtendedCssSelector();
-	       }
-	    else {
-	    	SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
+	 if (PI_O_locator_enums.E_locator == E_locator.domOffsets) {
+		SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
+		return SBO_retval_csss;
 	    }
-	
-	    E_locator_variant = PI_O_locator_enums.E_locator_variant;
-	    E_locator =  PI_O_locator_enums.E_locator;
-	    
-	    if (PI_O_link_text == null) {
-	       if (PI_AS_using == null) {
-		      S_msg_1 = "2nd argument for selector(s) of type \'" + String[].class.getName() + "\' must not be null.";
-		      E_np = new NullPointerException(S_msg_1);
-		      S_msg_2 = "Unable to create new instance of: \'" + DomVectorExtendedSelector.class.getName() + "\'";
-		      E_rt = new RuntimeException(S_msg_2 ,E_np) ;
-		      throw E_rt;
-	          }
+	   
+	 if (PI_S_prefix == null) {
+		S_prefix = "";
 	    }
-	    if (PI_S_tag == null) {
-		   S_tag_name = "";
-	      }
-	    else {
-	       O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, XpathGenerators.P_tag_name);
-	       if (O_grp_match_result.I_array_size_f1 > 0) { 
-	          S_tag_name = PI_S_tag;
-	          }
-	      else {
-    	     S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
-    	     E_ill_arg = new IllegalArgumentException(S_msg_1);
-    	     throw E_ill_arg;
-             }
-	      }
-	    if (PI_S_prefix == null) {
-		    S_prefix = "";
-	       }
-	    else {
-		   S_prefix = PI_S_prefix;
+	 else {
+		S_prefix = PI_S_prefix; 
 	    }
-	     
 	 
-	
 	  int I_nbr_selectors_f1, I_nbr_selectors_f0, i1;
 	  String S_csss_single_term;
 	  StringBuffer SB_csss_tail;
 	
-	I_nbr_selectors_f1 = PI_AS_using.length;
-	
-	if (PI_O_link_text == null) {
-		if (I_nbr_selectors_f1 == 0) {
-			S_msg_1 = "Size of array containing class-names must not be " + I_nbr_selectors_f1;
-			E_ill_arg = new IllegalArgumentException(S_msg_1);
-			throw E_ill_arg;
-		    }
-	     }
-	
+	if (PI_AS_using == null) {
+	   I_nbr_selectors_f1 = 0;
+	   }
+	else {
+	    I_nbr_selectors_f1 = PI_AS_using.length;
+	    }
+	if (I_nbr_selectors_f1 == 0) {
+		S_msg_1 = "No selectors provided.";
+		E_ill_arg = new IllegalArgumentException(S_msg_1);
+		S_msg_2 = "Unable to create css-selector with the arguments given.";
+		E_rt = new RuntimeException(S_msg_2, E_ill_arg);
+		throw E_rt;
+	}
+	 
 	// E_locator = PI_O_locator_enums.E_locator;
 	S_csss    = "";
 	S_using   = null;
@@ -484,18 +457,19 @@ public class CssSGenerators {
 		      S_using = PI_AS_using[i1];
 		    //--- https://benfrain.com/when-and-where-you-can-use-numbers-in-id-and-class-names/
 		    // ^\p{Alpha}[\w\-]*$
-		    O_grp_match_result = RegexpUtils.FO_match(S_using, XpathGenerators.P_clazz_name);
-		    if (O_grp_match_result.I_array_size_f1 == 0) { 
+		     O_grp_match_result = RegexpUtils.FO_match(S_using, XpathGenerators.P_clazz_name);
+		     if (O_grp_match_result.I_array_size_f1 == 0) { 
 		        S_msg_1 = "id-name parameter " + i1 + " \'" + S_using + "\' must be alpha-numeric with - or _";
 		        E_ill_arg = new IllegalArgumentException(S_msg_1);
 		        throw E_ill_arg;
 		        }
-		    I_idx_old_f0 = AS_id_names.indexOf(S_using);
-		    if (I_idx_old_f0 > 0) {
-		       S_msg_1 = "Duplicate id-name parameter " + i1 + " \'" + S_using + "\' already occurs at position :" + I_idx_old_f0;
-		       E_ill_arg = new IllegalArgumentException(S_msg_1);
-		       throw E_ill_arg;
-		       }
+		     if (i1 > 0) {
+			    I_idx_old_f0 = AS_id_names.indexOf(S_using);
+			    if (I_idx_old_f0 > 0) {
+			       S_msg_1 = "Duplicate id-name parameter " + i1 + " \'" + S_using + "\' already occurs at position :" + I_idx_old_f0;
+			       E_ill_arg = new IllegalArgumentException(S_msg_1);
+			       throw E_ill_arg;
+			       }}
 		    AS_id_names.add(S_using);
 		   }
 		   
@@ -505,14 +479,14 @@ public class CssSGenerators {
 		   if (E_locator_variant == LocatorVariant.orPrefixWithSeparatePos) {
 			 SB_csss = new TextStringBuilder(PI_S_prefix);
 		     }
-		  else if (E_locator_variant == LocatorVariant.or) {
+		   else if (E_locator_variant == LocatorVariant.or) {
 			 SB_csss = new TextStringBuilder();
 		     }
-		  else {  // and OR regular
+		   else {  // and OR regular
 			 SB_csss = new TextStringBuilder(PI_S_prefix + S_tag_name);
 		     }
 		 
-	      for (i1 = 0; i1 < I_nbr_selectors_f1; i1++) {
+	       for (i1 = 0; i1 < I_nbr_selectors_f1; i1++) {
 		     S_using = PI_AS_using[i1];
 		     
 		     if (E_locator_variant == LocatorVariant.orPrefixWithSeparatePos) {
@@ -527,7 +501,14 @@ public class CssSGenerators {
 	         }
 	      S_csss = SB_csss.toString();        
 		  break; // id
-		  
+	   case linkText:
+		     S_msg_1  = "Implementation restriction: Current version of css doesn't support Operation \'" + E_locator.name() + "\'." + LF +
+					     "Use separate parameters tag_name == '*' and link-text instead.";
+			  E_ill_arg = new IllegalArgumentException(S_msg_1);
+			  S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
+			  E_rt = new RuntimeException(S_msg_2,  E_ill_arg);
+		      throw E_rt;
+		   // break;
 		case tagName:
 			  if (I_nbr_selectors_f1 > 1) {
 		    	 S_msg_1 = "Number of selectors exceeding 1";
@@ -547,10 +528,16 @@ public class CssSGenerators {
 		   URL O_url_script;
 		   File F_pna_script;
 		   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
-		  
+		   
+		   S_using = PI_AS_using[0];
+		   if (StringUtils.equals(S_using, ".")) {
+			  B_identity = true;
+			  S_csss = "";
+			  break; 
+		      }
 		   if (S_dna_parent_py == null) {
 			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
-					         "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
+					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
 			      E_ill_arg = new IllegalArgumentException(S_msg_1);
 			      E_ill_arg.printStackTrace(System.out);  
 			  S_dna_parent_py = ExecUtils.FS_get_parent_of_executable(S_bn_python);
@@ -598,7 +585,7 @@ public class CssSGenerators {
 			//  O_exec_res = ExecUtils.FAAS_exec_sync(PI_S_cmd, PI_AS_envp, PI_F_wd);
 			 
 		   } // end if script part not yet initilized;
-		   S_using = PI_AS_using[0];
+		   
 		   AS_cmd = new String[] {S_pna_py, S_pna_py_scr, S_using};
 		   O_exec_res = ExecUtils.FAAS_exec_sync(AS_cmd, (String[])null, F_dna_parent_script, O_dflt_end_criterion);
 		   AAS_retvals = O_exec_res.AAS_retvals;
@@ -641,14 +628,13 @@ public class CssSGenerators {
 				S_msg_1 = "Error occurred during conversion" + LF +
 						  S_csss;
 				E_xp = new XPathException(S_msg_1);
-				S_msg_2 = "Unable to convert xpath:" + LF + 
-						  "\t" + S_using + LF +
-						   "to a css-selector.";
-				E_rt = new RuntimeException(S_msg_2, E_xp);
-				throw E_rt;		
-				
+//				S_msg_2 = "Unable to convert xpath:" + LF + 
+//						  "\t" + S_using + LF +
+//						   "to a css-selector.";
+//				E_rt = new RuntimeException(S_msg_2, E_xp);
+				throw E_xp;		
 			}
-		} catch (AssertionError | IndexOutOfBoundsException | IOException | NullPointerException PI_E_assert) {
+		} catch (AssertionError|IndexOutOfBoundsException|IOException|NullPointerException|XPathException PI_E_assert) {
 			S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
 			E_rt = new RuntimeException(S_msg_2, PI_E_assert);
 			throw E_rt;
@@ -657,25 +643,94 @@ public class CssSGenerators {
 		   S_csss = O_exec_res.AAS_retvals[0].get(0);
 		   break; // xpath.
 	   default:
-		   if (E_locator_variant == LocatorVariant.regular) {
-	    	  if (I_nbr_selectors_f1 > 1) {
-	    		E_locator_variant = LocatorVariant.or;
-	    	    }
-	         }
-		   if (E_locator == Locator.linkText) {
-			  S_msg_1  = "Implementation restriction: Current version of css doesn't support Operation \'" + E_locator.name() + "\'." + LF +
-					     "Use separate parameter link-text instead.";
+		   String S_locator, S_op;
+		   ArrayList<String>        AS_selector_names;
+		   
+		   if ((E_locator_variant == LocatorVariant.regular) || 
+			   (E_locator_variant == LocatorVariant.or) || 
+			   (E_locator_variant == LocatorVariant.orPrefixWithSeparatePos)) {
+		       S_op = "="; }
+		  
+		    else if (E_locator_variant == LocatorVariant.prefix) {
+		       S_op = "^="; 
+		       }
+		    else if (E_locator_variant == LocatorVariant.prefixWord) {
+		       S_op = "|="; 
+		       }
+		    else if (E_locator_variant == LocatorVariant.partial) {
+		    	S_op = "*="; 
+		        }
+		    else if (E_locator_variant == LocatorVariant.partialWord) {
+		    	S_op = "~=";
+		        }
+		    else if (E_locator_variant == LocatorVariant.suffix) {
+		    	S_op = "$=";
+		        }
+		        
+//		   if (E_locator_variant == LocatorVariant.regular) {
+//	    	  if (I_nbr_selectors_f1 > 1) {
+//	    		 E_locator_variant = LocatorVariant.or;
+//	    	     }
+//	          }
+		   
+		   else if (E_locator_variant != LocatorVariant.or) {
+			  S_msg_1 = "Invalid or unimplemented locator variant for " + E_locator_variant.name();
 			  E_ill_arg = new IllegalArgumentException(S_msg_1);
-			  S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
-			  E_rt = new RuntimeException(S_msg_2,  E_ill_arg);
-
+		      throw E_ill_arg;
+		   }
+		   if (E_locator == Locator.forLabel) {
+				S_locator = "for";
+			    }
+			else {
+			   S_locator = E_locator.name();
+			   }
+		    AS_selector_names = new ArrayList<String>();
+		    for (i1 = 0; i1 < I_nbr_selectors_f1; i1 ++) { // check for duplicate class names
+		        S_using = PI_AS_using[i1];
+			    if (i1 > 0) {
+			       I_idx_old_f0 = AS_selector_names.indexOf(S_using);
+			       if (I_idx_old_f0 > 0) {
+			           S_msg_1 = "Duplicate selector parameter " + i1 + " \'" + S_using + "\' already occurs at position :" + I_idx_old_f0;
+			           E_ill_arg = new IllegalArgumentException(S_msg_1);
+			           throw E_ill_arg;
+			           }}
+			    AS_selector_names.add(S_using);
 		    }
-	   break;
+		    I_nbr_selectors_f0 = I_nbr_selectors_f1 - 1;
+		//    S_bool_op = ",";
+		    if (E_locator_variant == LocatorVariant.orPrefixWithSeparatePos) {
+			   SB_csss = new TextStringBuilder(PI_S_prefix);
+		       }
+		    else if (E_locator_variant == LocatorVariant.or) {
+			   SB_csss = new TextStringBuilder();
+		       }
+		    else {  // and OR regular
+			   SB_csss = new TextStringBuilder(PI_S_prefix + S_tag_name);
+		      }
+		    for (i1 = 0; i1 < I_nbr_selectors_f1; i1++) {
+		       S_using = PI_AS_using[i1];
+		     
+		       if (E_locator_variant == LocatorVariant.orPrefixWithSeparatePos) {
+		          SB_csss.append(S_tag_name + "[" + S_locator + "=" + S_using + "]");
+		           }
+		       else if (E_locator_variant == LocatorVariant.or) {   
+		          SB_csss.append(S_prefix + S_tag_name + "[" + S_locator + "=" + S_using + "]");
+		       }
+		    if (i1 < I_nbr_selectors_f0) {
+		       SB_csss.append(S_bool_op);  // "" or ","
+	           }
+	         }
+	      S_csss = SB_csss.toString();
+		   
+	   break; // default
 	      }
     if (S_csss.equals("")) {
 	   S_csss = "*";
 	   }   
-	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);     
+	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
+	if (B_identity == true) {
+		SBO_retval_csss.B_identity = B_identity;
+	    }
 	return SBO_retval_csss;
 	}
 
