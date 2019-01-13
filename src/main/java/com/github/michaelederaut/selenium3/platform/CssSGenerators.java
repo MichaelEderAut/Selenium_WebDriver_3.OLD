@@ -256,7 +256,7 @@ public class CssSGenerators {
 			
 				super(PI_SB_indexed, PI_AI_dom_offsets);
 				return;
-		}
+		        }
 		
 		public ExtendedCssSelector(
 				final IndexedStrBuilder PI_SB_indexed,
@@ -266,7 +266,7 @@ public class CssSGenerators {
 				super(PI_SB_indexed, PI_AI_dom_offsets);
 				this.O_lnk_txt = PI_O_link_text;
 				return;
-		}	
+		        }	
 	}
 	
 	public static DomVectorExtendedSelector FSBO_get_csss(
@@ -665,19 +665,12 @@ public class CssSGenerators {
 		        }
 		    else if (E_locator_variant == LocatorVariant.suffix) {
 		    	S_op = "$=";
-		        }
-		        
-//		   if (E_locator_variant == LocatorVariant.regular) {
-//	    	  if (I_nbr_selectors_f1 > 1) {
-//	    		 E_locator_variant = LocatorVariant.or;
-//	    	     }
-//	          }
-		   
-		   else if (E_locator_variant != LocatorVariant.or) {
+		        }		   
+		   else  {
 			  S_msg_1 = "Invalid or unimplemented locator variant for " + E_locator_variant.name();
 			  E_ill_arg = new IllegalArgumentException(S_msg_1);
 		      throw E_ill_arg;
-		   }
+		      }
 		   if (E_locator == Locator.forLabel) {
 				S_locator = "for";
 			    }
@@ -714,10 +707,10 @@ public class CssSGenerators {
 		          SB_csss.append(S_tag_name + "[" + S_locator + "=" + S_using + "]");
 		           }
 		       else if (E_locator_variant == LocatorVariant.or) {   
-		          SB_csss.append(S_prefix + S_tag_name + "[" + S_locator + "=" + S_using + "]");
+		          SB_csss.append(S_prefix + S_tag_name + "[" + S_locator + S_op + S_using + "]");
 		       }
 		    if (i1 < I_nbr_selectors_f0) {
-		       SB_csss.append(S_bool_op);  // "" or ","
+		       SB_csss.append(",");  // or
 	           }
 	         }
 	      S_csss = SB_csss.toString();

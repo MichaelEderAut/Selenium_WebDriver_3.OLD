@@ -1457,9 +1457,9 @@ public abstract class ByXp extends By {
     		   final String         prefix,
     	       final DomOffset      domOffsets[])     {
         	
-        	ByXp O_retval_by_loc;
+        	ByXp O_retval_by_xp;
         	
-        	O_retval_by_loc = loc_poly(
+        	O_retval_by_xp = loc_poly(
 					locator,        
 					variant,        
 					using,          
@@ -1468,7 +1468,7 @@ public abstract class ByXp extends By {
 					prefix,         
 					domOffsets); 	
   
-        	return O_retval_by_loc;
+        	return O_retval_by_xp;
         }
         
         /**
@@ -1501,9 +1501,9 @@ public abstract class ByXp extends By {
     		   final String         prefix,
     	       final DomOffset      domOffsets[]) {
         	
-        	ByXp O_retval_by_loc;
+        	ByXp O_retval_by_xp;
         	
-        	O_retval_by_loc = loc_poly(
+        	O_retval_by_xp = loc_poly(
 					locator,        
 					variant,        
 					using,          
@@ -1512,7 +1512,7 @@ public abstract class ByXp extends By {
 					prefix,         
 					domOffsets); 	
   
-        	return O_retval_by_loc;
+        	return O_retval_by_xp;
         }
          
 	  /**
