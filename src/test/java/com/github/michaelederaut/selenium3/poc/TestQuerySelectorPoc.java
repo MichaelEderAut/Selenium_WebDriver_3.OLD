@@ -148,8 +148,8 @@ public class TestQuerySelectorPoc {
 	    		(String) null,  // tag
 	    		(LinkText)null,
 	    		XpathGenerators.IGNORED_IDX,
-	    		(String)null, // prefix 
-	    		(DomOffset[]) null);
+	    		(DomOffset[]) null,
+	    		(String)null); // prefix );
 	    
 //	    O_res_sel_err = CssSGenerators.FSBO_get_csss(
 //	    		new LocatorEnums(Locator.xpath), 
@@ -166,8 +166,9 @@ public class TestQuerySelectorPoc {
 	    		(String) null,  // tag
 	    		(LinkText)null,
 	    		XpathGenerators.IGNORED_IDX,
-	    		(String)null, // prefix 
-	    		(DomOffset[]) null);
+	    		(DomOffset[]) null,
+	    		(String)null // prefix 
+	    		);
 	     
 	    O_res_sel_3 = CssSGenerators.FSBO_get_csss(
 	    		new LocatorEnums(Locator.xpath), 
@@ -175,8 +176,9 @@ public class TestQuerySelectorPoc {
 	    		(String) null,  // tag
 	    		(LinkText)null,
 	    		XpathGenerators.IGNORED_IDX,
-	    		(String)null, // prefix 
-	    		(DomOffset[]) null); 
+	    		(DomOffset[]) null,
+	    		(String)null // prefix 
+	    		); 
 	    
 	    S_xpath_1 = O_res_sel_1.FS_get_buffer();
 		System.out.println("S_xpath_1:" + S_xpath_1);

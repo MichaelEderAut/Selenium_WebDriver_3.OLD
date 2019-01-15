@@ -36,11 +36,13 @@ import static com.github.michaelederaut.basics.ToolsBasics.FS;
 */
 public class CssSGenerators {
 	
- 	public static final String DEFAULT_PREFIX = "";
+ 	
 //	
 //	public static final String S_re_end_criterion_where = "^(.*?)\\(python.exe)";
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
 //	
+	public static final String DEFAULT_TAG    = "";
+	public static final String DEFAULT_PREFIX = "";
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
 	public static final String S_re_tag_name = "^(\\*|[a-z]*)$";
 	public static final regexodus.Pattern P_tag_name = regexodus.Pattern.compile(S_re_tag_name);
@@ -271,12 +273,37 @@ public class CssSGenerators {
 	
 	public static DomVectorExtendedSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
+		final String    PI_S_using, 
+		final String    PI_S_tag, 
+		final LinkText  PI_O_link_text,
+		final int       PI_I_idx_f0,
+		final DomOffset PI_AO_dom_offsets[],
+		final String    PI_S_prefix) {
+		
+		String AS_using[];
+		DomVectorExtendedSelector SBO_retval_csss;
+		
+		AS_using = new String[] {PI_S_using};
+		SBO_retval_csss = FSBO_get_csss(
+				PI_O_locator_enums,
+				AS_using,
+				PI_S_tag,
+				PI_O_link_text,
+	            PI_I_idx_f0,
+	            PI_AO_dom_offsets,
+	            PI_S_prefix
+	            );
+		return SBO_retval_csss;
+	}
+	
+	public static DomVectorExtendedSelector FSBO_get_csss(
+		final LocatorEnums PI_O_locator_enums,
 		final String    PI_AS_using[], 
 		final String    PI_S_tag, 
 		final LinkText  PI_O_link_text,
 		final int       PI_I_idx_f0,
-		final String    PI_S_prefix,
-		final DomOffset PI_AO_dom_offsets[]) {
+		final DomOffset PI_AO_dom_offsets[],
+		final String    PI_S_prefix) {
 		
 		RuntimeException         E_rt;
 		AssertionError           E_assert;

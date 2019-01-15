@@ -1,54 +1,523 @@
 package com.github.michaelederaut.selenium3.framework;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 
-import com.github.michaelederaut.selenium3.framework.ByXp.Loc;
+// import com.github.michaelederaut.selenium3.framework.ByXp.Loc;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorRegularity;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 
-import static com.github.michaelederaut.selenium3.platform.XpathGenerators.DEFAULT_PREFIX;
-import static com.github.michaelederaut.selenium3.platform.XpathGenerators.DEFAULT_TAG;
+import static com.github.michaelederaut.selenium3.platform.CssSGenerators.DEFAULT_PREFIX;
+import static com.github.michaelederaut.selenium3.platform.CssSGenerators.DEFAULT_TAG;
+import static com.github.michaelederaut.selenium3.platform.XpathGenerators.IGNORED_IDX;
 import static org.apache.commons.lang3.StringUtils.LF;
 
-
- 
 /**
  * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;ByCssSelector">Mr. Michael Eder</a>
  */
 public abstract class ByCssS extends By {
 	
-	public static final Class<?>[] AT_e2_s2_o1_i1_s1_ao = new Class<?>[] {
+	//---
+	
+	public static final Class<?>[] AT_e1_s2_o1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class};		   
+	
+	public static final Class<?>[] AT_e2_s2_o1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class};	
+	
+	//----
+	
+	public static final Class<?>[] AT_e1_s2_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class};		   
+	
+	public static final Class<?>[] AT_e2_s2_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class};	
+	
+	//----
+	
+	public static final Class<?>[] AT_e1_s2_o1_i1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class};		   
+	
+	public static final Class<?>[] AT_e2_s2_o1_i1_ai = new Class<?>[] {
 		   Locator.class, 
 		   LocatorVariant.class, 
 		   String.class, 
 		   String.class,
 		   LinkText.class,
 		   int.class,
-		   String.class,
-		   DomOffset[].class};
+		   int[].class};
 	
-	public static final Class<?>[] AT_e2_as_s1_o1_i1_s1_ao = new Class<?>[] {
+	public static final Class<?>[] AT_e2_as_s1_o1_i1_ai = new Class<?>[] {
 		   Locator.class, 
 		   LocatorVariant.class, 
 		   String[].class, 
 		   String.class,
 		   LinkText.class,
 		   int.class,
+		   int[].class};	
+	
+	// int[]
+	
+	public static final Class<?>[] AT_e1_s2_o1_i1_ao = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
 		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1_ao = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class};		   
+	
+	public static final Class<?>[] AT_e2_s2_o1_i1_ao = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_i1_ao = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
 		   DomOffset[].class};	
 	
+	// without prefix END	   
+	// with prefix    START	   
+	
+	public static final Class<?>[] AT_e1_s3 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e1_as_s2 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   String.class};		   
 		   
+	public static final Class<?>[] AT_e2_s3 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e2_as_s2 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   String.class};			   
+		   
+	//--	   
+		   
+	public static final Class<?>[] AT_e1_s2_o1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   String.class};		   
+		   
+	public static final Class<?>[] AT_e2_s2_o1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   String.class};		   
+		   
+	//---	   
+		   
+	public static final Class<?>[] AT_e1_s2_o1_i1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   String.class};		   
+		   
+	public static final Class<?>[] AT_e2_s2_o1_i1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_i1_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   String.class};		   
+		   	   
+	public static final Class<?>[] AT_e1_s2_o1_i1_ai_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1_ai_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class,
+		   String.class};		   
+		   
+	public static final Class<?>[] AT_e2_s2_o1_i1_ai_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_i1_ai_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   int[].class,
+		   String.class};		   
+	// int[]	   
+		   
+	public static final Class<?>[] AT_e1_s2_o1_i1_ao_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e1_as_s1_o1_i1_ao_s1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class,
+		   String.class};		   
+		   
+	public static final Class<?>[] AT_e2_s2_o1_i1_ao_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class,
+		   String.class};
+	
+	public static final Class<?>[] AT_e2_as_s1_o1_i1_ao_s1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   int.class,
+		   DomOffset[].class,
+		   String.class};	
+	// with prefix    END	
+		   
+	public LocatorSelectorCss O_loc_sel_css;
+	
+	public LocatorSelectorCss FO_get_loc_sel_css(
+			final LocatorEnums O_locator_enums) {
+		  
+		  RuntimeException     E_rt;
+		  NullPointerException E_np;
+		  
+		  Class      <? extends ByCssS> OT_clazz;
+		  Constructor<? extends ByCssS> M_ctor;
+		  LocatorVariant E_locator_variant;
+		  Locator        E_locator;
+		  
+		  Object O_selector;
+		  String S_msg_1, S_msg_2, S_clazz_name,  S_selector, 
+		          S_field_name_of_selector 
+		    //    S_locator, S_clazz_name_tail
+		          ;
+		  boolean B_or;
+		  LocatorSelectorCss O_retval_loc_sel_css = null;
+		  
+		  OT_clazz = this.getClass();
+		  S_clazz_name = OT_clazz.getSimpleName();
+		  S_field_name_of_selector = ByXp.S_std_field_name_of_selector;
+		  
+		 E_locator_variant =  O_locator_enums.E_locator_variant;
+		 E_locator         =  O_locator_enums.E_locator;
+		
+		              
+		try {
+			O_selector = FieldUtils.readDeclaredField(this, S_field_name_of_selector, true);
+		} catch (IllegalAccessException | IllegalArgumentException PI_E_ill_arg) {
+			S_msg_1 = "Unable to read field: \'" + S_field_name_of_selector + "\' from object of type: \'" + this.getClass().getName() + "\""; 
+			E_rt = new RuntimeException(S_msg_1, PI_E_ill_arg);
+			throw E_rt;
+		    }
+		  
+		if (O_selector == null) {
+			 S_msg_1 = "Result field of type: \'" + String.class.getName() + "\' must not be null.";
+			 E_np = new NullPointerException(S_msg_1);
+			 S_msg_2 =  "Unable to get field: \'" + S_field_name_of_selector + "\' from object of type: \'" + this.getClass().getName() + "\""; 
+			 E_rt = new RuntimeException(S_msg_2, E_np);
+			 throw E_rt;
+		     }
+		
+		 if (O_selector instanceof String[]) {    // class-names 
+			 S_selector = Arrays.toString((String[])O_selector);
+			 S_field_name_of_selector = "className";
+		     }
+		 else if (O_selector instanceof DomOffset[]) {
+			 S_selector = Arrays.toString((DomOffset[])O_selector);
+		     }
+		 else {
+		    try {
+			  S_selector = (String)O_selector;
+		    } catch (ClassCastException PI_E_clsc) {
+				S_msg_1 = "Unable to obtain field: \'" + S_field_name_of_selector + "\' from object of type: \'" + O_selector.getClass().getName() + "\""; 
+				E_rt = new RuntimeException(S_msg_1, PI_E_clsc);
+				throw E_rt;
+			    } 
+		  }
+		 DomVectorExtendedSelector O_using;
+		 O_using = new DomVectorExtendedSelector(S_selector);
+		 O_retval_loc_sel_css = new LocatorSelectorCss(
+				  E_locator, 
+				  E_locator_variant, 
+				  O_using,
+				  (String)null, // tag
+				  (LinkText)null,
+				  IGNORED_IDX,
+				  (String)null, // prefix
+				  (Constructor<? extends ByCssS>)null);
+				//  (IndexedStrBuilder)null  // this.S_xpath_selector
+				 
+		  return O_retval_loc_sel_css;   
+	}	
+	
+	//  l o c 
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as);
+		   return O_retval_by_css;
+	 }
+	
+	// --- basic routines
+	  
 	public static ByCssS loc(
     		   final Locator        locator,
     		   final LocatorVariant variant,
@@ -56,8 +525,8 @@ public abstract class ByCssS extends By {
     		   final String         expectedTagName,
     		   final LinkText       linkText,
     		   final int            index,
-    		   final String         prefix,
-    	       final DomOffset      domOffsets[])     {
+    	       final DomOffset      domOffsets[],
+    	       final String         prefix)     {
         	
         	ByCssS O_retval_by_css;
         	
@@ -67,9 +536,9 @@ public abstract class ByCssS extends By {
 					using,          
 					expectedTagName,
 					linkText,
-					index,          
-					prefix,         
-					domOffsets); 	
+					index,
+					domOffsets,
+					prefix); 	
   
         	return O_retval_by_css;
         }	   
@@ -81,8 +550,8 @@ public abstract class ByCssS extends By {
     		   final String         expectedTagName,
     		   final LinkText       linkText,
     		   final int            index,
-    		   final String         prefix,
-    	       final DomOffset      domOffsets[]) {
+    	       final DomOffset      domOffsets[],
+    	       final String         prefix) {
         	
         	ByCssS O_retval_by_css;
         	
@@ -92,9 +561,9 @@ public abstract class ByCssS extends By {
 					using,          
 					expectedTagName,
 					linkText,
-					index,          
-					prefix,         
-					domOffsets); 	
+					index,             
+					domOffsets,
+					prefix); 	
   
         	return O_retval_by_css;
         }
@@ -106,8 +575,9 @@ public abstract class ByCssS extends By {
     		   final String         expectedTagName,
     		   final LinkText       linkText,
     		   final int            index,
-    		   final String         prefix,
-    	       final DomOffset      domOffsets[]) {
+    		   final DomOffset      domOffsets[],
+    		   final String         prefix
+    	      ) {
     	   
     	   final LocatorRegularity E_min_loc_regularity = XpathGenerators.LocatorRegularity.xpathgen;
     	   final int I_min_regularity                   = E_min_loc_regularity.ordinal();
@@ -122,7 +592,7 @@ public abstract class ByCssS extends By {
     	   RuntimeException        E_rt;
     
     	   LocatorVariant E_locator_variant;
-    	   Object O_res_by_xp;
+    	   Object O_res_by_css;
     	   String  S_msg_1, S_msg_2, S_msg_3, S_tag_name, S_prefix, S_selector, AS_selectors[];
     	   int i1, I_nbr_selectors_f1;
     	    
@@ -195,11 +665,11 @@ public abstract class ByCssS extends By {
     			   S_selector = (String)using; 
     			   AS_selectors = new String[1];
     			   AS_selectors[0] = S_selector;
-    			   M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_s2_o1_i1_s1_ao);
+    			   M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_s2_o1_i1_ao_s1);
                    }
 		       else {
 		          AS_selectors = (String[])using;
-		          M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_o1_i1_s1_ao);
+		          M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_o1_i1_ao_s1);
 		          }
 		        
 		       I_nbr_selectors_f1 = AS_selectors.length;
@@ -217,21 +687,21 @@ public abstract class ByCssS extends By {
 		    	   E_np = new NullPointerException(S_msg_1);
 		    	   throw E_np;
 		           }
-		       O_res_by_xp = M_ctor.newInstance(locator, E_locator_variant, using, S_tag_name, index, S_prefix, domOffsets);
-		       if (O_res_by_xp == null) {
+		       O_res_by_css = M_ctor.newInstance(locator, E_locator_variant, using, S_tag_name, linkText, index, domOffsets, S_prefix);
+		       if (O_res_by_css == null) {
 		    	   S_msg_1 = "Unable to get new instance of class \'" + T_clazz.getName() + "\'";
 		    	   E_np = new NullPointerException(S_msg_1);
 		    	   throw E_np; 
 		           }
-		       if (!(O_res_by_xp instanceof Loc)) {
-		    	   S_msg_1 = "\'" + O_res_by_xp.getClass().getName() + "\' not a subclass of \'" + T_clazz.getName() + "\'";
+		       if (!(O_res_by_css instanceof Loc)) {
+		    	   S_msg_1 = "\'" + O_res_by_css.getClass().getName() + "\' not a subclass of \'" + T_clazz.getName() + "\'";
 		    	   E_cls_cast = new ClassCastException(S_msg_1);
 		    	   throw E_cls_cast;
 		           }
-		       O_retval_by_css = (Loc)O_res_by_xp;
+		       O_retval_by_css = (Loc)O_res_by_css;
     	       }
     	    catch (Exception PI_E_cause) {
-			    S_msg_3 = "unable to create instance of subclass of \'" + ByXp.class.getName() + "\'.";
+			    S_msg_3 = "unable to create instance of subclass of \'" + ByCssS.class.getName() + "\'.";
 			    E_rt = new RuntimeException(S_msg_3, PI_E_cause);
 			    throw E_rt;
     	   }
@@ -239,19 +709,153 @@ public abstract class ByCssS extends By {
     	   return O_retval_by_css;   
        }         
          
-	
 	public static class Loc extends ByCssS {
+		
+		 public  Object O_selector;
+		 private static final Class<? extends ByCssS> T_clazz = Loc.class;
+		  
+		 public Loc(
+				  final Locator loc,
+				  final LocatorVariant variant,
+				  final String using,
+				  final String tag,
+				  final LinkText linkText,
+				  final int      index,
+				  final DomOffset[] domOffsets,
+				  final String prefix) {
+			 
+			  LocatorEnums O_loc_enums;
+			 
+			  this.O_selector = using;
+			  O_loc_enums = new LocatorEnums(loc, variant);
+		      this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);	
+		      this.O_loc_sel_css.S_tag_expected = tag;
+		      this.O_loc_sel_css.O_lnk_txt = linkText;
+		      this.O_loc_sel_css.I_idx_f0  = index;
+		      this.O_loc_sel_css.S_prefix  = prefix;
+		      this.O_loc_sel_css.M_ctor    = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_s2_o1_i1_ao_s1);
+		      this.O_loc_sel_css.SBO_using = CssSGenerators.FSBO_get_csss(
+		    		  O_loc_enums,
+		    		  (String)this.O_selector,
+		    		  tag,
+		    		  linkText,
+		    		  index,
+		    		  domOffsets,
+		    		  prefix);
+		 }
+		 
+		 public Loc(
+				  final Locator loc,
+				  final LocatorVariant variant,
+				  final String[] using,
+				  final String tag,
+				  final LinkText linkText,
+				  final int    index,
+				  final DomOffset[] domOffsets,
+				  final String prefix
+				) {
+			  
+			  LocatorEnums O_loc_enums;
+			  
+			  this.O_selector = using;
+			  O_loc_enums = new LocatorEnums(loc, variant);
+		      this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);	
+		      this.O_loc_sel_css.S_tag_expected = tag;
+		      this.O_loc_sel_css.O_lnk_txt = linkText;
+		      this.O_loc_sel_css.I_idx_f0  = index;
+		      this.O_loc_sel_css.S_prefix  = prefix;
+		      this.O_loc_sel_css.M_ctor    = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_o1_i1_ao_s1);
+		      this.O_loc_sel_css.SBO_using = CssSGenerators.FSBO_get_csss(
+		    		  O_loc_enums,
+		    		  (String[])this.O_selector,
+		    		  tag,
+		    		  linkText,
+		    		  index,
+		    		  domOffsets,
+		    		  prefix);
+		      return;
+		    }
+		
 		@Override
-			public List<WebElement> findElements(SearchContext context) {	
-			// TODO
-			return null;
-		}
-		@Override
+		  public List<WebElement> findElements(SearchContext context) {	
+			    	
+	            List<WebElement> AO_retval_web_elems;
+	            Locator E_locator;
+	 
+	            this.O_loc_sel_css.I_idx_f0 = XpathGenerators.ALL_IDX;
+	            E_locator = this.O_loc_sel_css.E_locator;
+	            if (E_locator == Locator.idOrName) {
+	            	NoSuchElementException E_cause;
+	            	 List<WebElement> AO_res_web_elems_by_id, AO_res_web_elems_by_name;
+	            	 AO_retval_web_elems = new ArrayList<WebElement>();
+	            	 int I_nbr_elems_found_f1;
+	            	 
+	            	 E_cause = null;
+	            	 this.O_loc_sel_css.E_locator = Locator.id;
+	            	 try {
+	            	    AO_res_web_elems_by_id   = RemoteWebElementCssS.FAO_find_elements_by_css(this);
+	            	    }
+	            	 catch (NoSuchElementException PI_E_no_such_elem) {
+	            		 E_cause = PI_E_no_such_elem;
+	            		 AO_res_web_elems_by_id = new ArrayList<WebElement>(); 
+	            	   }
+	            	 
+	            	 this.O_loc_sel_css.E_locator = Locator.name;
+	            	 try {
+	            	    AO_res_web_elems_by_name  = RemoteWebElementCssS.FAO_find_elements_by_css(this);
+	            	    }
+	            	 catch (NoSuchElementException PI_E_no_such_elem) {
+	            		 E_cause = PI_E_no_such_elem;
+	            		 AO_res_web_elems_by_name = new ArrayList<WebElement>(); 
+	            	     }
+	            	 AO_retval_web_elems.addAll(AO_res_web_elems_by_id);
+			         AO_retval_web_elems.addAll(AO_res_web_elems_by_name);
+			         I_nbr_elems_found_f1 = AO_retval_web_elems.size();
+			         if (I_nbr_elems_found_f1 == 0) {
+			        	 if (E_cause != null) {
+			        		 throw E_cause;
+			        	    }
+			             }
+	                  }
+	            else {
+	                AO_retval_web_elems = RemoteWebElementCssS.FAO_find_elements_by_css(this);
+	               }
+	            return AO_retval_web_elems;	
+			    }
+
+			@Override
 			public WebElement findElement(SearchContext context) {
-			// TODO
-			return null;
+			    
+		        Locator E_locator;
+			    
+		        WebElement  O_retval_web_elem;
+		        
+		        E_locator = this.O_loc_sel_css.E_locator;
+		        if (E_locator == Locator.idOrName) {
+		           boolean B_use_by_name = false;
+		           
+		           O_retval_web_elem = null;
+		           this.O_loc_sel_css.E_locator = Locator.id;
+		           try {
+					    O_retval_web_elem = RemoteWebElementCssS.FO_find_element_by_css(this);
+				   } catch (NoSuchElementException PI_no_such_elem) {
+					   B_use_by_name = true;
+				       }
+		           if (O_retval_web_elem == null) {
+				      B_use_by_name = true;
+				      }
+		           if (B_use_by_name) {
+		        	  this.O_loc_sel_css.E_locator = Locator.name;
+		        	  O_retval_web_elem = RemoteWebElementCssS.FO_find_element_by_css(this);
+		              }
+		           }
+		        else {
+		        	 O_retval_web_elem = RemoteWebElementCssS.FO_find_element_by_css(this);
+		           }
+			    return O_retval_web_elem;
+			    }
 		}
-	}
+	
 	  @Override
 	  public boolean equals(final Object PI_O_other) {
 		  return true;
