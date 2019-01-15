@@ -404,7 +404,7 @@ public abstract class ByXp extends By {
     * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
 	 * </ul>
 	 */	
-	public static final Class<?>[] AT_e1_s1_as_i1_s1_ao = new Class<?>[] {
+	public static final Class<?>[] AT_e1_as_i1_s1_ao = new Class<?>[] {
 		Locator.class, 
 		String[].class, 
 		String.class,
@@ -496,14 +496,16 @@ public abstract class ByXp extends By {
 		  Locator        E_locator;
 		  
 		  Object O_selector;
-		  String S_msg_1, S_msg_2, S_clazz_name, S_clazz_name_tail, S_selector, 
-		          S_locator, S_field_name_of_selector;
+		  String S_msg_1, S_msg_2, S_clazz_name,  S_selector, 
+		          S_field_name_of_selector 
+		    //    S_locator, S_clazz_name_tail
+		          ;
 		  boolean B_or;
 		  LocatorSelectorXp O_retval_loc_sel_xp = null;
 		  
 		  OT_clazz = this.getClass();
 		  S_clazz_name = OT_clazz.getSimpleName();
-		  S_clazz_name_tail = S_clazz_name.substring(2);
+	//	  S_clazz_name_tail = S_clazz_name.substring(2);
 		  S_field_name_of_selector = S_std_field_name_of_selector;
 		  
 		 E_locator_variant =  O_locator_enums.E_locator_variant;
@@ -1422,7 +1424,7 @@ public abstract class ByXp extends By {
             			   domOffsets);
             	   O_retval_by_xp.O_loc_sel_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(
     			        Loc.class, 
-    			        AT_e1_s1_as_i1_s1_ao);
+    			        AT_e1_as_s1_i1_s1_ao);
             	   return O_retval_by_xp;
                }                        
      
@@ -2148,9 +2150,9 @@ public abstract class ByXp extends By {
 			  O_loc_enums = new LocatorEnums(loc, variant);
 		      this.O_loc_sel_xp = this.FO_get_loc_sel_xp(O_loc_enums);	
 		      this.O_loc_sel_xp.S_tag_expected = tag;
-		      this.O_loc_sel_xp.I_idx_f0 = index;
-		      this.O_loc_sel_xp.S_prefix = prefix;
-		      this.O_loc_sel_xp.M_ctor =  ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_i1_s1_ao);
+		      this.O_loc_sel_xp.I_idx_f0  = index;
+		      this.O_loc_sel_xp.S_prefix  = prefix;
+		      this.O_loc_sel_xp.M_ctor    = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_i1_s1_ao);
 		      this.O_loc_sel_xp.SBO_using = XpathGenerators.FSBO_get_xpath(
 		    		  O_loc_enums,
 		    		  (String[])this.O_selector,
@@ -2162,7 +2164,7 @@ public abstract class ByXp extends By {
 		    }
 		  
 		  @Override
-			public List<WebElement> findElements(SearchContext context) {	
+		  public List<WebElement> findElements(SearchContext context) {	
 			    	
 	            List<WebElement> AO_retval_web_elems;
 	            Locator E_locator;

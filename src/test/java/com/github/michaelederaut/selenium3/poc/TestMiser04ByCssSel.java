@@ -18,11 +18,15 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Wait;
 
+import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 
 import junit.framework.Assert;
@@ -39,8 +43,9 @@ public class TestMiser04ByCssSel {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		FirefoxBinary O_ff_bin;
 		
-		WebElement         O_web_element_miser_loc_1, O_web_element_miser_loc_2,
-		                   O_web_element;
+		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
+					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
+		            O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
 		Object O_res_execute_1, O_res_web_element, O_res_vectors;
@@ -91,8 +96,26 @@ public class TestMiser04ByCssSel {
 	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_1);
 
+	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.cssSelector(".gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_1);
+	
 	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_2);
+	
+	O_web_element_miser_loc_3 = NavigationUtils.O_rem_drv.findElement(ByCssS.className("gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_3);
+	
+	O_web_element_miser_loc_4 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+			Locator.className, 
+			LocatorVariant.regular, 
+			"gh_loc_bt", 
+			(String)null, // tag
+			(LinkText)null, 
+			XpathGenerators.IGNORED_IDX, 
+			(DomOffset[])null,
+			(String)null));  // prefix
+	
+	Assert.assertNotNull(O_web_element_miser_loc_4);
 	 
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
 			  "var i1, I_nbr_elems_f1, O_elem, S_clickable_typeof; " + 
@@ -117,7 +140,7 @@ public class TestMiser04ByCssSel {
 			 "HS_retval = {'elemcount' : I_nbr_elemens_f1, 'vector' : AA_vectors}; " +
 			 "return HS_retval;" ;
 	O_res_execute_1 = NavigationUtils.O_rem_drv.executeScript(S_cmd_1);
-	Assert.assertNotNull(O_web_element_miser_loc_1);
+	Assert.assertNotNull(O_res_execute_1);
 	HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_execute_1;
 	
 	L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));
