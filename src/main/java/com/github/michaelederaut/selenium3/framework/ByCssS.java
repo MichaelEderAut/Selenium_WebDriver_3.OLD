@@ -38,18 +38,109 @@ public abstract class ByCssS extends By {
 	
 	//---
 	
+	public static final Class<?>[] AT_e1_s1_o1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   LinkText.class};
+	
+		   	   
+	public static final Class<?>[] AT_e1_s1_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   LinkText.class,
+		   int.class};
+	   
+		   
+	public static final Class<?>[] AT_e1_s1_o1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   LinkText.class,
+		   int[].class};	   
+	
+	public static final Class<?>[] AT_e1_s1_o1_i1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   LinkText.class,
+		   int.class,
+		   int[].class};	   
+		   
 	public static final Class<?>[] AT_e1_s2_o1 = new Class<?>[] {
 		   Locator.class, 
 		   String.class, 
 		   String.class,
 		   LinkText.class};
+		   
+	public static final Class<?>[] AT_e1_s2_o1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String.class, 
+		   String.class,
+		   LinkText.class,
+		   int[].class};	   
 	
+	public static final Class<?>[]  AT_e1_as_o1 = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   LinkText.class};
+		   
+	public static final Class<?>[]  AT_e1_as_o1_i1 =  new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   LinkText.class,
+		   int.class};
+
+	public static final Class<?>[]  AT_e1_as_o1_i1_ai =  new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   LinkText.class,
+		   int.class,
+		   int[].class};
+		   
+	public static final Class<?>[]  AT_e1_as_o1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   LinkText.class,
+		   int[].class};
+		   
 	public static final Class<?>[] AT_e1_as_s1_o1 = new Class<?>[] {
 		   Locator.class, 
 		   String[].class, 
 		   String.class,
 		   LinkText.class};		   
 	
+	public static final Class<?>[] AT_e1_as_s1_o1_ai = new Class<?>[] {
+		   Locator.class, 
+		   String[].class, 
+		   String.class,
+		   LinkText.class,
+		   String[].class};		   
+		   
+	public static final Class<?>[] AT_e2_s1_o1 = new Class<?>[] {
+		   Locator.class,
+		   LocatorVariant.class,
+		   String.class,
+		   LinkText.class};		
+		   
+	public static final Class<?>[] AT_e2_s1_o1_i1 = new Class<?>[] {
+		   Locator.class,
+		   LocatorVariant.class,
+		   String.class,
+		   LinkText.class,
+		   int.class};		   
+	
+	public static final Class<?>[] AT_e2_s1_o1_ai = new Class<?>[] {
+		   Locator.class,
+		   LocatorVariant.class,
+		   String.class,
+		   LinkText.class,
+		   int[].class};		   
+		   
+	public static final Class<?>[] AT_e2_s1_o1_a1 = new Class<?>[] {
+		   Locator.class,
+		   LocatorVariant.class,
+		   String.class,
+		   LinkText.class,
+		   int[].class};		   
+		   
 	public static final Class<?>[] AT_e2_s2_o1 = new Class<?>[] {
 		   Locator.class, 
 		   LocatorVariant.class, 
@@ -57,6 +148,26 @@ public abstract class ByCssS extends By {
 		   String.class,
 		   LinkText.class};
 	
+	public static final Class<?>[] AT_e2_as_o1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   LinkText.class};	   
+	
+	public static final Class<?>[] AT_e2_as_o1_i1 = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   LinkText.class,
+		   int.class};	   
+		   
+    public static final Class<?>[] AT_e2_as_o1_ai = new Class<?>[] {
+		   Locator.class, 
+		   LocatorVariant.class, 
+		   String[].class, 
+		   LinkText.class,
+		   int[].class};	
+		   
 	public static final Class<?>[] AT_e2_as_s1_o1 = new Class<?>[] {
 		   Locator.class, 
 		   LocatorVariant.class, 
@@ -488,7 +599,7 @@ public abstract class ByCssS extends By {
 		   O_retval_by_css.O_loc_sel_css.M_ctor = 
 				   ConstructorUtils.getAccessibleConstructor(
 				   Loc.class,
-				   ByXp.AT_e1_s1);
+				   ByXp.AT_e2_s1);
 		   return O_retval_by_css;
 	 }
 	 
@@ -512,11 +623,1191 @@ public abstract class ByCssS extends By {
 		   O_retval_by_css.O_loc_sel_css.M_ctor = 
 				   ConstructorUtils.getAccessibleConstructor(
 				   Loc.class,
-				   ByXp.AT_e1_as);
+				   ByXp.AT_e2_as);
 		   return O_retval_by_css;
 	 }
 	
-	// --- basic routines
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s2);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_s1);
+		   return O_retval_by_css;
+	 } 
+	 
+	 
+	 	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final LinkText       linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s1_o1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final LinkText      linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_o1);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final LinkText       linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_s1_o1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final LinkText       linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				    linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_as_o1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s2_o1);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_s1_o1);
+		   return O_retval_by_css;
+	 }
+	 
+	 	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s1_i1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_i1);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_s1_i1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_s1_i1);
+		   return O_retval_by_css;
+	 }
+	
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s2_i1);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator   locator,
+    		   final String[]  using,
+    		   final String    expectedTagname,
+    		   final int       index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_s1_i1);
+		   return O_retval_by_css;
+	 } 
+	  
+	 	 public static ByCssS loc(
+    		   final Locator   locator,
+    		   final String    using,
+    		   final LinkText  linkText,
+    		   final int       index
+    		   ) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s1_o1_i1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator       locator,
+    		   final String[]      using,
+    		   final LinkText      linkText,
+    		   final int           index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_o1_i1);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final LinkText       linkText,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_s1_o1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final LinkText       linkText,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_as_o1_i1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s2_o1_i1);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int            index) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   index,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_s1_o1_i1);
+		   return O_retval_by_css;
+	 } 
+	 
+    //---
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_ai);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final int[]         domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_s1_ai);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_as_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s2_ai);
+		   return O_retval_by_css;
+	 } 
+	 
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname,
+    		   final int[]          domOffsets)  {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_s1_ai
+				   );
+		   return O_retval_by_css;
+	 } 
+	 
+	 	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final LinkText       linkText,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s1_o1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator       locator,
+    		   final String[]      using,
+    		   final LinkText      linkText,
+    		   final int[]         domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   (DomOffset[])null,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_o1_ai);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final LinkText       linkText,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_s1_o1_ai);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final LinkText       linkText,
+    		   final int[]          domOffsets 
+			  ) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				    linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_as_o1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int[]          domOffsets
+    		   ) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s2_o1_ai);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_s1_o1_ai);
+		   return O_retval_by_css;
+	 }
+	 
+	 	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   
+		   DomOffset AO_dom_offsets[];
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s1_i1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_i1);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final int            index,
+    		   final int[]          domOffsets 
+			  ) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   XpathGenerators.IGNORED_IDX,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_s1_i1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   (LinkText)null,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e2_s1_i1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);		   
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_s2_i1_ai);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator   locator,
+    		   final String[]  using,
+    		   final String    expectedTagname,
+    		   final int       index,
+    		   final int[]     domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   (LinkText)null,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByXp.AT_e1_as_s1_i1_ai);
+		   return O_retval_by_css;
+	 } 
+	  
+	 	 public static ByCssS loc(
+    		   final Locator   locator,
+    		   final String    using,
+    		   final LinkText  linkText,
+    		   final int       index,
+    		   final int[]     domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s1_o1_i1_ai);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator  locator,
+    		   final String[]  using,
+    		   final LinkText  linkText,
+    		   final int       index,
+    		   final int[]     domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_o1_i1_ai);
+		   return O_retval_by_css;
+	   }
+	
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String         using,
+    		   final LinkText       linkText,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_s1_o1);
+		   return O_retval_by_css;
+	 }
+	 
+	  public static ByCssS loc(
+    		   final Locator        locator,
+    		   final LocatorVariant variant,
+    		   final String[]       using,
+    		   final LinkText       linkText,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   
+		   O_retval_by_css = loc(
+				   locator,
+				   variant,
+				   using,
+				   DEFAULT_TAG,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e2_as_o1_i1);
+		   return O_retval_by_css;
+	 }
+	
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String         using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int            index,
+    		   final int[]          domOffsets
+			 ) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_s2_o1_i1_ai);
+		   return O_retval_by_css;
+	 } 
+	 
+	 public static ByCssS loc(
+    		   final Locator        locator,
+    		   final String[]       using,
+    		   final String         expectedTagname,
+    		   final LinkText       linkText,
+    		   final int            index,
+    		   final int[]          domOffsets) {
+		 
+		   ByCssS O_retval_by_css;
+		   DomOffset AO_dom_offsets[];
+		   
+		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   O_retval_by_css = loc(
+				   locator,
+				   LocatorVariant.regular,
+				   using,
+				   expectedTagname,
+				   linkText,
+				   index,
+				   AO_dom_offsets,
+				   CssSGenerators.DEFAULT_PREFIX);
+		   
+		   O_retval_by_css.O_loc_sel_css.M_ctor = 
+				   ConstructorUtils.getAccessibleConstructor(
+				   Loc.class,
+				   ByCssS.AT_e1_as_s1_o1_i1_ai);
+		   return O_retval_by_css;
+	 }  
+	 
+	// ---  basic routines
 	  
 	public static ByCssS loc(
     		   final Locator        locator,

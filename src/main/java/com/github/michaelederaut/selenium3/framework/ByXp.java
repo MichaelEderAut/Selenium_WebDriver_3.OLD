@@ -73,6 +73,22 @@ public abstract class ByXp extends By {
 	 */	
 	public static final Class<?>[] AT_e1_s1 = new Class<?>[] {Locator.class, String.class};
 	
+	public static final Class<?>[] AT_e1_s1_i1 = new Class<?>[] {
+		Locator.class, 
+		String.class,
+		int.class};
+		
+	public static final Class<?>[] AT_e1_s1_ai = new Class<?>[] {
+		Locator.class, 
+		String.class,
+		int[].class};
+		
+	public static final Class<?>[] AT_e1_s1_i1_ai = new Class<?>[] {
+		Locator.class, 
+		String.class,
+		int.class,
+		int[].class};	
+		
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
@@ -81,6 +97,25 @@ public abstract class ByXp extends By {
 	 */	
 	public static final Class<?>[] AT_e1_as = new Class<?>[] {Locator.class, String[].class};
 	
+	public static final Class<?>[] AT_e1_as_i1 = 
+			new Class<?>[] {
+		       Locator.class, 
+		       String[].class,
+		       int.class};
+		       
+	public static final Class<?>[] AT_e1_as_ai = 
+			new Class<?>[] {
+		       Locator.class, 
+		       String[].class,
+		       int[].class};	       
+	
+	public static final Class<?>[] AT_e1_as_i1_ai = 
+			new Class<?>[] {
+		       Locator.class, 
+		       String[].class,
+		       int[].class,
+		       int.class};
+		       
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
@@ -90,6 +125,28 @@ public abstract class ByXp extends By {
 	 */	
 	public static final Class<?>[] AT_e2_s1 = new Class<?>[] {Locator.class, LocatorVariant.class, String.class};
 	
+	public static final Class<?>[] AT_e2_s1_i1 =  new Class<?>[] {
+		Locator.class,
+		LocatorVariant.class,
+		String.class,
+	    int.class	
+	    };
+	
+	 public static final Class<?>[] AT_e2_s1_ai =  new Class<?>[] {
+		Locator.class,
+		LocatorVariant.class,
+		String.class,
+	    int[].class	
+	    };   
+	    
+	 public static final Class<?>[] AT_e2_s1_i1_ai =  new Class<?>[] {
+		Locator.class,
+		LocatorVariant.class,
+		String.class,
+	    int.class,
+	    int[].class,
+	    };   
+	    
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
@@ -98,7 +155,12 @@ public abstract class ByXp extends By {
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_as = new Class<?>[] {Locator.class, LocatorVariant.class, String[].class};
-	
+
+	public static final Class<?>[] AT_e2_as_ai = new Class<?>[] {
+		Locator.class, 
+		LocatorVariant.class, 
+		String[].class,
+		int[].class};
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
@@ -107,6 +169,12 @@ public abstract class ByXp extends By {
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s2 = new Class<?>[] {Locator.class, String.class, String.class};
+	
+	public static final Class<?>[] AT_e1_s2_ai = new Class<?>[] {
+		Locator.class, 
+		String.class, 
+		String.class,
+		int[].class};
 	
 	
 	/**
@@ -118,6 +186,11 @@ public abstract class ByXp extends By {
 	 */	
 	public static final Class<?>[] AT_e1_as_s1 = new Class<?>[] {Locator.class, String[].class, String.class};
 	
+	public static final Class<?>[] AT_e1_as_s1_ai = new Class<?>[] {
+		Locator.class, 
+		String[].class, 
+		String.class,
+		int[].class};
 	
 	/**
 	 * <ul>
@@ -161,6 +234,13 @@ public abstract class ByXp extends By {
 		String.class,
 		int.class};
 
+		public static final Class<?>[] AT_e1_s2_i1_ai = new Class<?>[] {
+		Locator.class, 
+		String.class, 
+		String.class,
+		int.class,
+		int[].class
+		};
 		
 /**
 	 * <ul>
@@ -174,7 +254,14 @@ public abstract class ByXp extends By {
 		Locator.class, 
 		String[].class, 
 		String.class,
-		int.class};		
+		int.class};	
+		
+	public static final Class<?>[] AT_e1_as_s1_i1_ai = new Class<?>[] {
+		Locator.class, 
+		String[].class, 
+		String.class,
+		int.class,
+		int[].class};	
 				
 	/**
 	 * <ul>
