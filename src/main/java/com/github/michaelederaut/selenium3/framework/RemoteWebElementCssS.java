@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Stack;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators.ExtendedCssSelector;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
@@ -82,8 +85,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final ByCssS PI_O_locator) {
 		
 	    LocatorSelectorCss O_by_locator_css;
+	    LinkText O_lnk_txt;
+	    XpathGenerators.LocatorVariant E_locator_variant;
 		DomOffset  AO_DOM_offset_vector_requested[];
-		DomVectorExtendedSelector SB_css_equivalent;
+		/* DomVectorExtendedSelector */  ExtendedCssSelector SB_css_equivalent;
 		AbstractMap<String, ? extends Object> HO_res_exec;
 		
 			
@@ -93,39 +98,106 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		RemoteWebDriver O_web_driver_parent;
 		RemoteWebElement O_res_web_element;
-		Object O_res_exec;
+		StringBuilder SB_cmd_js_multiple;
 		
-		String S_web_driver_parent, S_found_by;
+		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation;
+		Object O_res_exec;
 		long L_nbr_elems_f1;
 		int i1;
 		
 		ArrayList<Object> AO_res_exec_elements, AO_res_vectors;
 		O_by_locator_css = PI_O_locator.O_loc_sel_css;
+		O_lnk_txt = O_by_locator_css.O_lnk_txt;
 		AO_DOM_offset_vector_requested = O_by_locator_css.SBO_using.AO_dom_offsets;
+		
+		SB_cmd_js_multiple = new StringBuilder();
 		SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
 		
-		SB_css_equivalent = O_by_locator_css.SBO_using;
+		SB_css_equivalent = (ExtendedCssSelector)O_by_locator_css.SBO_using;
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
 		
-		S_cmd_js_multiple = 
-				"var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
-		        "var AA_vectors = []; " +
-		        "var i1, I_nbr_elems_f1 ;" +
-				"var AO_elems = []; " +
-		        "AO_elems = document.querySelectorAll(\"" + S_css_unindexed  + "\"); " +
-				"if (AO_elems) {" +
-	               "I_nbr_elemens_f1 = AO_elems.length;} " +
+		// https://www.w3schools.com/jsref/prop_anchor_text.asp
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+        // 'The quick brown fox jumps over the lazy dog. It barked.'.match('^.*$')
+		// --> object array
+		
+		E_locator_variant = null;
+		S_lnk_txt_comp_operation = null;
+		if (O_lnk_txt != null) {
+			E_locator_variant = O_lnk_txt.E_variant; 
+			if (E_locator_variant == LocatorVariant.regexp) {
+				S_lnk_txt_comp_operation = "S_txt_found === S_comp_patt";
+			    }
+			else if (E_locator_variant == LocatorVariant.prefix) {
+				S_lnk_txt_comp_operation = "S_txt_found.startsWith('S_comp_patt')";
+			    }
+			else if (E_locator_variant == LocatorVariant.prefix) {
+				S_lnk_txt_comp_operation = "S_txt_found.includes('S_comp_patt')";
+			    }
+			else if (E_locator_variant == LocatorVariant.suffix) {
+				S_lnk_txt_comp_operation = "S_txt_found.endsWith('S_comp_patt')";
+			   }
+		    }
+		if (NavigationUtils.O_rem_drv instanceof InternetExplorerDriver) {
+			// inject polyfill here if necessary
+			if (E_locator_variant == LocatorVariant.prefix) {  // startsWith()
+				// stackoverflow.com/questions/30867172/code-not-running-in-ie-11-works-fine-in-chrome
+		        SB_cmd_js_multiple.append(
+	    		"if (!String.prototype.startsWith) { " +
+                    "String.prototype.startsWith = function(searchString, position) { " +
+                       "position = position || 0; " +
+                       "return this.indexOf(searchString, position) === position;" +
+                       "};}");
+			     }
+			else if (E_locator_variant == LocatorVariant.partial) {  // includes()
+				// stackoverflow.com/questions/31119300/ie11-object-doesnt-support-property-or-method-includes-javascript-window
+			   SB_cmd_js_multiple.append(
+			   "if (!String.prototype.includes) {" +
+                  "String.prototype.includes = function(search, start) { " +
+                  "if (typeof start !== 'number') {" +
+                      "start = 0; " +
+                      "}" +
+                  "if (start + search.length > this.length) { " +
+                       "return false; " +
+                  "} else { " +
+                     "return this.indexOf(search, start) !== -1; " +
+                  "}};}");
+			      }
+			 else if (E_locator_variant == LocatorVariant.suffix) { // endsWith()
+				 // developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+				  SB_cmd_js_multiple.append(
+				  "if (!String.prototype.endsWith) { " +
+	                  "String.prototype.endsWith = function(search, this_len) { " + 
+		              "if (this_len === undefined || this_len > this.length) { " +
+			              "this_len = this.length; " + 
+		                  "} " +
+		               "return this.substring(this_len - search.length, this_len) === search; " +
+	                   "};}");
+			      }
+		       }
+		SB_cmd_js_multiple.append( 
+			"var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
+		    "var AA_vectors = []; " +
+		    "var i1, I_nbr_elems_f1, " +
+		    "    B_add_this_node; " +
+			"var AO_elems = []; " +
+		    "AO_elems = document.querySelectorAll(\"" + S_css_unindexed  + "\"); " +
+			"if (AO_elems) {" +
+	            "I_nbr_elemens_f1 = AO_elems.length;} " +
 			    "else { " +
 	               "I_nbr_elemens_f1 = 0; " +
 			        "} " +
 	             "HS_retval['elemcount'] = I_nbr_elemens_f1; " +
 	             "for (i1 = 0; i1 < I_nbr_elemens_f1; i1++) { " +
-			     "O_elem = AO_elems[i1]; " +
-	             "S_clickable_typeof = typeof(O_elem.click); " +
-	             "AA_vectors.push([O_elem, S_clickable_typeof]); " +
+				     "O_elem = AO_elems[i1]; " +
+		             "S_clickable_typeof = typeof(O_elem.click); " +
+		             "AA_vectors.push([O_elem, S_clickable_typeof]); " +
 			 "}" +  
 			 "HS_retval = {'elemcount' : I_nbr_elemens_f1, 'vector' : AA_vectors}; " +
-			 "return HS_retval;" ;
+			 "return HS_retval;") ;
+		
+		S_cmd_js_multiple = SB_cmd_js_multiple.toString();
         O_res_exec = NavigationUtils.O_rem_drv.executeScript(S_cmd_js_multiple);
         HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_exec;
         L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));

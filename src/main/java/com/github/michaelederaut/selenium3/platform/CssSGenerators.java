@@ -271,7 +271,7 @@ public class CssSGenerators {
 		        }	
 	}
 	
-	public static DomVectorExtendedSelector FSBO_get_csss(
+	public static /* DomVectorExtendedSelector */ ExtendedCssSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
 		final String    PI_S_using, 
 		final String    PI_S_tag, 
@@ -281,7 +281,7 @@ public class CssSGenerators {
 		final String    PI_S_prefix) {
 		
 		String AS_using[];
-		DomVectorExtendedSelector SBO_retval_csss;
+		/* DomVectorExtendedSelector */ ExtendedCssSelector  SBO_retval_csss;
 		
 		AS_using = new String[] {PI_S_using};
 		SBO_retval_csss = FSBO_get_csss(
@@ -296,7 +296,7 @@ public class CssSGenerators {
 		return SBO_retval_csss;
 	}
 	
-	public static DomVectorExtendedSelector FSBO_get_csss(
+	public static /* DomVectorExtendedSelector */ ExtendedCssSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
 		final String    PI_AS_using[], 
 		final String    PI_S_tag, 

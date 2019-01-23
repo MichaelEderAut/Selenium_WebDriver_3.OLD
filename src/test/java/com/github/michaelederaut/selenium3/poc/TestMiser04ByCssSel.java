@@ -45,6 +45,7 @@ public class TestMiser04ByCssSel {
 		
 		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
+					O_web_element_miser_loc_5,
 		            O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
@@ -115,7 +116,9 @@ public class TestMiser04ByCssSel {
 			(DomOffset[])null,
 			(String)null));  // prefix
 	
-	Assert.assertNotNull(O_web_element_miser_loc_4);
+	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
+	
+	Assert.assertNotNull(O_web_element_miser_loc_5);
 	 
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
 			  "var i1, I_nbr_elems_f1, O_elem, S_clickable_typeof; " + 
