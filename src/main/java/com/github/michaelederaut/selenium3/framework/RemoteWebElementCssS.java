@@ -102,8 +102,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation;
 		Object O_res_exec;
+		Integer IO_requested_idx_f0;
 		long L_nbr_elems_f1;
-		int i1;
+		int i1, I_requested_idx_f0;
 		
 		ArrayList<Object> AO_res_exec_elements, AO_res_vectors;
 		O_by_locator_css = PI_O_locator.O_loc_sel_css;
@@ -115,6 +116,11 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		SB_css_equivalent = (ExtendedCssSelector)O_by_locator_css.SBO_using;
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
+		I_requested_idx_f0 = O_by_locator_css.I_idx_f0;
+		if (I_requested_idx_f0 == XpathGenerators.IGNORED_IDX) {
+			I_requested_idx_f0 = 0;
+		    }
+		IO_requested_idx_f0 = Integer.valueOf(I_requested_idx_f0);
 		
 		// https://www.w3schools.com/jsref/prop_anchor_text.asp
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
@@ -126,17 +132,20 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		S_lnk_txt_comp_operation = null;
 		if (O_lnk_txt != null) {
 			E_locator_variant = O_lnk_txt.E_variant; 
-			if (E_locator_variant == LocatorVariant.regexp) {
-				S_lnk_txt_comp_operation = "S_txt_found === S_comp_patt";
+			if (E_locator_variant == LocatorVariant.regular) {
+				S_lnk_txt_comp_operation = "S_lnk_txt === S_comp_patt";
 			    }
 			else if (E_locator_variant == LocatorVariant.prefix) {
-				S_lnk_txt_comp_operation = "S_txt_found.startsWith('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.startsWith('S_comp_patt')";
 			    }
-			else if (E_locator_variant == LocatorVariant.prefix) {
-				S_lnk_txt_comp_operation = "S_txt_found.includes('S_comp_patt')";
+			else if (E_locator_variant == LocatorVariant.regexp) {
+				S_lnk_txt_comp_operation = "S_lnk_txt.match('S_comp_patt')";
+			    }
+			else if (E_locator_variant == LocatorVariant.partial) {
+				S_lnk_txt_comp_operation = "S_lnk_txt.includes('S_comp_patt')";
 			    }
 			else if (E_locator_variant == LocatorVariant.suffix) {
-				S_lnk_txt_comp_operation = "S_txt_found.endsWith('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.endsWith('S_comp_patt')";
 			   }
 		    }
 		if (NavigationUtils.O_rem_drv instanceof InternetExplorerDriver) {
@@ -178,27 +187,59 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		       }
 		SB_cmd_js_multiple.append( 
 			"var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
-		    "var AA_vectors = []; " +
-		    "var i1, I_nbr_elems_f1, " +
-		    "    B_add_this_node; " +
+		    "var I_req_idx_f0 = arguments[0]; " +
+			"var AAA_vectors = []; " +
+		    "var AA_vectors_interim = []; " +
+		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, " +
+		        "B_add_this_node, " +
+		        "S_lnk_txt;" + 
+		        "O_elem, O_node_retval; " +
 			"var AO_elems = []; " +
+		    "I_nbr_elemens_f1 = 0; " + 
 		    "AO_elems = document.querySelectorAll(\"" + S_css_unindexed  + "\"); " +
 			"if (AO_elems) {" +
-	            "I_nbr_elemens_f1 = AO_elems.length;} " +
+	            "I_nbr_elemens_interim_f1 = AO_elems.length;} " +
 			    "else { " +
 	               "I_nbr_elemens_f1 = 0; " +
 			        "} " +
-	             "HS_retval['elemcount'] = I_nbr_elemens_f1; " +
-	             "for (i1 = 0; i1 < I_nbr_elemens_f1; i1++) { " +
+	        //     "HS_retval['elemcount'] = I_nbr_elemens_f1; " +
+	             "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
 				     "O_elem = AO_elems[i1]; " +
-		             "S_clickable_typeof = typeof(O_elem.click); " +
-		             "AA_vectors.push([O_elem, S_clickable_typeof]); " +
-			 "}" +  
-			 "HS_retval = {'elemcount' : I_nbr_elemens_f1, 'vector' : AA_vectors}; " +
+	                 "S_lnk_txt = O_elem.text; " +
+				     "B_add_this_node = true; "); 
+		if (O_lnk_txt != null) {
+			SB_cmd_js_multiple.append(
+					"if (!(" + S_lnk_txt_comp_operation + ")) {" +
+		                "B_add_this_node = false; } ");
+		     }   
+		            SB_cmd_js_multiple.append(
+			        "if (B_add_this_node) {" +
+		                "AA_vectors_interim.push([O_elem, S_lnk_txt]); " +
+			        "}}" + 
+		         "I_nbr_elems_interim_f1 = AA_vectors_interim.length; " + 
+			     "I_nbr_elems_interim_f0 = I_nbr_elems_interim_f1 - 1; " +
+			     "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
+		             "B_add_this_node = false;" +
+			         "if (I_req_idx_f0 >= 0) { " +
+		             "if (i1 == I_req_idx_f0) {" +
+		                 "B_add_this_node = true; }" +
+		                 "}" +
+		             "else if (I_req_idx_f0 == " + XpathGenerators.ALL_IDX + ") { " + 
+		                     "B_add_this_node = true; }" +
+		             "else if (I_req_idx_f0 == " + XpathGenerators.LAST_IDX + ") { " + 
+		                 "if (i1 == I_nbr_elemens_interim_f1) { " +
+		                 "B_add_this_node = true; }}" +
+		             "if (B_add_this_node) {" +         
+		                 "AO_vector_iterim = AA_vectors_interim[i1]; " +
+			             "O_node_retval = AO_vector_iterim[0]; " +
+		                 "S_lnk_txt = AO_vector_iterim[1]; " +
+		                 "AAA_vectors.push([O_node_retval, null, null, null, null, S_lnk_txt, null, null, null, null]); " +
+		                 "}} " +
+			 "HS_retval = {'elemcount' : I_nbr_elemens_interim_f1, 'vector' : AAA_vectors}; " +
 			 "return HS_retval;") ;
 		
 		S_cmd_js_multiple = SB_cmd_js_multiple.toString();
-        O_res_exec = NavigationUtils.O_rem_drv.executeScript(S_cmd_js_multiple);
+        O_res_exec = NavigationUtils.O_rem_drv.executeScript(S_cmd_js_multiple, IO_requested_idx_f0);
         HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_exec;
         L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));
         AO_res_exec_elements = (ArrayList<Object>)(HO_res_exec.get("vector"));

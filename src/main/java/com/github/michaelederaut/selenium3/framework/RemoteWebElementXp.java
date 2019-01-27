@@ -1200,12 +1200,12 @@ public String FS_get_style(final String PI_S_style_key) {
 			    S_web_driver_parent = O_web_driver_parent.toString();
 			    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, SB_xpath_equivalent.FS_get_buffer());
     		    FV_set_found_by(O_res_web_element, S_found_by);
-			    O_res_DOM_offset_vector = AO_extended_element.get(1); 
+			    O_res_DOM_offset_vector = AO_extended_element.get(1);  // get the absolute Xpath
 			    AA_DOM_offset_vector = (ArrayList<ArrayList<Object>>)O_res_DOM_offset_vector;
 			    I_len_offset_vector_f1 = AA_DOM_offset_vector.size();
 			    AO_DOM_offset_vector_received = new DomOffset[I_len_offset_vector_f1];
 				i2_down = I_len_offset_vector_f1 - 1;
-				for (i2_up = 0; i2_up < I_len_offset_vector_f1; i2_up++) {
+				for (i2_up = 0; i2_up < I_len_offset_vector_f1; i2_up++) { 
 					A_DOM_offset = AA_DOM_offset_vector.get(i2_up);
 					L_dom_idx_f0 = (Long)(A_DOM_offset.get(0));
 					I_dom_idx_f0 = (int)L_dom_idx_f0;
