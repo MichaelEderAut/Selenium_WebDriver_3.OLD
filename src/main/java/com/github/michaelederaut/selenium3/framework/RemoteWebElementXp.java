@@ -409,41 +409,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	   }
 	return O_retval_remote_web_drv;
     }
-	
-//	public RemoteWebElement FO_get_reduced_web_element(
-//			final String PI_S_locator, 
-//			final String PI_S_selector) {
-//		
-//		final String S_set_found_by = "setFoundBy";
-//		RuntimeException E_rt_1;
-//		// RemoteWebDriver  O_parent_web_driver;
-//		String S_locator, S_selector, S_msg_1, S_msg_2;
-//		RemoteWebElement O_retval_web_element = new RemoteWebElement();
-//		
-//		O_retval_web_element.setId(this.id);
-//		O_retval_web_element.setFileDetector(new UselessFileDetector());
-//		O_retval_web_element.setParent(this.parent);
-//		if (StringUtils.isBlank(PI_S_locator)) {
-//			S_locator = Locator.xpath.toString();
-//			S_selector = this.SB_xpath_cummulated.toString(); 
-//		    }
-//		else {
-//		   S_locator = PI_S_locator;
-//		   S_selector = PI_S_selector;
-//		}
-//		try {
-//			MethodUtils.invokeMethod(O_retval_web_element, true, S_set_found_by, this.parent, S_locator, S_selector);
-//		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException PI_E_invo) {
-//			S_msg_1 = PI_E_invo.getClass().getName() + " occured when invoking method \'" + S_set_found_by + "\'" +
-//					 "with arguments: \'" + 
-//					((this.parent == null) ? null : this.parent.getClass().getName()) + "\', \'" + S_locator + "\', \'" + S_selector + "\'.";  
-//			E_rt_1 = new RuntimeException(S_msg_1, PI_E_invo);
-//			throw E_rt_1;
-//		    }
-//		
-//		return O_retval_web_element;
-//	}
-	
+		
 	public RemoteWebElement FO_get_reduced_web_element() {
 			
 		RemoteWebElement O_retval_remote_web_element;

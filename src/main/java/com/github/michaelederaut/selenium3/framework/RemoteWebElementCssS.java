@@ -81,6 +81,41 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	      }
      }
 	
+	
+	public RemoteWebElementCssS() {
+		super();
+		return;
+	    }
+	
+	//-----------------
+	
+	public RemoteWebElementCssS(
+			final WebElement      PI_O_web_ele,
+			final Locator         PI_E_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector PI_O_using,
+			final String          PI_S_tag_expected,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final Constructor<? extends ByCssS> PI_M_ctor,
+			final DomOffset PI_AO_dom_offset_vector[],
+			final int       PI_I_nbr_duplicates_f1,
+			final String    PI_S_tag_received,
+			final String    PI_S_inner_txt,
+			final String    PI_S_txt_content,
+			final String    PI_S_lnk_txt,
+			final String    PI_S_inner_html,
+			final ArrayList<ArrayList<String>> PI_AAS_attrs,
+			final ArrayList<ArrayList<String>> PI_AAS_comp_style, // computed style
+			final ArrayList<ArrayList<String>> PI_AAS_comp) {
+		
+		super();
+		
+		return;
+	}
+	
+	//-----------------
+	
 		public static List<WebElement> FAO_find_elements_by_css(
 			final ByCssS PI_O_locator) {
 		
@@ -98,15 +133,23 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		RemoteWebDriver O_web_driver_parent;
 		RemoteWebElement O_res_web_element;
+		RemoteWebElementCssS O_res_web_element_css;
 		StringBuilder SB_cmd_js_multiple;
 		
-		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation;
-		Object O_res_exec;
+		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation, S_dom_node_name,
+		       S_tag_received,  S_inner_txt, S_txt_content, S_lnk_txt, S_inner_html;
+		Object O_res_exec, O_res_exec_elements_extended, O_res_extended_element, O_res_DOM_offset_vector,
+		       O_res_attrs, O_res_comp_style, O_res_style;
 		Integer IO_requested_idx_f0;
-		long L_nbr_elems_f1;
-		int i1, I_requested_idx_f0;
+		long L_nbr_elems_f1, L_dom_idx_f0;
+		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, I_len_offset_vector_f1, I_dom_idx_f0;
 		
-		ArrayList<Object> AO_res_exec_elements, AO_res_vectors;
+		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
+		ArrayList<Object> A_DOM_offset, AO_extended_element;
+		ArrayList<ArrayList<Object>> AA_DOM_offset_vector;
+		ArrayList<ArrayList<String>> AAS_attrs, AAS_comp_style, AAS_style;
+		DomOffset AO_DOM_offset_vector_received[], O_DOM_offset_received;
+		
 		O_by_locator_css = PI_O_locator.O_loc_sel_css;
 		O_lnk_txt = O_by_locator_css.O_lnk_txt;
 		AO_DOM_offset_vector_requested = O_by_locator_css.SBO_using.AO_dom_offsets;
@@ -185,28 +228,29 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	                   "};}");
 			      }
 		       }
-		SB_cmd_js_multiple.append( 
-			"var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
+		SB_cmd_js_multiple.append(
+			"var HS_retval = {'elemcount' : 0 , 'vector' : []}; " +
 		    "var I_req_idx_f0 = arguments[0]; " +
 			"var AAA_vectors = []; " +
 		    "var AA_vectors_interim = []; " +
-		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, " +
-		        "B_add_this_node, " +
-		        "S_lnk_txt;" + 
-		        "O_elem, O_node_retval; " +
-			"var AO_elems = []; " +
+			"var AA_offs_vector, AAS_comp_styles, AAS_styles, AO_attrs; " +
+		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, I_nbr_prev_f1, I_node_type, " +
+		        "B_add_this_node, B_cont_loop_prv, " +
+		        "S_lnk_txt, S_node_name, S_tag_name, S_inner_txt, S_inner_html, S_txt_content, " + 
+		        "O_elem, O_node_retval, O_node_retval, O_node_prev; " +
+			"var AO_elems = []; " + 
 		    "I_nbr_elemens_f1 = 0; " + 
+			"I_nbr_elemens_interim_f1 = 0; " +
 		    "AO_elems = document.querySelectorAll(\"" + S_css_unindexed  + "\"); " +
 			"if (AO_elems) {" +
 	            "I_nbr_elemens_interim_f1 = AO_elems.length;} " +
-			    "else { " +
-	               "I_nbr_elemens_f1 = 0; " +
-			        "} " +
-	        //     "HS_retval['elemcount'] = I_nbr_elemens_f1; " +
-	             "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
-				     "O_elem = AO_elems[i1]; " +
-	                 "S_lnk_txt = O_elem.text; " +
-				     "B_add_this_node = true; "); 
+			"else { " +
+	            "I_nbr_elemens_f1 = 0; " +
+			    "} " + 
+	         "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
+				  "O_elem = AO_elems[i1]; " +
+	              "S_lnk_txt = O_elem.text; " +
+				  "B_add_this_node = true; "); 
 		if (O_lnk_txt != null) {
 			SB_cmd_js_multiple.append(
 					"if (!(" + S_lnk_txt_comp_operation + ")) {" +
@@ -215,7 +259,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		            SB_cmd_js_multiple.append(
 			        "if (B_add_this_node) {" +
 		                "AA_vectors_interim.push([O_elem, S_lnk_txt]); " +
-			        "}}" + 
+			        "}}" +
 		         "I_nbr_elems_interim_f1 = AA_vectors_interim.length; " + 
 			     "I_nbr_elems_interim_f0 = I_nbr_elems_interim_f1 - 1; " +
 			     "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
@@ -233,25 +277,145 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		                 "AO_vector_iterim = AA_vectors_interim[i1]; " +
 			             "O_node_retval = AO_vector_iterim[0]; " +
 		                 "S_lnk_txt = AO_vector_iterim[1]; " +
-		                 "AAA_vectors.push([O_node_retval, null, null, null, null, S_lnk_txt, null, null, null, null]); " +
+		                 "AA_offs_vector = []; " +
+		                 "AAS_styles = []; " +
+                         "AAS_comp_styles = []; " +
+		                 "O_node_current = O_node_retval; " +
+                         "S_tag_name    = O_node_current.tagName; " +
+		                 "S_inner_txt   = O_node_current.innerText; " +
+		                 "S_txt_content = O_node_current.textContent; " +
+		                 "S_inner_html  = O_node_current.innerHTML; " +
+		                 "AO_attrs      = O_node_current.attributes; " +
+		                 "O_comp_style  = window.getComputedStyle(O_node_current); " +
+              	         "O_style = O_node_current.style; " +
+		                 "LOOP_PARENTS: while (O_node_current) { " + // start calculating absolute xpath
+			                 "I_node_type = O_node_current.nodeType; " +
+		                     "if (I_node_type != 1) {"  +
+//		                           "console.log('Node Type 2: ' + I_node_type); " +
+		                           "break LOOP_PARENTS; } " +
+		                     "S_node_name = O_node_current.nodeName; " +
+//		                     "console.log('Node-Name 1: ' + S_node_name); " +    
+		                     "if (S_node_name == 'BODY') { " +
+		                         "break LOOP_PARENTS; } " +
+		                     "if (S_node_name == 'HTML') { " +
+		                         "break LOOP_PARENTS; } " +
+		                     "if (S_node_name == '#document') {" +
+		                         "break LOOP_PARENTS; } " +
+		                     "B_cont_loop_prv = true; " +
+		                     "I_nbr_prev_f1 = 0; " +
+		                     "O_node_prev = O_node_current; " +   
+		                     "LOOP_PRV_SIBLINGS: while (B_cont_loop_prv) { " + 
+			                     "O_node_prev = O_node_prev.previousElementSibling; " +
+	//		                     "console.log('I_nbr_prev 1: ' + I_nbr_prev_f1); " +
+			                     "if (!O_node_prev) {" +
+	//		                         "console.log('I_nbr_prev 2: ' + I_nbr_prev_f1); " +
+			                         "break LOOP_PRV_SIBLINGS; } " +
+			                     "I_nbr_prev_f1++; }" +  
+		                     "AA_offs_vector.push([I_nbr_prev_f1, S_node_name]); " +
+		                     "O_node_current = O_node_current.parentNode; " +
+			                 "} " +
+		                 "I_nbr_attrs_f1 = AO_attrs.length; " +  
+			             "AAS_attrs = []; " +
+             	         "for (i2 = 0; i2 < I_nbr_attrs_f1; i2++) { " +
+        	                  "O_attr = AO_attrs[i2]; " +
+        	                  "S_attr_name  = O_attr.name; " +
+        	                  "S_attr_value = O_attr.value; " +
+//        	                  "console.log('name: ' + S_attr_name + ' - value: ' + S_attr_value); " +
+        	                  "AS_attr = [S_attr_name, S_attr_value]; " +
+        	                  "AAS_attrs.push(AS_attr); " +
+        	                  "} " +    
+		                                  "I_nbr_styles_f1 = O_comp_style.length; " +
+//        	                  "console.log('Number of comp-styles: ' + I_nbr_styles_f1); " + 
+                              "AAS_comp_styles = []; " +
+        	                  "for (i2 = 0; i2 < I_nbr_styles_f1; i2++) { " +
+        	                     "S_style_key = O_comp_style[i2]; " +
+//         	                     "console.log('Style-Key: ' + S_style_key); " + 
+        	                    "S_style_val = O_comp_style.getPropertyValue(S_style_key); " +
+//     	                        "console.log('name comp: ' + S_style_key + ' - value: ' + S_style_val); " +
+//        	                     "console.log('Style-Val-Comp: ' + S_style_val); " + 
+        	                     "AS_style = [S_style_key, S_style_val]; " +
+                                 "AAS_comp_styles.push(AS_style); " +    // computed styles
+        	                  "} " +  
+        	                  "AAS_styles = []; " +
+                              "for (S_style_key in O_style) {" +
+                                 "S_style_val = O_style[S_style_key]; " +
+                                 "if (S_style_val) {" +
+                                    "S_style_val_str = S_style_val.toString(); " +
+//        	                        "console.log('name: ' + S_style_key + ' - value: ' + S_style_val_str); " +
+//        	                        "console.log('src: ' + S_style_val.toSource()); " +
+                                    "AS_style = [S_style_key, S_style_val_str]; " +
+                                    "AAS_styles.push(AS_style); " + 
+                                 "}} " +
+		                 "AAA_vectors.push([O_node_retval, AA_offs_vector, S_tag_name, S_inner_txt, S_txt_content, S_lnk_txt, S_inner_html, AAS_attrs, AAS_comp_styles, AAS_styles]); " +
 		                 "}} " +
-			 "HS_retval = {'elemcount' : I_nbr_elemens_interim_f1, 'vector' : AAA_vectors}; " +
-			 "return HS_retval;") ;
+			 "HS_retval = {'"+  RemoteWebElementXp.S_key_name_elemcount + "' : I_nbr_elemens_interim_f1, '" + RemoteWebElementXp.S_key_name_vectors + "' : AAA_vectors}; " +
+			 "return HS_retval;") ; 
+
 		
 		S_cmd_js_multiple = SB_cmd_js_multiple.toString();
         O_res_exec = NavigationUtils.O_rem_drv.executeScript(S_cmd_js_multiple, IO_requested_idx_f0);
         HO_res_exec = (AbstractMap<String, ? extends Object>)O_res_exec;
-        L_nbr_elems_f1 = (Long)(HO_res_exec.get("elemcount"));
-        AO_res_exec_elements = (ArrayList<Object>)(HO_res_exec.get("vector"));
-        for (i1 = 0; i1 < L_nbr_elems_f1; i1++) {
-        	AO_res_vectors = (ArrayList<Object>)AO_res_exec_elements.get(i1);
-        	O_res_web_element   = (RemoteWebElement)AO_res_vectors.get(0);
+        L_nbr_elems_f1 = (Long)(HO_res_exec.get(RemoteWebElementXp.S_key_name_elemcount));
+        O_res_exec_elements_extended  =  HO_res_exec.get(RemoteWebElementXp.S_key_name_vectors);
+        AO_res_exec_elements_extended = (ArrayList<Object>)O_res_exec_elements_extended ;
+        I_nbr_returned_elems_f1 = AO_res_exec_elements_extended.size();
+        for (i1 = 0; i1 < I_nbr_returned_elems_f1; i1++) {
+        	O_res_extended_element = AO_res_exec_elements_extended.get(i1);
+        	AO_extended_element = (ArrayList<Object>)O_res_extended_element;
+        	O_res_web_element = (RemoteWebElement)AO_extended_element.get(0);
         	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
 			S_web_driver_parent = O_web_driver_parent.toString();
 			S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
     		RemoteWebElementXp.FV_set_found_by(O_res_web_element, S_found_by);
+    		O_res_DOM_offset_vector = AO_extended_element.get(1);  // get the absolute Xpath
+    		AA_DOM_offset_vector = (ArrayList<ArrayList<Object>>)O_res_DOM_offset_vector;
+			I_len_offset_vector_f1 = AA_DOM_offset_vector.size();
+			AO_DOM_offset_vector_received = new DomOffset[I_len_offset_vector_f1];
+			i2_down = I_len_offset_vector_f1 - 1;
+			for (i2_up = 0; i2_up < I_len_offset_vector_f1; i2_up++) { 
+				A_DOM_offset = AA_DOM_offset_vector.get(i2_up);
+				L_dom_idx_f0 = (Long)(A_DOM_offset.get(0));
+				I_dom_idx_f0 = (int)L_dom_idx_f0;
+				S_dom_node_name = (String)(A_DOM_offset.get(1));
+				O_DOM_offset_received = new DomOffset(I_dom_idx_f0, S_dom_node_name);
+				AO_DOM_offset_vector_received[i2_down] = O_DOM_offset_received;
+				i2_down--;
+				}
+    		S_tag_received = (String)AO_extended_element.get(2);
+    		S_inner_txt    = (String)AO_extended_element.get(3);
+			S_txt_content  = (String)AO_extended_element.get(4);
+			S_lnk_txt      = (String)AO_extended_element.get(5);
+    		S_inner_html   = (String)AO_extended_element.get(6);
+    		O_res_attrs   = AO_extended_element.get(7);
+		    AAS_attrs     = (ArrayList<ArrayList<String>>)O_res_attrs;
+			O_res_comp_style  = AO_extended_element.get(8);
+			AAS_comp_style    = (ArrayList<ArrayList<String>>)O_res_comp_style;
+			O_res_style   = AO_extended_element.get(9);
+			AAS_style     = (ArrayList<ArrayList<String>>)O_res_style;
+			
+    		O_res_web_element_css = new RemoteWebElementCssS(
+						O_res_web_element,
+						O_by_locator_css.E_locator,
+						O_by_locator_css.E_locator_variant,
+						O_by_locator_css.SBO_using,
+						O_by_locator_css.S_tag_expected,
+						O_by_locator_css.I_idx_f0,
+						O_by_locator_css.S_prefix,
+						O_by_locator_css.M_ctor,
+						AO_DOM_offset_vector_received,
+						(int)L_nbr_elems_f1,
+						S_tag_received,
+						S_inner_txt,
+						S_txt_content,
+						S_lnk_txt,
+						S_inner_html,
+						AAS_attrs,
+						AAS_comp_style,
+						AAS_style
+						);
+			
         	AO_retval_web_element.push(O_res_web_element);
-        }
+            }
 		return AO_retval_web_element; 
 		}
 	
