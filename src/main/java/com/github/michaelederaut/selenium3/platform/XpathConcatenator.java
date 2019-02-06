@@ -17,6 +17,7 @@ import org.jaxen.saxpath.SAXPathException;
 
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.google.common.base.Strings;
 
@@ -48,7 +49,6 @@ public class XpathConcatenator {
 	public static final String S_re_parenthesed  = "^\\s*\\((.*?)\\)\\s*$";
 	public static final Pattern P_parenthesed    =  Pattern.compile(S_re_parenthesed);
 
-	
 	public static boolean FB_is_top_level(final String PI_S_xpath) {
 		
 		RuntimeException       E_rt;
@@ -380,6 +380,17 @@ public static String FS_unindex(final IndexedStrBuilder PI_SB_xpath) {
 	    B_is_blank_1 = StringUtils.isBlank(PI_S_xp1);
 	    B_is_blank_2 = StringUtils.isBlank(PI_S_xp2);
 	    
+	    if (B_is_blank_2) {
+	    	B_needs_parenthesing_2 = false;
+	        }
+	    else {
+	    	if (StringUtils.startsWithIgnoreCase(PI_S_xp2, "/html[")) { // absolute xpath
+	    	   return PI_S_xp2;
+	    	   }
+	    	else {
+	    	   B_needs_parenthesing_2 = FB_needs_parenthesing(PI_S_xp2);
+	           }}
+	        
 	    if (B_is_blank_1) {
 	    	B_needs_parenthesing_1 = false;
 	        }
@@ -387,12 +398,6 @@ public static String FS_unindex(final IndexedStrBuilder PI_SB_xpath) {
 	       B_needs_parenthesing_1 = FB_needs_parenthesing(PI_S_xp1);
 	       }
 	    
-	    if (B_is_blank_2) {
-	    	B_needs_parenthesing_2 = false;
-	        }
-	    else {
-	    	B_needs_parenthesing_2 = FB_needs_parenthesing(PI_S_xp2);
-	        }
 	        
 	    if (B_needs_parenthesing_1) {
 	    	SB_res_append.append("(");
