@@ -313,7 +313,8 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	            
 	public static class FoundBy {
 		public SearchContext O_driver_info;
-		public Stack<LocatorSelectorXp> AO_by_locators;
+		// public Stack<? extends LocatorSelector> AO_by_locators;
+		public Stack<LocatorSelector> AO_by_locators;
 	
 	protected static void FV_ctor(
 			final FoundBy         PO_O_found_by,
@@ -325,12 +326,13 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
 			final Constructor<? extends ByXp> PI_M_ctor) {
-		LocatorSelectorXp O_loc_sel_xp;
+		 LocatorSelector O_loc_sel_xp;
+		
 		
 	    if (PI_O_driver_info != null) {
 	    	PO_O_found_by.O_driver_info = PI_O_driver_info;
 	       }
-	    PO_O_found_by.AO_by_locators = new Stack<LocatorSelectorXp>();
+	    PO_O_found_by.AO_by_locators = new Stack<LocatorSelector>();
 		if (PI_O_locator instanceof Locator) {
 		    O_loc_sel_xp = new LocatorSelectorXp((Locator)PI_O_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
 		    }
@@ -610,8 +612,10 @@ public String FS_get_style(final String PI_S_style_key) {
 	}
 	
 	public void FV_add(final FoundBy PI_O_found_by) {
-		Stack<LocatorSelectorXp> AO_by_locator_xp_dest, AO_by_locator_xp_dest_bak;
-		List<LocatorSelectorXp> AO_by_locator_xp_source;
+	//	Stack<LocatorSelectorXp> AO_by_locator_xp_dest, AO_by_locator_xp_dest_bak;
+		Stack<LocatorSelector> AO_by_locator_xp_dest, AO_by_locator_xp_dest_bak;
+	//	List<LocatorSelectorXp> AO_by_locator_xp_source;
+		List<LocatorSelector> AO_by_locator_xp_source;
 	    FoundBy O_found_by_dest;
 	    LocatorSelectorXp O_by_locator_xp_source, O_by_locator_xp_dest;
 	    String S_xpath_new, S_xpath_cummulated;
@@ -625,15 +629,15 @@ public String FS_get_style(final String PI_S_style_key) {
 	   
 	    AO_by_locator_xp_dest = O_found_by_dest.AO_by_locators;
 	    if (AO_by_locator_xp_dest == null) {
-	    	O_found_by_dest.AO_by_locators = new Stack<LocatorSelectorXp>();
+	    	O_found_by_dest.AO_by_locators = new Stack<LocatorSelector>();
 	    	AO_by_locator_xp_dest = O_found_by_dest.AO_by_locators;
 	        }
 	    AO_by_locator_xp_dest_bak = AO_by_locator_xp_dest;
 	  
-	    AO_by_locator_xp_dest     = new Stack<LocatorSelectorXp>();
+	    AO_by_locator_xp_dest     = new Stack<LocatorSelector>();
 	    I_nbr_locators_source_f1 = AO_by_locator_xp_source.size();
 	    for (i1 = 0; i1 < I_nbr_locators_source_f1; i1++) {
-	    	O_by_locator_xp_source = AO_by_locator_xp_source.get(i1);
+	    	O_by_locator_xp_source = (LocatorSelectorXp)AO_by_locator_xp_source.get(i1);
 	    	O_by_locator_xp_dest = new LocatorSelectorXp(
 	    			O_by_locator_xp_source.E_locator, 
 	    			O_by_locator_xp_source.E_locator_variant, 
@@ -648,7 +652,7 @@ public String FS_get_style(final String PI_S_style_key) {
 	        }
 	    I_nbr_locators_dest_f1    = AO_by_locator_xp_dest_bak.size();
 	    for (i1 = 0; i1 < I_nbr_locators_dest_f1; i1++) {
-	    	O_by_locator_xp_source = AO_by_locator_xp_dest_bak.get(i1);
+	    	O_by_locator_xp_source = (LocatorSelectorXp)AO_by_locator_xp_dest_bak.get(i1);
 	    	O_by_locator_xp_dest = new LocatorSelectorXp(
 	    			O_by_locator_xp_source.E_locator, 
 	    			O_by_locator_xp_source.E_locator_variant, 
@@ -660,12 +664,12 @@ public String FS_get_style(final String PI_S_style_key) {
 	    	AO_by_locator_xp_dest.add(O_by_locator_xp_dest);
 	       }
 	    O_found_by_dest.AO_by_locators = AO_by_locator_xp_dest;
-	    O_by_locator_xp_dest = AO_by_locator_xp_dest.get(0);
+	    O_by_locator_xp_dest = (LocatorSelectorXp)AO_by_locator_xp_dest.get(0);
 	    S_xpath_cummulated = O_by_locator_xp_dest.SBO_using.FS_get_buffer();
 	   
 	    I_nbr_locators_dest_f1 = AO_by_locator_xp_dest.size();
 	    for (i1 = 1; i1 < I_nbr_locators_dest_f1; i1++) {
-	    	 O_by_locator_xp_dest = AO_by_locator_xp_dest.get(i1);
+	    	 O_by_locator_xp_dest = (LocatorSelectorXp)AO_by_locator_xp_dest.get(i1);
 	    	 S_xpath_new = O_by_locator_xp_dest.SBO_using.FS_get_buffer();
 	    	 S_xpath_cummulated = XpathConcatenator.FS_append(S_xpath_cummulated, S_xpath_new);
 	         }
@@ -869,15 +873,16 @@ public String FS_get_style(final String PI_S_style_key) {
 		 PO_O_rem_web_elem_xp.S_txt_content        = PI_S_txt_content;
 		 PO_O_rem_web_elem_xp.S_inner_html         = PI_S_inner_html;
 		 if (PI_AAS_attrs != null) {
-			I_nbr_attrs_f1 = PI_AAS_attrs.size();
-			PO_O_rem_web_elem_xp.AAS_attrs = new String[I_nbr_attrs_f1][2];
-			for (i1 = 0; i1 < I_nbr_attrs_f1; i1++) {
-				AS_attr = PI_AAS_attrs.get(i1);
-				S_attr_name = AS_attr.get(0);
-				S_attr_val = AS_attr.get(1);
-				PO_O_rem_web_elem_xp.AAS_attrs[i1][0] = S_attr_name;
-			    PO_O_rem_web_elem_xp.AAS_attrs[i1][1] = S_attr_val;
-			 }
+			PO_O_rem_web_elem_xp.AAS_attrs = PropertyContainerUtils.FLLS_to_array(PI_AAS_attrs);
+//			I_nbr_attrs_f1 = PI_AAS_attrs.size();
+//			PO_O_rem_web_elem_xp.AAS_attrs = new String[I_nbr_attrs_f1][2];
+//			for (i1 = 0; i1 < I_nbr_attrs_f1; i1++) {
+//				AS_attr = PI_AAS_attrs.get(i1);
+//				S_attr_name = AS_attr.get(0);
+//				S_attr_val = AS_attr.get(1);
+//				PO_O_rem_web_elem_xp.AAS_attrs[i1][0] = S_attr_name;
+//			    PO_O_rem_web_elem_xp.AAS_attrs[i1][1] = S_attr_val;
+//			 }
 		 }
 		 if (PI_AAS_comp_style != null) {
 			 PO_O_rem_web_elem_xp.AAS_comp_styles = PropertyContainerUtils.FLLS_to_array(PI_AAS_comp_style);
