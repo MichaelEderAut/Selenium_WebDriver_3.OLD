@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.FileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
@@ -63,7 +64,6 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			 PO_O_loc_sel_xp.M_ctor             = PI_M_ctor;
 		 }
 		 
-
 		 public LocatorSelectorCss (
 			final String         PI_S_locator,
 			final LocatorVariant PI_E_locator_variant,
@@ -95,20 +95,21 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	   		 return;
 	      }
      }
+	//----------------------------
+	// FoundBy
 	
+	//----------------------------
 	
 	public RemoteWebElementCssS() {
 		super();
 		return;
 	    }
 	
-	//-----------------
-	
 	public RemoteWebElementCssS(
 			final WebElement      PI_O_web_ele,
 			final Locator         PI_E_locator,
 			final LocatorVariant  PI_E_locator_variant,
-			final DomVectorExtendedSelector PI_O_using,
+			final /* DomVectorExtendedSelector */ ExtendedCssSelector PI_O_using,
 			final String          PI_S_tag_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
@@ -155,7 +156,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final WebElement         PI_O_web_elem,
 			final Locator            PI_E_locator,
 			final LocatorVariant     PI_E_locator_variant,
-			final DomVectorExtendedSelector PI_O_using,
+			final /* DomVectorExtendedSelector */ ExtendedCssSelector PI_O_using,
 			final String             PI_S_tag_expected,
 			final int                PI_I_idx_f0,
 			final String             PI_S_prefix,
@@ -171,7 +172,55 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final ArrayList<ArrayList<String>> PI_AAS_comp_style,  // computed style
 			final ArrayList<ArrayList<String>> PI_AAS_style) {
 		
-		// TODO 
+		Exception                E_cause;
+		RuntimeException         E_rt;
+		NullPointerException     E_np;
+		
+		FileDetector  O_file_detector;
+		RemoteWebDriver   O_parent;
+		
+	    String        S_id;
+		
+	    RemoteWebElement   O_remote_web_elem;
+		Object             O_intermediary;
+		String S_msg_1, S_msg_2;
+		int i1;
+	    
+		E_cause = null;
+		if (PI_O_web_elem == null) {
+			S_msg_1 = "Element of type: " +  WebElement.class.getName()  + " must not be null";
+			E_cause = new IllegalArgumentException(S_msg_1);
+		   }
+		else if (!(PI_O_web_elem instanceof RemoteWebElement)) {
+			S_msg_1 = "Unable to cast " + PI_O_web_elem.getClass().getName() + " to " + RemoteWebElement.class.getName();
+			E_cause = new ClassCastException(S_msg_1);
+		    }
+		if (E_cause != null) {
+			S_msg_2 = "Error obtaining object of type: " + WebElement.class.getName() + " from first method argument \'" + PI_O_web_elem + "\'." ;
+			E_rt = new RuntimeException(S_msg_2, E_cause);
+			throw E_rt;
+		   }
+		
+		O_remote_web_elem = (RemoteWebElement)PI_O_web_elem;
+		O_parent = RemoteWebElementXp.FO_get_parent_driver(O_remote_web_elem);
+		
+		E_cause = null;
+		if (PI_E_locator == null) {
+			S_msg_1 = "Argument for locator must not be null";
+			E_cause = new NullPointerException(S_msg_1); 
+			}
+		else { 	
+			PO_O_rem_web_elem_css.O_found_by = new FoundBy(
+					O_parent, 
+					PI_E_locator, 
+					PI_E_locator_variant, 
+					PI_O_using, 
+					PI_S_tag_expected, 
+					PI_I_idx_f0,
+					PI_S_prefix,
+					PI_M_ctor); 
+		   }
+		
 		return;
 	}
 	
@@ -458,7 +507,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 						O_res_web_element,
 						O_by_locator_css.E_locator,
 						O_by_locator_css.E_locator_variant,
-						O_by_locator_css.SBO_using,
+						(ExtendedCssSelector)O_by_locator_css.SBO_using,
 						O_by_locator_css.S_tag_expected,
 						O_by_locator_css.I_idx_f0,
 						O_by_locator_css.S_prefix,

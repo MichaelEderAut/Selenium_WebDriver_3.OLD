@@ -84,8 +84,8 @@ public class CssSGenerators {
 	
 		
 	public static class ExtendedCssSelector extends DomVectorExtendedSelector {
-		public boolean B_identity; // equivalent to xpath "."
-	   public LinkText O_lnk_txt;
+		public boolean  B_identity; // equivalent to xpath "."
+	    public LinkText O_lnk_txt;
 	   
 	   public ExtendedCssSelector() {
 			super();
