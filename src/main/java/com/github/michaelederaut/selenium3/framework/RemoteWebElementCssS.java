@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.FileDetector;
@@ -13,6 +15,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.basics.props.PropertyContainer;
+import com.github.michaelederaut.basics.props.PropertyContainerUtils;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.FoundBy;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
@@ -97,6 +100,89 @@ public class RemoteWebElementCssS extends RemoteWebElement {
      }
 	//----------------------------
 	// FoundBy
+	public static class FoundBy {
+		public SearchContext O_driver_info;
+		// public Stack<? extends LocatorSelector> AO_by_locators;
+		public Stack<LocatorSelector> AO_by_locators;
+	
+	   protected static void FV_ctor(
+			final FoundBy         PO_O_found_by,
+			final SearchContext   PI_O_driver_info,
+			final Object          PI_O_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector  PI_O_using,
+			final String          PI_S_tag_expected,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final LinkText        PI_O_lnk_txt_expected,
+			final Constructor<? extends ByCssS> PI_M_ctor) {
+		 LocatorSelector O_loc_sel_css;
+		
+		
+	    if (PI_O_driver_info != null) {
+	    	PO_O_found_by.O_driver_info = PI_O_driver_info;
+	       }
+	    PO_O_found_by.AO_by_locators = new Stack<LocatorSelector>();
+		if (PI_O_locator instanceof Locator) {
+		    O_loc_sel_css = new LocatorSelectorCss((Locator)PI_O_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_O_lnk_txt_expected, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
+		    }
+		else {  // locator as String eg "xpath", "id", "name", "value" ...
+		    O_loc_sel_css = new LocatorSelectorCss((String)PI_O_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_O_lnk_txt_expected, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
+		    }
+		PO_O_found_by.AO_by_locators.push(O_loc_sel_css);
+	    return;
+	}
+	
+	public FoundBy (
+			final SearchContext   PI_O_driver_info,
+			final String          PI_S_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector  PI_O_using,
+			final String          PI_S_tag_expected,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final LinkText        PI_O_lnk_txt_expected,
+			final Constructor<? extends ByCssS> PI_M_ctor) {
+		
+		FV_ctor(
+			this,
+			PI_O_driver_info,
+			PI_S_locator,
+			PI_E_locator_variant,
+			PI_O_using,
+			PI_S_tag_expected,
+			PI_I_idx_f0,
+			PI_S_prefix,
+			PI_O_lnk_txt_expected,
+			PI_M_ctor);
+		return;
+	    }
+	
+	public FoundBy (
+			final SearchContext   PI_O_driver_info,
+			final Locator         PI_E_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector PI_O_using,
+			final String          PI_S_tag_expected,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final LinkText        PI_O_lnk_txt,
+			final Constructor<? extends ByCssS> PI_M_ctor) {
+		
+		FV_ctor(
+			this,
+			PI_O_driver_info,
+			PI_E_locator,
+			PI_E_locator_variant,
+			PI_O_using,
+			PI_S_tag_expected,
+		    PI_I_idx_f0,
+			PI_S_prefix,
+			PI_O_lnk_txt,
+			PI_M_ctor);
+		return;
+	    }
+	}
 	
 	//----------------------------
 	
@@ -111,6 +197,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final LocatorVariant  PI_E_locator_variant,
 			final /* DomVectorExtendedSelector */ ExtendedCssSelector PI_O_using,
 			final String          PI_S_tag_expected,
+			final LinkText        PI_O_lnk_txt_expected,
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
 			final Constructor<? extends ByCssS> PI_M_ctor,
@@ -119,7 +206,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final String    PI_S_tag_received,
 			final String    PI_S_inner_txt,
 			final String    PI_S_txt_content,
-			final String    PI_S_lnk_txt,
+			final String    PI_S_lnk_txt_found,
 			final String    PI_S_inner_html,
 			final ArrayList<ArrayList<String>> PI_AAS_attrs,
 			final ArrayList<ArrayList<String>> PI_AAS_comp_style, // computed style
@@ -134,6 +221,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		   PI_E_locator_variant,		
 		   PI_O_using,	
 		   PI_S_tag_expected,
+		   PI_O_lnk_txt_expected,
 		   PI_I_idx_f0,
 		   PI_S_prefix,
 		   PI_M_ctor,
@@ -142,7 +230,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		   PI_S_tag_received,
 		   PI_S_inner_txt,
 		   PI_S_txt_content,
-		   PI_S_lnk_txt,
+		   PI_S_lnk_txt_found,
 		   PI_S_inner_html,
 		   PI_AAS_attrs,
 		   PI_AAS_comp_style,  // computed style
@@ -158,6 +246,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final LocatorVariant     PI_E_locator_variant,
 			final /* DomVectorExtendedSelector */ ExtendedCssSelector PI_O_using,
 			final String             PI_S_tag_expected,
+			final LinkText           PI_O_lnk_txt_expected,
 			final int                PI_I_idx_f0,
 			final String             PI_S_prefix,
 			final Constructor<? extends ByCssS> PI_M_ctor, 
@@ -166,7 +255,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final String    PI_S_tag_received,
 			final String    PI_S_inner_txt,
 			final String    PI_S_txt_content,
-			final String    PI_S_lnk_txt,
+			final String    PI_S_lnk_txt_received,
 			final String    PI_S_inner_html,
 			final ArrayList<ArrayList<String>> PI_AAS_attrs,
 			final ArrayList<ArrayList<String>> PI_AAS_comp_style,  // computed style
@@ -179,7 +268,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		FileDetector  O_file_detector;
 		RemoteWebDriver   O_parent;
 		
-	    String        S_id;
+	    String        S_id, S_found_by;
 		
 	    RemoteWebElement   O_remote_web_elem;
 		Object             O_intermediary;
@@ -218,13 +307,125 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 					PI_S_tag_expected, 
 					PI_I_idx_f0,
 					PI_S_prefix,
+				 PI_O_lnk_txt_expected,
 					PI_M_ctor); 
 		   }
+		
+		 if (E_cause != null) {  
+			S_msg_2 = "Unable to determine type of locator." + System.lineSeparator() +
+					  "must be a " + String.class.getName() + " or an enum " + Locator.class.getName() + ",";
+            E_rt = new RuntimeException(S_msg_2, E_cause);
+            throw E_rt;
+		    }
+
+		O_intermediary = null;
+		try {
+			O_intermediary = FieldUtils.readDeclaredField(O_remote_web_elem, RemoteWebElementXp.S_field_name_id, true);
+		} catch (IllegalArgumentException | IllegalAccessException PI_E_ill_arg) {
+			S_msg_1 = "Unable to read field: \'" + RemoteWebElementXp.S_field_name_id + "\' from object of type: \'" + O_remote_web_elem.getClass().getName() + "\""; 
+			E_rt = new RuntimeException(S_msg_1, PI_E_ill_arg);
+			throw E_rt;
+		    }
+		
+		 if (O_intermediary == null) {
+			 S_msg_1 = "Result field of type: \'" + String.class.getName() + "\' must not be null.";
+			 E_np = new NullPointerException(S_msg_1);
+			 S_msg_2 =  "Unable to get field: \'" +  RemoteWebElementXp.S_field_name_id + "\' from object of type: \'" + O_remote_web_elem.getClass().getName() + "\""; 
+			 E_rt = new RuntimeException(S_msg_2, E_np);
+			 throw E_rt;
+		     }
+		 
+		 try {
+			S_id = (String)O_intermediary;
+		} catch (ClassCastException PI_E_clsc) {
+			S_msg_1 = "Unable to obtain field: \'" + RemoteWebElementXp.S_field_name_id + "\' from object of type: \'" + O_intermediary.getClass().getName() + "\""; 
+			E_rt = new RuntimeException(S_msg_1, PI_E_clsc);
+			throw E_rt;
+		    } 
+		 
+		try {
+			O_intermediary = FieldUtils.readDeclaredField(O_remote_web_elem, RemoteWebElementXp.S_field_name_file_detector, true);
+		} catch (IllegalArgumentException | IllegalAccessException PI_E_ill_arg) {
+			S_msg_1 = "Unable to read field: \'" + RemoteWebElementXp.S_field_name_file_detector + "\' from object of type: \'" + O_remote_web_elem.getClass().getName() + "\""; 
+			E_rt = new RuntimeException(S_msg_1, PI_E_ill_arg);
+			throw E_rt;
+		    }
+		
+		 if (O_intermediary == null) {
+			 S_msg_1 = "Result field of type: \'" + FileDetector.class.getName() + "\' must not be null.";
+			 E_np = new NullPointerException(S_msg_1);
+			 S_msg_2 =  "Unable to get field: \'" + RemoteWebElementXp.S_field_name_file_detector + "\' from object of type: \'" + O_remote_web_elem.getClass().getName() + "\""; 
+			 E_rt = new RuntimeException(S_msg_2, E_np);
+			 throw E_rt;
+		     }
+		 
+		 try {
+			O_file_detector = (FileDetector)O_intermediary;
+		 } catch (ClassCastException PI_E_clsc) {
+			S_msg_1 = "Unable to obtain field: \'" + RemoteWebElementXp.S_field_name_file_detector + "\' from object of type: \'" + O_intermediary.getClass().getName() + "\""; 
+			E_rt = new RuntimeException(S_msg_1, PI_E_clsc);
+			throw E_rt;
+		    } 
+
+		 S_found_by = RemoteWebElementXp.FS_get_found_by(O_remote_web_elem);
+		 O_parent = RemoteWebElementXp.FO_get_parent_driver(O_remote_web_elem);
+		 
+		 PO_O_rem_web_elem_css.setId(S_id);
+		 PO_O_rem_web_elem_css.setFileDetector(O_file_detector);
+		 PO_O_rem_web_elem_css.setParent(O_parent);
+		 RemoteWebElementXp.FV_set_found_by(PO_O_rem_web_elem_css, S_found_by);
+	     PO_O_rem_web_elem_css.SBO_xpath             = new DomVectorExtendedSelector(PI_AO_dom_offset_vector);
+		
+	//	 PO_O_rem_web_elem_css.SB_xpath_cummulated  = new StringBuffer(PI_O_using.FS_get_buffer());
+		 
+		 PO_O_rem_web_elem_css.I_nbr_duplicates_f1  = PI_I_nbr_duplicates_f1;
+		 
+		 PO_O_rem_web_elem_css.S_tag_received       = PI_S_tag_received;
+		 PO_O_rem_web_elem_css.S_inner_txt          = PI_S_inner_txt;
+		 PO_O_rem_web_elem_css.S_txt_content        = PI_S_txt_content;
+		 PO_O_rem_web_elem_css.S_lnk_txt            = PI_S_lnk_txt_received;
+		 PO_O_rem_web_elem_css.S_inner_html         = PI_S_inner_html;
+		 if (PI_AAS_attrs != null) {
+			PO_O_rem_web_elem_css.AAS_attrs = PropertyContainerUtils.FLLS_to_array(PI_AAS_attrs);
+//			I_nbr_attrs_f1 = PI_AAS_attrs.size();
+//			PO_O_rem_web_elem_xp.AAS_attrs = new String[I_nbr_attrs_f1][2];
+//			for (i1 = 0; i1 < I_nbr_attrs_f1; i1++) {
+//				AS_attr = PI_AAS_attrs.get(i1);
+//				S_attr_name = AS_attr.get(0);
+//				S_attr_val = AS_attr.get(1);
+//				PO_O_rem_web_elem_xp.AAS_attrs[i1][0] = S_attr_name;
+//			    PO_O_rem_web_elem_xp.AAS_attrs[i1][1] = S_attr_val;
+//			 }
+		 }
+		 if (PI_AAS_comp_style != null) {
+			 PO_O_rem_web_elem_css.AAS_comp_styles = PropertyContainerUtils.FLLS_to_array(PI_AAS_comp_style);
+			 }
+		 if (PI_AAS_style != null) {
+			 PO_O_rem_web_elem_css.AAS_styles = PropertyContainerUtils.FLLS_to_array(PI_AAS_style); 
+			}
 		
 		return;
 	}
 	
 	//-----------------
+	
+	public static WebElement FO_find_element_by_css(
+			final ByCssS PI_O_locator) {
+	
+	List<WebElement> AO_web_elements;
+	int I_nbr_web_elements;
+	WebElement O_retval_web_element = null;
+	
+	AO_web_elements = FAO_find_elements_by_css(PI_O_locator);
+	if (AO_web_elements != null) {
+		I_nbr_web_elements = AO_web_elements.size();
+		if (I_nbr_web_elements >= 1) {
+			O_retval_web_element = AO_web_elements.get(0);
+		    }
+	    }
+	
+	return O_retval_web_element;
+	}
 	
 		public static List<WebElement> FAO_find_elements_by_css(
 			final ByCssS PI_O_locator) {
@@ -251,8 +452,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		Object O_res_exec, O_res_exec_elements_extended, O_res_extended_element, O_res_DOM_offset_vector,
 		       O_res_attrs, O_res_comp_style, O_res_style;
 		Integer IO_requested_idx_f0;
-		long L_nbr_elems_f1, L_dom_idx_f0;
-		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, I_len_offset_vector_f1, I_dom_idx_f0;
+		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
+		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
+		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -344,9 +546,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			"var AAA_vectors = []; " +
 		    "var AA_vectors_interim = []; " +
 			"var AA_offs_vector, AAS_comp_styles, AAS_styles, AO_attrs; " +
-		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, I_nbr_prev_f1, I_node_type, " +
+		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, " + 
+			    "I_nbr_prev_any_tag_f1, I_nbr_prev_same_tag_f1, I_node_type, " +
 		        "B_add_this_node, B_cont_loop_prv, " +
-		        "S_lnk_txt, S_node_name, S_tag_name, S_inner_txt, S_inner_html, S_txt_content, " + 
+		        "S_lnk_txt, S_node_name, S_tag_name, S_tag_name_prv, S_inner_txt, S_inner_html, S_txt_content, " + 
 		        "O_elem, O_node_retval, O_node_retval, O_node_prev; " +
 			"var AO_elems = []; " + 
 		    "I_nbr_elemens_f1 = 0; " + 
@@ -412,16 +615,20 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		                     "if (S_node_name == '#document') {" +
 		                         "break LOOP_PARENTS; } " +
 		                     "B_cont_loop_prv = true; " +
-		                     "I_nbr_prev_f1 = 0; " +
+		                     "I_nbr_prev_any_tag_f1  = 0; " +
+		                     "I_nbr_prev_same_tag_f1 = 0; " +
 		                     "O_node_prev = O_node_current; " +   
 		                     "LOOP_PRV_SIBLINGS: while (B_cont_loop_prv) { " + 
 			                     "O_node_prev = O_node_prev.previousElementSibling; " +
-	//		                     "console.log('I_nbr_prev 1: ' + I_nbr_prev_f1); " +
+	//		                     "console.log('I_nbr_prev_any_tag 1: ' + I_nbr_prev_any_tag_f1); " +
 			                     "if (!O_node_prev) {" +
-	//		                         "console.log('I_nbr_prev 2: ' + I_nbr_prev_f1); " +
+	//		                         "console.log('I_nbr_prev 2: ' + I_nbr_prev_any_tag_f1); " +
 			                         "break LOOP_PRV_SIBLINGS; } " +
-			                     "I_nbr_prev_f1++; }" +  
-		                     "AA_offs_vector.push([I_nbr_prev_f1, S_node_name]); " +
+			                     "I_nbr_prev_any_tag_f1++; " +
+			                     "S_tag_name_prv = O_node_prev.tagName; " +   
+			                     "if (S_tag_name_prv === S_node_name) { "+
+			                        "I_nbr_prev_same_tag_f1++ ; }} " +  
+		                     "AA_offs_vector.push([I_nbr_prev_any_tag_f1, S_node_name, I_nbr_prev_same_tag_f1]); " +
 		                     "O_node_current = O_node_current.parentNode; " +
 			                 "} " +
 		                 "I_nbr_attrs_f1 = AO_attrs.length; " +  
@@ -434,10 +641,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
         	                  "AS_attr = [S_attr_name, S_attr_value]; " +
         	                  "AAS_attrs.push(AS_attr); " +
         	                  "} " +    
-		                                  "I_nbr_styles_f1 = O_comp_style.length; " +
+		                 "I_nbr_styles_f1 = O_comp_style.length; " +
 //        	                  "console.log('Number of comp-styles: ' + I_nbr_styles_f1); " + 
-                              "AAS_comp_styles = []; " +
-        	                  "for (i2 = 0; i2 < I_nbr_styles_f1; i2++) { " +
+                         "AAS_comp_styles = []; " +
+        	             "for (i2 = 0; i2 < I_nbr_styles_f1; i2++) { " +
         	                     "S_style_key = O_comp_style[i2]; " +
 //         	                     "console.log('Style-Key: ' + S_style_key); " + 
         	                    "S_style_val = O_comp_style.getPropertyValue(S_style_key); " +
@@ -484,10 +691,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			i2_down = I_len_offset_vector_f1 - 1;
 			for (i2_up = 0; i2_up < I_len_offset_vector_f1; i2_up++) { 
 				A_DOM_offset = AA_DOM_offset_vector.get(i2_up);
-				L_dom_idx_f0 = (Long)(A_DOM_offset.get(0));
-				I_dom_idx_f0 = (int)L_dom_idx_f0;
+				L_dom_idx_any_tag_f0 = (Long)(A_DOM_offset.get(0));
+				I_dom_idx_f0_any_tag = (int)L_dom_idx_any_tag_f0;
 				S_dom_node_name = (String)(A_DOM_offset.get(1));
-				O_DOM_offset_received = new DomOffset(I_dom_idx_f0, S_dom_node_name);
+				O_DOM_offset_received = new DomOffset(I_dom_idx_f0_any_tag, S_dom_node_name);
 				AO_DOM_offset_vector_received[i2_down] = O_DOM_offset_received;
 				i2_down--;
 				}
@@ -509,6 +716,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 						O_by_locator_css.E_locator_variant,
 						(ExtendedCssSelector)O_by_locator_css.SBO_using,
 						O_by_locator_css.S_tag_expected,
+						O_lnk_txt,
 						O_by_locator_css.I_idx_f0,
 						O_by_locator_css.S_prefix,
 						O_by_locator_css.M_ctor,
@@ -524,27 +732,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 						AAS_style
 						);
 			
-        	AO_retval_web_element.push(O_res_web_element);
+        	AO_retval_web_element.push(O_res_web_element_css);
             }
 		return AO_retval_web_element; 
 		}
 	
-		
-	public static WebElement FO_find_element_by_css(
-			final ByCssS PI_O_locator) {
-	
-	List<WebElement> AO_web_elements;
-	int I_nbr_web_elements;
-	WebElement O_retval_web_element = null;
-	
-	AO_web_elements = FAO_find_elements_by_css(PI_O_locator);
-	if (AO_web_elements != null) {
-		I_nbr_web_elements = AO_web_elements.size();
-		if (I_nbr_web_elements >= 1) {
-			O_retval_web_element = AO_web_elements.get(0);
-		    }
-	    }
-	
-	return O_retval_web_element;
-	}
 }

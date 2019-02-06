@@ -27,6 +27,7 @@ import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 
 import regexodus.Pattern;
 
@@ -48,8 +49,9 @@ public class XpathGenerators {
 	
 	public static final String S_re_clazz_name = "^\\p{Alpha}[\\w\\-]*$";
 	public static final Pattern P_clazz_name = Pattern.compile(S_re_clazz_name);
-	public static final String S_re_tag_name = "^(\\*|[a-z]+)$";
-	public static final Pattern P_tag_name = Pattern.compile(S_re_tag_name);
+	public static final String S_re_tag_name_requested = "^(\\*|[a-z]+)$";
+	public static final Pattern P_tag_name_requested = Pattern.compile(S_re_tag_name_requested);
+	public static final String S_re_tag_name_received = "^[A-Z]+$";
 	
 	public static final String S_field_name_buffer = "buffer";  // contains the payload chars of StrBuilder
 	
@@ -366,26 +368,36 @@ public class XpathGenerators {
 	 **/
 public static class DomOffset {
 		
-		public int    I_idx_f0;
-		public String S_node_name;
-		
-		public DomOffset(
-				final int PI_I_idx_f0, 
-				final String PI_I_S_node_name) {
-		this.I_idx_f0    = PI_I_idx_f0;
-		this.S_node_name = PI_I_S_node_name;
-		return;
-		}
+		public int    I_idx_any_tag_f0;			  // for DOM root-node
+		public String S_node_name;				  // for absolute xpath
+		public int    I_idx_same_tag_f0;	  // == " ==
 		
 		public DomOffset(final int PI_I_idx_f0) {
-			this(PI_I_idx_f0, (String)null);
+			this(PI_I_idx_f0, (String)null, -1);
 			return;
 		}
+		
+		public DomOffset(
+				final int PI_I_idx_any_tag_f0, 
+				final String PI_I_S_node_name) {
+			this(PI_I_idx_any_tag_f0, PI_I_S_node_name, -1);
+			return;
+		}
+		
+	public DomOffset(
+				final int PI_I_idx_any_tag_f0, 
+				final String PI_I_S_node_name,
+				final int PI_I_idx_same_tag_f0) {
+			this.I_idx_any_tag_f0   = PI_I_idx_any_tag_f0;
+			this.S_node_name        = PI_I_S_node_name;
+			this.I_idx_same_tag_f0  = PI_I_idx_same_tag_f0;
+			return;
+		}	
 		
 		@Override
 		public String toString() {
 			String S_retval;
-			S_retval = "[" + this.I_idx_f0 + "," + this.S_node_name + "]";
+			S_retval = "[" + this.I_idx_any_tag_f0 + "," + this.S_node_name + "]";
 		    return S_retval;
 		}
 	}
@@ -408,7 +420,7 @@ public static int[] FAI_reduce_DOM_offset_vector (final DomOffset PI_AO_dom_offs
 	
 	for (i1 = 0; i1 < I_len_offset_vector_f1; i1++) {
 		O_DOM_offset = PI_AO_dom_offsets[i1];
-		I_dom_idx_f0 = O_DOM_offset.I_idx_f0;
+		I_dom_idx_f0 = O_DOM_offset.I_idx_any_tag_f0;
 		if (I_dom_idx_f0 < 0) {
 		    S_msg_1 = "Invalid negative offset: " + I_dom_idx_f0 + " at index: " + i1;
 		        E_ill_arg = new InvalidArgumentException(S_msg_1);
@@ -451,6 +463,40 @@ public static DomOffset[] FAO_create_DOM_offsets(final int PI_AI_DOM_offset_vect
 	    }
 	return AO_retval_dom_offsets;
     }
+
+public static StringBuilder FS_generate_abs_xpath(final DomOffset[] PI_AO_dom_offsets) {
+	
+		IllegalArgumentException E_ill_arg;
+		RuntimeException E_rt;
+		
+		DomOffset O_dom_offset;
+		String S_tag, S_msg_1, S_msg_2, S_elem;
+		int i1, I_nbr_dom_offsets_f1, I_idx_same_tag_f0, I_idx_same_tag_f1;
+	    StringBuilder SB_retval_abs_xpath = null;
+		
+		if (PI_AO_dom_offsets == null) {
+			return SB_retval_abs_xpath;
+		    }
+		I_nbr_dom_offsets_f1 = PI_AO_dom_offsets.length;
+		SB_retval_abs_xpath = new StringBuilder("/html[1]/body[1]");
+		for (i1 = 0; i1 < I_nbr_dom_offsets_f1; i1++) {
+			O_dom_offset = PI_AO_dom_offsets[i1];
+			S_tag = O_dom_offset.S_node_name;
+			S_tag = S_tag.toLowerCase();
+			I_idx_same_tag_f0 = O_dom_offset.I_idx_same_tag_f0;
+			if (I_idx_same_tag_f0 < 0) {
+				S_msg_1 = "Invalid 0 based index " + I_idx_same_tag_f0 +  " for absolute xpath on level " + i1 + ".";
+				E_ill_arg = new IllegalArgumentException(S_msg_1);
+				throw E_ill_arg;
+			    }
+			
+			I_idx_same_tag_f1 = I_idx_same_tag_f0 + 1;
+			S_elem = "/" + S_tag + "[" +  "I_idx_same_tag_f1" + "]";
+			SB_retval_abs_xpath.append(S_elem);
+		    }
+		
+		return SB_retval_abs_xpath;
+	}
 
 	public static class IndexedStrBuilder extends TextStringBuilder {
 		public int I_starting_pos_of_idx = -1;
@@ -981,7 +1027,7 @@ public static DomVectorExtendedSelector	FSBO_get_xpath (
 		throw E_rt;
 	    }
 	
-	O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, P_tag_name);
+	O_grp_match_result = RegexpUtils.FO_match(PI_S_tag, P_tag_name_requested);
 	if (O_grp_match_result.I_array_size_f1 == 0) { 
     	S_msg_1 = "Invalid value for tag: \'" + PI_S_tag + "\'";
     	E_ill_arg = new IllegalArgumentException(S_msg_1);
