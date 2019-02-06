@@ -11,6 +11,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import com.github.michaelederaut.basics.props.PropertyContainer;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.FoundBy;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
@@ -23,6 +25,19 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 
 public class RemoteWebElementCssS extends RemoteWebElement {
+	
+	public DomVectorExtendedSelector SBO_xpath;
+//	public StringBuffer SB_xpath_cummulated = new StringBuffer();
+	public FoundBy      O_found_by;
+	public int          I_nbr_duplicates_f1; // nbr elems with idential xpath
+	public String       S_tag_received;
+	public String       S_inner_txt;
+	public String       S_txt_content; // Selenium: lintText, html >xxxxx<
+	public String       S_lnk_txt;    
+	public String       S_inner_html;
+	public String       AAS_attrs[][], AAS_comp_styles[][], AAS_styles[][];
+	public PropertyContainer O_attrs, O_comp_styles, O_styles;
+	
 	
 	public static class LocatorSelectorCss extends LocatorSelector {
 		public String                      S_tag_expected;
@@ -111,6 +126,52 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		super();
 		
+		FV_ctor(
+		   this,
+		   PI_O_web_ele,
+		   PI_E_locator,
+		   PI_E_locator_variant,		
+		   PI_O_using,	
+		   PI_S_tag_expected,
+		   PI_I_idx_f0,
+		   PI_S_prefix,
+		   PI_M_ctor,
+		   PI_AO_dom_offset_vector,
+		   PI_I_nbr_duplicates_f1,
+		   PI_S_tag_received,
+		   PI_S_inner_txt,
+		   PI_S_txt_content,
+		   PI_S_lnk_txt,
+		   PI_S_inner_html,
+		   PI_AAS_attrs,
+		   PI_AAS_comp_style,  // computed style
+		   PI_AAS_comp);
+		
+		return;
+	}
+	
+	protected static void FV_ctor(
+			final RemoteWebElementCssS PO_O_rem_web_elem_css,
+			final WebElement         PI_O_web_elem,
+			final Locator            PI_E_locator,
+			final LocatorVariant     PI_E_locator_variant,
+			final DomVectorExtendedSelector PI_O_using,
+			final String             PI_S_tag_expected,
+			final int                PI_I_idx_f0,
+			final String             PI_S_prefix,
+			final Constructor<? extends ByCssS> PI_M_ctor, 
+			final DomOffset PI_AO_dom_offset_vector[],
+			final int       PI_I_nbr_duplicates_f1,
+			final String    PI_S_tag_received,
+			final String    PI_S_inner_txt,
+			final String    PI_S_txt_content,
+			final String    PI_S_lnk_txt,
+			final String    PI_S_inner_html,
+			final ArrayList<ArrayList<String>> PI_AAS_attrs,
+			final ArrayList<ArrayList<String>> PI_AAS_comp_style,  // computed style
+			final ArrayList<ArrayList<String>> PI_AAS_style) {
+		
+		// TODO 
 		return;
 	}
 	
@@ -283,7 +344,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		                 "O_node_current = O_node_retval; " +
                          "S_tag_name    = O_node_current.tagName; " +
 		                 "S_inner_txt   = O_node_current.innerText; " +
-		                 "S_txt_content = O_node_current.textContent; " +
+		                 "S_txt_content = O_node_current.textContent; " + // Selenium: lintText, html >xxxxx< - but doesn't work for html-functions
 		                 "S_inner_html  = O_node_current.innerHTML; " +
 		                 "AO_attrs      = O_node_current.attributes; " +
 		                 "O_comp_style  = window.getComputedStyle(O_node_current); " +

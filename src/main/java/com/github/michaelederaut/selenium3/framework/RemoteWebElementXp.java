@@ -72,7 +72,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	public int          I_nbr_duplicates_f1; // nbr elems with idential xpath
 	public String       S_tag_received;
 	public String       S_inner_txt;
-	public String       S_txt_content; // Selenium: lintText, html >xxxxx<
+	public String       S_txt_content; // Selenium: lintText, html >xxxxx< - but doesn't work for html-functions
 	public String       S_inner_html;
 	public String       AAS_attrs[][], AAS_comp_styles[][], AAS_styles[][];
 	public PropertyContainer O_attrs, O_comp_styles, O_styles;
@@ -742,9 +742,7 @@ public String FS_get_style(final String PI_S_style_key) {
 			final String    PI_S_inner_html,
 			final ArrayList<ArrayList<String>> PI_AAS_attrs,
 			final ArrayList<ArrayList<String>> PI_AAS_comp_style,  // computed style
-			final ArrayList<ArrayList<String>> PI_AAS_style
-			
-			) {
+			final ArrayList<ArrayList<String>> PI_AAS_style) {
 		
 		Exception                E_cause;
 		RuntimeException         E_rt;
