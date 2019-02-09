@@ -398,7 +398,6 @@ public static String FS_unindex(final IndexedStrBuilder PI_SB_xpath) {
 	       B_needs_parenthesing_1 = FB_needs_parenthesing(PI_S_xp1);
 	       }
 	    
-	        
 	    if (B_needs_parenthesing_1) {
 	    	SB_res_append.append("(");
 	       }
