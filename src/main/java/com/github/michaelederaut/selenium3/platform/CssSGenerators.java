@@ -36,7 +36,6 @@ import static com.github.michaelederaut.basics.ToolsBasics.FS;
 */
 public class CssSGenerators {
 	
- 	
 //	
 //	public static final String S_re_end_criterion_where = "^(.*?)\\(python.exe)";
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
@@ -55,7 +54,6 @@ public class CssSGenerators {
 	protected static String S_pna_py;
 	protected static File F_pna_py, F_dna_parent_script;
 	protected static String S_pna_py_scr;
-	
 	
 //	public static final EndCriterion O_end_crit_where = 
 //			new EndCriterion(EndCriterion.L_timeout_dflt, P_end_criterion_where);

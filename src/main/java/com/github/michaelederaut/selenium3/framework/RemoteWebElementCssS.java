@@ -98,7 +98,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	   		 return;
 	      }
      }
-	//----------------------------
+
 	// FoundBy
 	public static class FoundBy {
 		public SearchContext O_driver_info;
@@ -449,13 +449,13 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation, S_dom_node_name,
 		       S_tag_received,  S_inner_txt, S_txt_content, S_lnk_txt, S_inner_html;
-		Object O_res_exec, O_res_exec_elements_extended, O_res_extended_element, O_res_DOM_offset_vector,
+		Object O_res_exec, O_res_exec_elements_extended, O_res_extended_element, O_res_DOM_offset_vector, S_abs_xpath,
 		       O_res_attrs, O_res_comp_style, O_res_style;
 		Integer IO_requested_idx_f0;
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
 		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
-		boolean B_is_pure_css;
+	//	boolean B_is_pure_css;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -682,11 +682,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
         	O_res_extended_element = AO_res_exec_elements_extended.get(i1);
         	AO_extended_element = (ArrayList<Object>)O_res_extended_element;
         	O_res_web_element = (RemoteWebElement)AO_extended_element.get(0);
-        	if (i1 == 0) {
-	        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
-				S_web_driver_parent = O_web_driver_parent.toString();
-				S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
-        	    }
+        	
     		RemoteWebElementXp.FV_set_found_by(O_res_web_element, S_found_by);
     		O_res_DOM_offset_vector = AO_extended_element.get(1);  // get the absolute Xpath
     		AA_DOM_offset_vector = (ArrayList<ArrayList<Object>>)O_res_DOM_offset_vector;
@@ -702,6 +698,17 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 				AO_DOM_offset_vector_received[i2_down] = O_DOM_offset_received;
 				i2_down--;
 				}
+			if (i1 == 0) {
+	        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
+				S_web_driver_parent = O_web_driver_parent.toString();
+        		if ((!SB_css_equivalent.B_identity) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
+				    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
+        	        }
+        		else {
+        			S_abs_xpath = XpathGenerators.FS_generate_abs_xpath(AO_DOM_offset_vector_received);
+        			S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, S_abs_xpath);
+        		}
+        	}
     		S_tag_received = (String)AO_extended_element.get(2);
     		S_inner_txt    = (String)AO_extended_element.get(3);
 			S_txt_content  = (String)AO_extended_element.get(4);
