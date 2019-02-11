@@ -67,6 +67,23 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			 PO_O_loc_sel_xp.M_ctor             = PI_M_ctor;
 		 }
 		 
+	    @Override
+	    public LocatorSelectorCss clone() {
+	    	 LocatorSelectorCss O_retval_loc_sel_css;
+	    	 
+	    	 O_retval_loc_sel_css = new LocatorSelectorCss(
+	    		 this.E_locator,
+	    		 this.E_locator_variant,
+	    		 this.SBO_using,
+	    		 this.S_tag_expected == null ? null : new String(this.S_tag_expected),
+	    		 this.O_lnk_txt,
+	    	     this.I_idx_f0,
+	    		 this.S_prefix == null ? null : new String(this.S_prefix),
+	    		 this.M_ctor);
+	    	 
+	    	 return O_retval_loc_sel_css;
+	    }
+	    
 		 public LocatorSelectorCss (
 			final String         PI_S_locator,
 			final LocatorVariant PI_E_locator_variant,
