@@ -1160,16 +1160,19 @@ public String FS_get_style(final String PI_S_style_key) {
 		    
 			O_res_exec_elements_extended  =  HO_res_exec.get(S_key_name_vectors);
 			AO_res_exec_elements_extended = (ArrayList<Object>)O_res_exec_elements_extended;
+			S_found_by = null;
 			I_nbr_returned_elems_f1 = AO_res_exec_elements_extended.size();
 			for (i1 = 0; i1 < I_nbr_returned_elems_f1; i1++) {
 				O_res_extended_element = AO_res_exec_elements_extended.get(i1);
 				AO_extended_element = (ArrayList<Object>)O_res_extended_element;
 				O_res_web_element   = (RemoteWebElement)AO_extended_element.get(0);
-			    O_web_driver_parent = FO_get_parent_driver(O_res_web_element);
-			    S_web_driver_parent = O_web_driver_parent.toString();
-			    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, SB_xpath_equivalent.FS_get_buffer());
+				if (i1 == 0) {
+			       O_web_driver_parent = FO_get_parent_driver(O_res_web_element);
+			       S_web_driver_parent = O_web_driver_parent.toString();
+			       S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, SB_xpath_equivalent.FS_get_buffer());
+				   }
     		    FV_set_found_by(O_res_web_element, S_found_by);
-			    O_res_DOM_offset_vector = AO_extended_element.get(1);  // get the absolute Xpath
+			    O_res_DOM_offset_vector = AO_extended_element.get(1);
 			    AA_DOM_offset_vector = (ArrayList<ArrayList<Object>>)O_res_DOM_offset_vector;
 			    I_len_offset_vector_f1 = AA_DOM_offset_vector.size();
 			    AO_DOM_offset_vector_received = new DomOffset[I_len_offset_vector_f1];

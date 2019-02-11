@@ -676,13 +676,16 @@ public class RemoteWebElementCssS extends RemoteWebElement {
         O_res_exec_elements_extended  =  HO_res_exec.get(RemoteWebElementXp.S_key_name_vectors);
         AO_res_exec_elements_extended = (ArrayList<Object>)O_res_exec_elements_extended ;
         I_nbr_returned_elems_f1 = AO_res_exec_elements_extended.size();
+        S_found_by = null;
         for (i1 = 0; i1 < I_nbr_returned_elems_f1; i1++) {
         	O_res_extended_element = AO_res_exec_elements_extended.get(i1);
         	AO_extended_element = (ArrayList<Object>)O_res_extended_element;
         	O_res_web_element = (RemoteWebElement)AO_extended_element.get(0);
-        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
-			S_web_driver_parent = O_web_driver_parent.toString();
-			S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
+        	if (i1 == 0) {
+	        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
+				S_web_driver_parent = O_web_driver_parent.toString();
+				S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
+        	    }
     		RemoteWebElementXp.FV_set_found_by(O_res_web_element, S_found_by);
     		O_res_DOM_offset_vector = AO_extended_element.get(1);  // get the absolute Xpath
     		AA_DOM_offset_vector = (ArrayList<ArrayList<Object>>)O_res_DOM_offset_vector;
