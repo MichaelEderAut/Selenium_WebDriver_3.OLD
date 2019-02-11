@@ -293,7 +293,7 @@ public class NavigationUtils {
 	   AS_matching_groups = O_grp_match_result.AS_numbered_groups;
 	   I_nbr_matching_groups_f1 = O_grp_match_result.I_array_size_f1;
        if (I_nbr_matching_groups_f1 < I_nbr_required_matching_groups_f1) { // 6
-		  S_msg_1 = "The tauk of the found-by-string:\n" + 
+		  S_msg_1 = "The tail of the found-by-string:\n" + 
 		     S_tail + "\n" + 
              "Doesn't match the regular Expression: \'" + S_re_found_by + "\'\n" +
              "Number: required matching groups:" + I_nbr_required_matching_groups_f1 + " Number of qchieved matches: " +
