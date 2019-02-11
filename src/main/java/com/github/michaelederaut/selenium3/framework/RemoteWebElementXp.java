@@ -35,6 +35,7 @@ import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerArrArrStr;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
 import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
@@ -216,6 +217,23 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			 PO_O_loc_sel_xp.S_prefix           =  PI_S_prefix;
 			
 			 PO_O_loc_sel_xp.M_ctor              = PI_M_ctor;
+	    }
+		
+	     @Override
+		 public LocatorSelectorXp clone() {
+			 
+		 LocatorSelectorXp O_retval_loc_sel_xp;
+		 
+		 O_retval_loc_sel_xp = new LocatorSelectorXp(
+				    this.E_locator, 
+	    			this.E_locator_variant, 
+	    			this.SBO_using,
+	    			this.S_tag_expected == null ? null : new String(this.S_tag_expected),
+	    		    this.I_idx_f0,		
+	    			this.S_prefix	== null ? null : new String(this.S_prefix),
+	    			this.M_ctor);
+		 
+		 return O_retval_loc_sel_xp;
 		 }
 		 
 	    /**
@@ -316,8 +334,8 @@ public class RemoteWebElementXp extends RemoteWebElement {
 		// public Stack<? extends LocatorSelector> AO_by_locators;
 		public Stack<LocatorSelector> AO_by_locators;
 	
-	protected static void FV_ctor(
-			final FoundBy         PO_O_found_by,
+	protected static void FV_ctor (
+			final FoundBy  PO_O_found_by,
 			final SearchContext   PI_O_driver_info,
 			final Object          PI_O_locator,
 			final LocatorVariant  PI_E_locator_variant,
@@ -326,8 +344,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			final int             PI_I_idx_f0,
 			final String          PI_S_prefix,
 			final Constructor<? extends ByXp> PI_M_ctor) {
-		 LocatorSelector O_loc_sel_xp;
-		
+		 LocatorSelectorXp O_loc_sel_xp;
 		
 	    if (PI_O_driver_info != null) {
 	    	PO_O_found_by.O_driver_info = PI_O_driver_info;
@@ -612,72 +629,76 @@ public String FS_get_style(final String PI_S_style_key) {
 	}
 	
 	public void FV_add(final FoundBy PI_O_found_by) {
-	//	Stack<LocatorSelectorXp> AO_by_locator_xp_dest, AO_by_locator_xp_dest_bak;
-		Stack<LocatorSelector> AO_by_locator_xp_dest, AO_by_locator_xp_dest_bak;
-	//	List<LocatorSelectorXp> AO_by_locator_xp_source;
-		List<LocatorSelector> AO_by_locator_xp_source;
+	
+		Stack<LocatorSelector> AO_by_locator_dest, AO_by_locator_dest_bak;
+
+		List<LocatorSelector> AO_by_locator_source;
 	    FoundBy O_found_by_dest;
+	    LocatorSelector O_by_locator_source, O_by_locator_dest;
 	    LocatorSelectorXp O_by_locator_xp_source, O_by_locator_xp_dest;
+	    LocatorSelectorCss O_by_locator_css_source, O_by_locator_css_dest;
+	  
 	    String S_xpath_new, S_xpath_cummulated;
 	    int i1, I_nbr_locators_source_f1, I_nbr_locators_dest_f1;
 	    
 	    O_found_by_dest = this.O_found_by;
-	    AO_by_locator_xp_source = PI_O_found_by.AO_by_locators;
-	    if (AO_by_locator_xp_source == null) {
+	 //   AO_by_locator_xp_source = PI_O_found_by.AO_by_locators;
+	    AO_by_locator_source = PI_O_found_by.AO_by_locators;
+	    if (AO_by_locator_source == null) {
 	    	return;
 	       }
 	   
-	    AO_by_locator_xp_dest = O_found_by_dest.AO_by_locators;
-	    if (AO_by_locator_xp_dest == null) {
+	    AO_by_locator_dest = O_found_by_dest.AO_by_locators;
+	    if (AO_by_locator_dest == null) {
 	    	O_found_by_dest.AO_by_locators = new Stack<LocatorSelector>();
-	    	AO_by_locator_xp_dest = O_found_by_dest.AO_by_locators;
+	    	AO_by_locator_dest = O_found_by_dest.AO_by_locators;
 	        }
-	    AO_by_locator_xp_dest_bak = AO_by_locator_xp_dest;
+	    AO_by_locator_dest_bak = AO_by_locator_dest;
 	  
-	    AO_by_locator_xp_dest     = new Stack<LocatorSelector>();
-	    I_nbr_locators_source_f1 = AO_by_locator_xp_source.size();
+	    AO_by_locator_dest     = new Stack<LocatorSelector>();
+	    I_nbr_locators_source_f1 = AO_by_locator_source.size();
 	    for (i1 = 0; i1 < I_nbr_locators_source_f1; i1++) {
-	    	O_by_locator_xp_source = (LocatorSelectorXp)AO_by_locator_xp_source.get(i1);
-	    	O_by_locator_xp_dest = new LocatorSelectorXp(
-	    			O_by_locator_xp_source.E_locator, 
-	    			O_by_locator_xp_source.E_locator_variant, 
-	    			O_by_locator_xp_source.SBO_using,
-	    			O_by_locator_xp_source.S_tag_expected    == null ? null : new String(O_by_locator_xp_source.S_tag_expected),
-	    		    O_by_locator_xp_source.I_idx_f0,		
-	    			O_by_locator_xp_source.S_prefix	== null ? null : new String(O_by_locator_xp_source.S_prefix),
-	    			O_by_locator_xp_source.M_ctor
-	    		//	new IndexedStrBuilder(O_by_locator_xp_source.SB_xpath_equivalent)
-	    			);	
-	    	AO_by_locator_xp_dest.add(O_by_locator_xp_dest);
+	    	O_by_locator_source = AO_by_locator_source.get(i1);
+	    	if (O_by_locator_source instanceof LocatorSelectorXp) {
+	    	   O_by_locator_xp_source = (LocatorSelectorXp)O_by_locator_source;
+	    	   O_by_locator_xp_dest = O_by_locator_xp_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_xp_dest);
+	           }
+	        else if (O_by_locator_source instanceof LocatorSelectorCss) {
+	    		  O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
+	    		  O_by_locator_css_dest =  O_by_locator_css_source.clone();
+	    		   AO_by_locator_dest.add(O_by_locator_css_dest);
+	    	      }
 	        }
-	    I_nbr_locators_dest_f1    = AO_by_locator_xp_dest_bak.size();
+	    I_nbr_locators_dest_f1    = AO_by_locator_dest_bak.size();
 	    for (i1 = 0; i1 < I_nbr_locators_dest_f1; i1++) {
-	    	O_by_locator_xp_source = (LocatorSelectorXp)AO_by_locator_xp_dest_bak.get(i1);
-	    	O_by_locator_xp_dest = new LocatorSelectorXp(
-	    			O_by_locator_xp_source.E_locator, 
-	    			O_by_locator_xp_source.E_locator_variant, 
-	    			O_by_locator_xp_source.SBO_using,
-	    			O_by_locator_xp_source.S_tag_expected    == null ? null : new String(O_by_locator_xp_source.S_tag_expected),
-	    		    O_by_locator_xp_source.I_idx_f0,	
-	    	        O_by_locator_xp_source.S_prefix	== null ? null : new String(O_by_locator_xp_source.S_prefix),
-	    	        O_by_locator_xp_source.M_ctor);	
-	    	AO_by_locator_xp_dest.add(O_by_locator_xp_dest);
-	       }
-	    O_found_by_dest.AO_by_locators = AO_by_locator_xp_dest;
-	    O_by_locator_xp_dest = (LocatorSelectorXp)AO_by_locator_xp_dest.get(0);
-	    S_xpath_cummulated = O_by_locator_xp_dest.SBO_using.FS_get_buffer();
+	    	O_by_locator_source = AO_by_locator_dest_bak.get(i1);
+	    	if (O_by_locator_source instanceof LocatorSelectorXp) {
+	    	    O_by_locator_xp_source = (LocatorSelectorXp)O_by_locator_source;
+	    	    O_by_locator_xp_dest = O_by_locator_xp_source.clone();
+	    	    AO_by_locator_dest.add(O_by_locator_xp_dest);
+	            }
+	    	else if (O_by_locator_source instanceof LocatorSelectorCss) {
+	    	   O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
+	    	   O_by_locator_css_dest = O_by_locator_css_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_css_dest);
+	    	   }
+	    } 
+	    O_found_by_dest.AO_by_locators = AO_by_locator_dest;
+	    O_by_locator_dest = AO_by_locator_dest.get(0);
+	    S_xpath_cummulated = O_by_locator_dest.SBO_using.FS_get_buffer();
 	   
-	    I_nbr_locators_dest_f1 = AO_by_locator_xp_dest.size();
+	    I_nbr_locators_dest_f1 = AO_by_locator_dest.size();
 	    for (i1 = 1; i1 < I_nbr_locators_dest_f1; i1++) {
-	    	 O_by_locator_xp_dest = (LocatorSelectorXp)AO_by_locator_xp_dest.get(i1);
-	    	 S_xpath_new = O_by_locator_xp_dest.SBO_using.FS_get_buffer();
+	    	 O_by_locator_dest = AO_by_locator_dest.get(i1);
+	    	 S_xpath_new = O_by_locator_dest.SBO_using.FS_get_buffer();
 	    	 S_xpath_cummulated = XpathConcatenator.FS_append(S_xpath_cummulated, S_xpath_new);
 	         }
 	    this.SB_xpath_cummulated = new StringBuffer(S_xpath_cummulated);
 	    
-	    AO_by_locator_xp_dest_bak = null;  // for garbage collection
-	    AO_by_locator_xp_source   = null;  //  == " ==
-	    S_xpath_cummulated        = null;  //  == " ==
+	    AO_by_locator_dest_bak = null;  // for garbage collection
+	    AO_by_locator_source   = null;  //  == " ==
+	    S_xpath_cummulated     = null;  //  == " ==
 	    return;
 	}
 	
@@ -1322,6 +1343,8 @@ public String FS_get_style(final String PI_S_style_key) {
 		
 		LocatorSelectorXp O_by_locator_xp;
 		RemoteWebElementXp O_web_element_xp;
+		RemoteWebElementCssS O_web_element_css;
+		
 		Stack<WebElement> AO_web_elements_xp;
 		List<WebElement> AO_res_web_elements;
 		WebElement O_res_web_element;
@@ -1351,24 +1374,32 @@ public String FS_get_style(final String PI_S_style_key) {
 			   O_by_css = null;
 		       }
 			else {
-				O_by_css = (ByCssS)by;
-				O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
-				AO_res_web_elements = RemoteWebElementCssS.FAO_find_elements_by_css(O_by_css);
-			    O_by_xp = null; 
+			   O_by_css = (ByCssS)by;
+			   O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
+			   AO_res_web_elements = RemoteWebElementCssS.FAO_find_elements_by_css(O_by_css);
+			   O_by_xp = null; 
 			   }
 			if (AO_res_web_elements == null) {
 				return AO_retval_web_elements;
 			    }
-			AO_web_elements_xp = new Stack<WebElement>();
+			
 			I_nbr_found_elems = AO_res_web_elements.size();
+			AO_web_elements_xp = new Stack<WebElement>();
+			
 			for (i1 = 0; i1 < I_nbr_found_elems; i1++) {
 				O_res_web_element = AO_res_web_elements.get(i1);
-				O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
-				O_web_element_xp.FV_add(this.O_found_by);
+				if (B_is_xp) {
+					O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
+					O_web_element_xp.FV_add(this.O_found_by);
+				   }
+				else {
+					O_web_element_css = (RemoteWebElementCssS)O_res_web_element;
+				//	O_web_element_css.FV_add(this.O_found_by);   // TODO
+				   }
 			    }  
 			 AO_retval_web_elements = AO_web_elements_xp;
 	         }
-		else {  // By
+		else {  // native Selenium
 			AO_retval_web_elements = by.findElements(this);
 		    }
 		return AO_retval_web_elements;
