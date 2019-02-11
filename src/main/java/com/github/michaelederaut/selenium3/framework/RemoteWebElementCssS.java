@@ -455,6 +455,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
 		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
+		boolean B_is_pure_css;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
