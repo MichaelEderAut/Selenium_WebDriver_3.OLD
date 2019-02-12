@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -424,8 +426,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		return;
 	}
 	
-	//-----------------
-	
+
 	public static WebElement FO_find_element_by_css(
 			final ByCssS PI_O_locator) {
 	
@@ -444,7 +445,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	return O_retval_web_element;
 	}
 	
-		public static List<WebElement> FAO_find_elements_by_css(
+	public static List<WebElement> FAO_find_elements_by_css(
 			final ByCssS PI_O_locator) {
 		
 	    LocatorSelectorCss O_by_locator_css;
@@ -764,5 +765,156 @@ public class RemoteWebElementCssS extends RemoteWebElement {
             }
 		return AO_retval_web_element; 
 		}
+	//---------------------------
+	@Override
+	public WebElement findElement(By by) {
+		
+		NoSuchElementException E_nse;
+		
+		ByXp O_by_xp;
+		ByCssS O_by_css;
+		
+		WebElement O_web_element;
+		RemoteWebElementXp O_rem_web_element_xp;
+		RemoteWebElementCssS O_rem_web_element_css;
+		String S_msg_1, S_starting_out_from_element, S_starting_out_from_element_xp_cumm, S_looking_for_element;
+        
+	    WebElement O_retval_web_element = null;
+	    
+		if (by == null) {
+			return O_retval_web_element;
+		    }
+		boolean B_is_xp = false; 
+        boolean B_is_css = false;
+        if (by instanceof ByCssS) {
+        	B_is_css = true;
+            }
+		else if (by instanceof ByXp) {
+			B_is_xp = true;
+		    }
+		
+		if (B_is_css  || B_is_xp) {
+			if (B_is_css) {
+				O_by_css = (ByCssS)by;
+				O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
+				O_web_element = RemoteWebElementCssS.FO_find_element_by_css(O_by_css);
+			    O_by_xp = null; 
+			    }
+		    else {
+			   O_by_xp = (ByXp)by;
+			   O_by_xp.O_loc_sel_xp.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
+			   O_web_element = RemoteWebElementXp.FO_find_element_by_xpath(O_by_xp);
+			   O_by_css = null; 
+			   }
+		  
+		   if (O_web_element == null) {
+			   S_starting_out_from_element = this.SBO_xpath.toString();
+//			   S_starting_out_from_element_xp_cumm = this.SB_xpath_cummulated.toString();
+			   if (B_is_css) {
+			     S_looking_for_element = O_by_css.O_loc_sel_css.toString();	 
+			      }
+			   else {
+				   S_looking_for_element  = O_by_xp.O_loc_sel_xp.toString();
+			       }
+			   S_msg_1 = System.lineSeparator() + System.lineSeparator() +
+					     "Unable to find element:" + System.lineSeparator() +
+					     S_looking_for_element + System.lineSeparator() +
+					     "Starting from element:"  + System.lineSeparator() +
+				//	     S_starting_out_from_element_xp_cumm + System.lineSeparator() + 
+					     S_starting_out_from_element + System.lineSeparator();
+			   E_nse = new NoSuchElementException(S_msg_1);
+			   throw E_nse;	     
+			   }
+			
+		   if (B_is_css) {  
+			   O_rem_web_element_css = (RemoteWebElementCssS)O_web_element;
+			//  O_rem_web_element_css.FV_add(this.O_found_by);  // TODO
+			   O_retval_web_element = O_rem_web_element_css; 
+		       }
+		   else {
+			  O_rem_web_element_xp = (RemoteWebElementXp)O_web_element;
+			  O_rem_web_element_xp.FV_add(this.O_found_by);
+			  O_retval_web_element = O_rem_web_element_xp;
+		      }
+		   }
+		else {
+			O_retval_web_element = by.findElement(this); // native Selenium
+		    }	    
+		return O_retval_web_element;    
+		  }
 	
+	@Override
+	public List<WebElement> findElements(By by) {
+		
+        ByXp   O_by_xp;
+        ByCssS O_by_css;
+		
+		LocatorSelectorXp O_by_locator_xp;
+		RemoteWebElementXp O_web_element_xp;
+		RemoteWebElementCssS O_web_element_css;
+		
+		Stack<WebElement> AO_web_elements;
+		List<WebElement> AO_res_web_elements;
+		WebElement O_res_web_element;
+		
+		int i1, I_nbr_found_elems;
+	
+		List<WebElement> AO_retval_web_elements = new Stack<WebElement>();
+		if (by == null) {
+			return AO_retval_web_elements;
+		    }
+		boolean B_is_xp = false; 
+        boolean B_is_css = false;
+		if (by instanceof ByXp) {
+			B_is_xp = true;
+		    }
+		else if (by instanceof ByCssS) {
+			B_is_css = true;
+		    }
+
+		if (B_is_xp || B_is_css) {
+		   if (B_is_css) {
+			   O_by_css = (ByCssS)by;
+			   O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
+			   AO_res_web_elements = FAO_find_elements_by_css(O_by_css);
+			   O_by_xp = null; 
+			   }
+		    else {
+			  O_by_xp = (ByXp)by;
+			  O_by_locator_xp = O_by_xp.O_loc_sel_xp;
+			  O_by_locator_xp.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
+			  AO_res_web_elements = RemoteWebElementXp.FAO_find_elements_by_xpath(O_by_xp);
+			  O_by_css = null;
+		      }
+			
+			if (AO_res_web_elements == null) {
+			   return AO_retval_web_elements;
+			   }
+			
+			I_nbr_found_elems = AO_res_web_elements.size();
+			AO_web_elements = new Stack<WebElement>();
+			
+			for (i1 = 0; i1 < I_nbr_found_elems; i1++) {
+				O_res_web_element = AO_res_web_elements.get(i1);
+				if (B_is_css) {
+					O_web_element_css = (RemoteWebElementCssS)O_res_web_element;
+				//	O_web_element_css.FV_add(this.O_found_by);   // TODO
+					AO_web_elements.push(O_web_element_css);
+				   }
+				else {
+					O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
+					O_web_element_xp.FV_add(this.O_found_by);
+					AO_web_elements.push(O_web_element_xp);
+			        }  
+			    }
+			    AO_retval_web_elements = AO_web_elements;  
+	         }
+		else {  // native Selenium
+			AO_retval_web_elements = by.findElements(this);
+		    }
+		return AO_retval_web_elements;
+	}
+	
+	
+	//---------------------------
 }

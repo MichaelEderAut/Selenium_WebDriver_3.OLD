@@ -16,6 +16,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.commons.text.StrBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.JavascriptException;
@@ -36,6 +37,7 @@ import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerArrArrStr;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
+import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
@@ -405,6 +407,66 @@ public class RemoteWebElementXp extends RemoteWebElement {
 			PI_M_ctor);
 		return;
 	    }
+	
+	// css
+	
+	@Deprecated
+	public FoundBy (
+			final SearchContext   PI_O_driver_info,
+			final Locator         PI_E_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector PI_O_using,
+			final String          PI_S_tag_expected,
+			final LinkText        PI_O_lnk_txt,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final Constructor<? extends ByCssS> PI_M_ctor) {
+		
+	FV_ctor(
+			this,
+			PI_O_driver_info,
+			PI_E_locator,
+			PI_E_locator_variant,
+			PI_O_using,
+			PI_S_tag_expected,
+			PI_O_lnk_txt,
+		    PI_I_idx_f0,
+			PI_S_prefix,
+			PI_M_ctor);
+		return;
+	}
+	
+	@Deprecated
+	protected static void FV_ctor (
+			final FoundBy  PO_O_found_by,
+			final SearchContext   PI_O_driver_info,
+			final Locator          PI_O_locator,
+			final LocatorVariant  PI_E_locator_variant,
+			final DomVectorExtendedSelector  PI_O_using,
+			final String          PI_S_tag_expected,
+			final LinkText        PI_O_lnk_txt,
+			final int             PI_I_idx_f0,
+			final String          PI_S_prefix,
+			final Constructor<? extends ByCssS> PI_M_ctor) {
+		 LocatorSelectorCss O_loc_sel_css;
+		
+	    if (PI_O_driver_info != null) {
+	    	PO_O_found_by.O_driver_info = PI_O_driver_info;
+	       }
+	    PO_O_found_by.AO_by_locators = new Stack<LocatorSelector>();
+		O_loc_sel_css = new LocatorSelectorCss(PI_O_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_O_lnk_txt, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
+		    
+		PO_O_found_by.AO_by_locators.push(O_loc_sel_css);
+	    return;
+	    }
+	
+	public FoundBy(
+		SearchContext   PI_O_driver_info,
+		Stack<LocatorSelector> AO_by_locators) {
+	   this.O_driver_info  = PI_O_driver_info;
+	   this.AO_by_locators = AO_by_locators;
+	   return;
+	   }
 	}
 	
 	public static RemoteWebDriver FO_get_parent_driver(
@@ -638,6 +700,7 @@ public String FS_get_style(final String PI_S_style_key) {
 	    LocatorSelectorXp O_by_locator_xp_source, O_by_locator_xp_dest;
 	    LocatorSelectorCss O_by_locator_css_source, O_by_locator_css_dest;
 	  
+	    StringBuilder SB_xpath_new;
 	    String S_xpath_new, S_xpath_cummulated;
 	    int i1, I_nbr_locators_source_f1, I_nbr_locators_dest_f1;
 	    
@@ -665,10 +728,10 @@ public String FS_get_style(final String PI_S_style_key) {
 	    	   AO_by_locator_dest.add(O_by_locator_xp_dest);
 	           }
 	        else if (O_by_locator_source instanceof LocatorSelectorCss) {
-	    		  O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
-	    		  O_by_locator_css_dest =  O_by_locator_css_source.clone();
-	    		   AO_by_locator_dest.add(O_by_locator_css_dest);
-	    	      }
+	    	   O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
+	    	   O_by_locator_css_dest =  O_by_locator_css_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_css_dest);
+	    	   }
 	        }
 	    I_nbr_locators_dest_f1    = AO_by_locator_dest_bak.size();
 	    for (i1 = 0; i1 < I_nbr_locators_dest_f1; i1++) {
@@ -691,7 +754,13 @@ public String FS_get_style(final String PI_S_style_key) {
 	    I_nbr_locators_dest_f1 = AO_by_locator_dest.size();
 	    for (i1 = 1; i1 < I_nbr_locators_dest_f1; i1++) {
 	    	 O_by_locator_dest = AO_by_locator_dest.get(i1);
-	    	 S_xpath_new = O_by_locator_dest.SBO_using.FS_get_buffer();
+	    	 if (O_by_locator_dest instanceof LocatorSelectorXp) {
+	    	    S_xpath_new = O_by_locator_dest.SBO_using.FS_get_buffer(); 
+	    	    }
+	    	 else {
+	    		SB_xpath_new = XpathGenerators.FS_generate_abs_xpath(O_by_locator_dest.SBO_using.AO_dom_offsets);
+	    		S_xpath_new = SB_xpath_new.toString();
+	    	    }
 	    	 S_xpath_cummulated = XpathConcatenator.FS_append(S_xpath_cummulated, S_xpath_new);
 	         }
 	    this.SB_xpath_cummulated = new StringBuffer(S_xpath_cummulated);
@@ -700,6 +769,16 @@ public String FS_get_style(final String PI_S_style_key) {
 	    AO_by_locator_source   = null;  //  == " ==
 	    S_xpath_cummulated     = null;  //  == " ==
 	    return;
+	}
+	
+	public void FV_add(final RemoteWebElementCssS.FoundBy PI_O_found_by) {
+	RemoteWebElementXp.FoundBy O_found_by_xp;
+	
+	O_found_by_xp = new RemoteWebElementXp.FoundBy(
+			PI_O_found_by.O_driver_info,
+			PI_O_found_by.AO_by_locators);
+			
+         this.FV_add(O_found_by_xp);
 	}
 	
 	public RemoteWebElementXp() {
@@ -1292,7 +1371,8 @@ public String FS_get_style(final String PI_S_style_key) {
 			   O_by_xp = (ByXp)by;
 			   O_by_xp.O_loc_sel_xp.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
 			   O_web_element = FO_find_element_by_xpath(O_by_xp);
-			   O_by_css = null; }
+			   O_by_css = null; 
+			   }
 		   else {
 				O_by_css = (ByCssS)by;
 				O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
@@ -1345,7 +1425,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		RemoteWebElementXp O_web_element_xp;
 		RemoteWebElementCssS O_web_element_css;
 		
-		Stack<WebElement> AO_web_elements_xp;
+		Stack<WebElement> AO_web_elements;
 		List<WebElement> AO_res_web_elements;
 		WebElement O_res_web_element;
 		
@@ -1384,20 +1464,23 @@ public String FS_get_style(final String PI_S_style_key) {
 			    }
 			
 			I_nbr_found_elems = AO_res_web_elements.size();
-			AO_web_elements_xp = new Stack<WebElement>();
+			AO_web_elements = new Stack<WebElement>();
 			
 			for (i1 = 0; i1 < I_nbr_found_elems; i1++) {
 				O_res_web_element = AO_res_web_elements.get(i1);
 				if (B_is_xp) {
 					O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
 					O_web_element_xp.FV_add(this.O_found_by);
+					AO_web_elements.push(O_web_element_xp);
 				   }
 				else {
 					O_web_element_css = (RemoteWebElementCssS)O_res_web_element;
 				//	O_web_element_css.FV_add(this.O_found_by);   // TODO
+					AO_web_elements.push(O_web_element_css);
 				   }
-			    }  
-			 AO_retval_web_elements = AO_web_elements_xp;
+			    }
+			
+			 AO_retval_web_elements = AO_web_elements;
 	         }
 		else {  // native Selenium
 			AO_retval_web_elements = by.findElements(this);
