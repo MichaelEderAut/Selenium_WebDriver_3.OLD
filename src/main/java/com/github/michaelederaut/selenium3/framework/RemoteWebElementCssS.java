@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
+import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.FoundBy;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
@@ -27,6 +28,7 @@ import com.github.michaelederaut.selenium3.platform.CssSGenerators.ExtendedCssSe
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
+import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 
@@ -201,6 +203,137 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			PI_M_ctor);
 		return;
 	    }
+	
+	public FoundBy(
+		SearchContext   PI_O_driver_info,
+		Stack<LocatorSelector> AO_by_locators) {
+		
+	   this.O_driver_info  = PI_O_driver_info;
+	   this.AO_by_locators = AO_by_locators;
+	   return;
+	   }
+	
+	}
+	
+	//----------------------------
+	public void FV_add (
+			final String         PI_S_locator,
+			final LocatorVariant PI_E_locator_variant,
+			final DomVectorExtendedSelector PI_O_using,
+			final String         PI_S_tag_expected,
+			final LinkText       PI_O_lnk_txt,
+			final int            PI_I_idx_f0,
+			final String         PI_S_prefix,
+			final Constructor<? extends ByCssS> PI_M_ctor,
+			final IndexedStrBuilder    PI_SB_xpath_equivalent) {
+	
+		LocatorSelectorCss O_by_locator_css;
+		String S_xpath_cummulated_old, S_xpath_cummulated_new;
+		
+		O_by_locator_css = new LocatorSelectorCss(
+				PI_S_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_O_lnk_txt, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
+//		S_xpath_cummulated_old = this.SB_xpath_cummulated.toString();
+//		S_xpath_cummulated_new = XpathConcatenator.FS_append(S_xpath_cummulated_old, PI_SB_xpath_equivalent.FS_get_buffer()); 
+//		this.SB_xpath_cummulated = new StringBuffer(S_xpath_cummulated_new);
+		this.O_found_by.AO_by_locators.push(O_by_locator_css);
+	}
+	
+	public void FV_add(final FoundBy PI_O_found_by) {
+	
+		AssertionError E_assert;
+		
+		Stack<LocatorSelector> AO_by_locator_dest, AO_by_locator_dest_bak;
+		List<LocatorSelector> AO_by_locator_source;
+	    FoundBy O_found_by_dest;
+	    LocatorSelector O_by_locator_source, O_by_locator_dest;
+	    LocatorSelectorXp O_by_locator_xp_source, O_by_locator_xp_dest;
+	    LocatorSelectorCss O_by_locator_css_source, O_by_locator_css_dest;
+	  
+	    StringBuilder SB_xpath_new;
+	    String S_xpath_new, S_xpath_cummulated, S_msg_1;
+	    int i1, I_nbr_locators_source_f1, I_nbr_locators_dest_f1;
+	    
+	    O_found_by_dest = this.O_found_by;
+	 //   AO_by_locator_xp_source = PI_O_found_by.AO_by_locators;
+	    AO_by_locator_source = PI_O_found_by.AO_by_locators;
+	    if (AO_by_locator_source == null) {
+	    	return;
+	       }
+	   
+	    AO_by_locator_dest = O_found_by_dest.AO_by_locators;
+	    if (AO_by_locator_dest == null) {
+	    	O_found_by_dest.AO_by_locators = new Stack<LocatorSelector>();
+	    	AO_by_locator_dest = O_found_by_dest.AO_by_locators;
+	        }
+	    AO_by_locator_dest_bak = AO_by_locator_dest;
+	  
+	    AO_by_locator_dest     = new Stack<LocatorSelector>();
+	    I_nbr_locators_source_f1 = AO_by_locator_source.size();
+	    for (i1 = 0; i1 < I_nbr_locators_source_f1; i1++) {
+	    	O_by_locator_source = AO_by_locator_source.get(i1);
+	    	if (O_by_locator_source instanceof LocatorSelectorXp) {
+	    	   O_by_locator_xp_source = (LocatorSelectorXp)O_by_locator_source;
+	    	   O_by_locator_xp_dest = O_by_locator_xp_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_xp_dest);
+	           }
+	        else if (O_by_locator_source instanceof LocatorSelectorCss) {
+	    	   O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
+	    	   O_by_locator_css_dest =  O_by_locator_css_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_css_dest);
+	    	   }
+	    	else {
+	           S_msg_1 = "Invalid class instance \'" + O_by_locator_source.getClass().getName() + "\' found at index " + i1 + ".";
+	           E_assert = new AssertionError(S_msg_1);
+	           throw E_assert;
+	           }
+	        }
+	    I_nbr_locators_dest_f1    = AO_by_locator_dest_bak.size();
+	    for (i1 = 0; i1 < I_nbr_locators_dest_f1; i1++) {
+	    	O_by_locator_source = AO_by_locator_dest_bak.get(i1);
+	    	if (O_by_locator_source instanceof LocatorSelectorXp) {
+	    	    O_by_locator_xp_source = (LocatorSelectorXp)O_by_locator_source;
+	    	    O_by_locator_xp_dest = O_by_locator_xp_source.clone();
+	    	    AO_by_locator_dest.add(O_by_locator_xp_dest);
+	            }
+	    	else if (O_by_locator_source instanceof LocatorSelectorCss) {
+	    	   O_by_locator_css_source = (LocatorSelectorCss)O_by_locator_source; 
+	    	   O_by_locator_css_dest = O_by_locator_css_source.clone();
+	    	   AO_by_locator_dest.add(O_by_locator_css_dest);
+	    	   }
+	    } 
+	    O_found_by_dest.AO_by_locators = AO_by_locator_dest;
+	    O_by_locator_dest = AO_by_locator_dest.get(0);
+	    S_xpath_cummulated = O_by_locator_dest.SBO_using.FS_get_buffer();
+	   
+	    I_nbr_locators_dest_f1 = AO_by_locator_dest.size();
+	    for (i1 = 1; i1 < I_nbr_locators_dest_f1; i1++) {
+	    	 O_by_locator_dest = AO_by_locator_dest.get(i1);
+	    	 if (O_by_locator_dest instanceof LocatorSelectorXp) {
+	    	    S_xpath_new = O_by_locator_dest.SBO_using.FS_get_buffer(); 
+	    	    }
+	    	 else {
+	    		SB_xpath_new = XpathGenerators.FS_generate_abs_xpath(O_by_locator_dest.SBO_using.AO_dom_offsets);
+	    		S_xpath_new = SB_xpath_new.toString();
+	    	    }
+	    	 S_xpath_cummulated = XpathConcatenator.FS_append(S_xpath_cummulated, S_xpath_new);
+	         }
+	//    this.SB_xpath_cummulated = new StringBuffer(S_xpath_cummulated);
+	    
+	    AO_by_locator_dest_bak = null;  // for garbage collection
+	    AO_by_locator_source   = null;  //  == " ==
+	    S_xpath_cummulated     = null;  //  == " ==
+	    return;
+	}
+	
+	public void FV_add(final RemoteWebElementXp.FoundBy PI_O_found_by) {
+		
+	RemoteWebElementCssS.FoundBy O_found_by_css;
+	
+	O_found_by_css = new RemoteWebElementCssS.FoundBy(
+			PI_O_found_by.O_driver_info,
+			PI_O_found_by.AO_by_locators);
+         this.FV_add(O_found_by_css);
+	
 	}
 	
 	//----------------------------
@@ -473,7 +606,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
 		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
-	//	boolean B_is_pure_css;
+		boolean B_single_node_only;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -489,6 +622,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
 		
 		SB_css_equivalent = (ExtendedCssSelector)O_by_locator_css.SBO_using;
+		B_single_node_only = SB_css_equivalent.B_identity;
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
 		I_requested_idx_f0 = O_by_locator_css.I_idx_f0;
 		if (I_requested_idx_f0 == XpathGenerators.IGNORED_IDX) {
@@ -570,10 +704,14 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		        "B_add_this_node, B_cont_loop_prv, " +
 		        "S_lnk_txt, S_node_name, S_tag_name, S_tag_name_prv, S_inner_txt, S_inner_html, S_txt_content, " + 
 		        "O_elem, O_node_retval, O_node_retval, O_node_prev; " +
-			"var AO_elems = []; " + 
+			"var AO_elems; " + 
 		    "I_nbr_elemens_f1 = 0; " + 
 			"I_nbr_elemens_interim_f1 = 0; " +
-		    "AO_elems = document.querySelectorAll(\"" + S_css_unindexed  + "\"); " +
+		    "AO_elems = " + (
+			     B_single_node_only ? 
+			       "[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); " 
+			     : 
+				 SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); ")  +
 			"if (AO_elems) {" +
 	            "I_nbr_elemens_interim_f1 = AO_elems.length;} " +
 			"else { " +
@@ -793,7 +931,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			B_is_xp = true;
 		    }
 		
-		if (B_is_css  || B_is_xp) {
+		if (B_is_css || B_is_xp) {
 			if (B_is_css) {
 				O_by_css = (ByCssS)by;
 				O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
@@ -827,10 +965,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			   }
 			
 		   if (B_is_css) {  
-			   O_rem_web_element_css = (RemoteWebElementCssS)O_web_element;
-			//  O_rem_web_element_css.FV_add(this.O_found_by);  // TODO
-			   O_retval_web_element = O_rem_web_element_css; 
-		       }
+			  O_rem_web_element_css = (RemoteWebElementCssS)O_web_element;
+			  O_rem_web_element_css.FV_add(this.O_found_by);  
+			  O_retval_web_element = O_rem_web_element_css; 
+		      }
 		   else {
 			  O_rem_web_element_xp = (RemoteWebElementXp)O_web_element;
 			  O_rem_web_element_xp.FV_add(this.O_found_by);
@@ -872,14 +1010,14 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			B_is_css = true;
 		    }
 
-		if (B_is_xp || B_is_css) {
+		if (B_is_css || B_is_xp) {
 		   if (B_is_css) {
 			   O_by_css = (ByCssS)by;
 			   O_by_css.O_loc_sel_css.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
 			   AO_res_web_elements = FAO_find_elements_by_css(O_by_css);
 			   O_by_xp = null; 
 			   }
-		    else {
+		   else {
 			  O_by_xp = (ByXp)by;
 			  O_by_locator_xp = O_by_xp.O_loc_sel_xp;
 			  O_by_locator_xp.SBO_using.AO_dom_offsets = this.SBO_xpath.AO_dom_offsets;
@@ -898,14 +1036,14 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 				O_res_web_element = AO_res_web_elements.get(i1);
 				if (B_is_css) {
 					O_web_element_css = (RemoteWebElementCssS)O_res_web_element;
-				//	O_web_element_css.FV_add(this.O_found_by);   // TODO
+					O_web_element_css.FV_add(this.O_found_by);
 					AO_web_elements.push(O_web_element_css);
 				   }
 				else {
-					O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
-					O_web_element_xp.FV_add(this.O_found_by);
-					AO_web_elements.push(O_web_element_xp);
-			        }  
+				   O_web_element_xp = (RemoteWebElementXp)O_res_web_element;
+				   O_web_element_xp.FV_add(this.O_found_by);
+				   AO_web_elements.push(O_web_element_xp);
+			       }  
 			    }
 			    AO_retval_web_elements = AO_web_elements;  
 	         }
@@ -915,6 +1053,4 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		return AO_retval_web_elements;
 	}
 	
-	
-	//---------------------------
 }

@@ -692,8 +692,9 @@ public String FS_get_style(final String PI_S_style_key) {
 	
 	public void FV_add(final FoundBy PI_O_found_by) {
 	
+		AssertionError E_assert;
+		
 		Stack<LocatorSelector> AO_by_locator_dest, AO_by_locator_dest_bak;
-
 		List<LocatorSelector> AO_by_locator_source;
 	    FoundBy O_found_by_dest;
 	    LocatorSelector O_by_locator_source, O_by_locator_dest;
@@ -701,7 +702,7 @@ public String FS_get_style(final String PI_S_style_key) {
 	    LocatorSelectorCss O_by_locator_css_source, O_by_locator_css_dest;
 	  
 	    StringBuilder SB_xpath_new;
-	    String S_xpath_new, S_xpath_cummulated;
+	    String S_xpath_new, S_xpath_cummulated, S_msg_1;
 	    int i1, I_nbr_locators_source_f1, I_nbr_locators_dest_f1;
 	    
 	    O_found_by_dest = this.O_found_by;
@@ -732,6 +733,11 @@ public String FS_get_style(final String PI_S_style_key) {
 	    	   O_by_locator_css_dest =  O_by_locator_css_source.clone();
 	    	   AO_by_locator_dest.add(O_by_locator_css_dest);
 	    	   }
+	        else {
+	           S_msg_1 = "Invalid class instance \'" + O_by_locator_source.getClass().getName() + "\' found at index " + i1 + ".";
+	           E_assert = new AssertionError(S_msg_1);
+	           throw E_assert;
+	           }
 	        }
 	    I_nbr_locators_dest_f1    = AO_by_locator_dest_bak.size();
 	    for (i1 = 0; i1 < I_nbr_locators_dest_f1; i1++) {
@@ -1363,8 +1369,8 @@ public String FS_get_style(final String PI_S_style_key) {
 			B_is_xp = true;
 		    }
 		else if (by instanceof ByCssS) {
-			B_is_css = true;
-		}
+		   B_is_css = true;
+		   }
 		
 		if (B_is_xp || B_is_css) {
 		   if (B_is_xp) {
@@ -1442,9 +1448,8 @@ public String FS_get_style(final String PI_S_style_key) {
 		    }
 		else if (by instanceof ByCssS) {
 			B_is_css = true;
-		}
+		    }
 
-		
 		if (B_is_xp || B_is_css) {
 		   if (B_is_xp) {
 			   O_by_xp = (ByXp)by;
@@ -1475,7 +1480,7 @@ public String FS_get_style(final String PI_S_style_key) {
 				   }
 				else {
 					O_web_element_css = (RemoteWebElementCssS)O_res_web_element;
-				//	O_web_element_css.FV_add(this.O_found_by);   // TODO
+				 	O_web_element_css.FV_add(this.O_found_by);  
 					AO_web_elements.push(O_web_element_css);
 				   }
 			    }
