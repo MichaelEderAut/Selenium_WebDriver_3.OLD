@@ -266,7 +266,7 @@ public class NavigationUtils {
    }  // END Waiters
 	
    public static final String S_re_locator_alternatives = 
-		   "class name|css selector|id|link text|name|" + XpathGenerators.S_partial_link_text + "|tag name|" + Locator.xpath.name();
+		   "class name|" + XpathGenerators.S_css_sel + "|id|link text|name|" + XpathGenerators.S_partial_link_text + "|tag name|" + Locator.xpath.name();
    public static final String S_re_found_by_infix = "\\]) \\-> (" + S_re_locator_alternatives + ")\\: (.*";
 	  
    public static final String S_re_found_by = "^\\[(((?:\\[\\[)*)(.*?))(?:\\)" + S_re_found_by_infix + "?)$";

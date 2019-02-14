@@ -857,14 +857,15 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			if (i1 == 0) {
 	        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
 				S_web_driver_parent = O_web_driver_parent.toString();
-        		if ((!SB_css_equivalent.B_identity) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
-				    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, "css selector", S_css_unindexed);
+        		if ((!B_single_node_only) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
+				    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathGenerators.S_css_sel, S_css_unindexed);
         	        }
         		else {
         			S_abs_xpath = XpathGenerators.FS_generate_abs_xpath(AO_DOM_offset_vector_received);
         			S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, S_abs_xpath);
         		}
         	}
+			RemoteWebElementXp.FV_set_found_by(O_res_web_element, S_found_by);
     		S_tag_received = (String)AO_extended_element.get(2);
     		S_inner_txt    = (String)AO_extended_element.get(3);
 			S_txt_content  = (String)AO_extended_element.get(4);
