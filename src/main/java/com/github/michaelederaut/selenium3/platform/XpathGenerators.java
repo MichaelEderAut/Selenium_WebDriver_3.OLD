@@ -59,6 +59,7 @@ public class XpathGenerators {
 	public static final String S_suffix_prefix     = "Prefix";
 	public static final String S_suffix_suffix     = "Suffix";
 	public static final String S_partial_link_text = "partial link text";
+	public static final String S_css_sel           = "css selector";
 	
 //	public static final String S_clazz_by_class_name = XpathGenerators.className.toString();
 	
