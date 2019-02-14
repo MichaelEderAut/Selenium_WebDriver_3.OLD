@@ -3322,14 +3322,14 @@ public abstract class ByCssS extends By {
         }
 	
 	protected static ByCssS loc_poly(
-    		   final Locator        locator,
-    		   final LocatorVariant variant,
-    		   final Object         using,
-    		   final String         expectedTagName,
-    		   final LinkText       linkText,
-    		   final int            index,
-    		   final DomOffset      domOffsets[],
-    		   final String         prefix
+    		   final Locator        PI_E_locator,
+    		   final LocatorVariant PI_E_locator_variant,
+    		   final Object         PI_O_using,
+    		   final String         PI_S_expected_tag_name,
+    		   final LinkText       PI_O_lnk_txt,
+    		   final int            PI_I_idx,
+    		   final DomOffset      PI_AO_dom_offsets[],
+    		   final String         PI_S_prefix
     	      ) {
     	   
     	   final LocatorRegularity E_min_loc_regularity = XpathGenerators.LocatorRegularity.xpathgen;
@@ -3344,25 +3344,30 @@ public abstract class ByCssS extends By {
     	   IllegalArgumentException E_ill_arg;
     	   RuntimeException        E_rt;
     
+    	   Locator        E_locator;
     	   LocatorVariant E_locator_variant;
-    	   Object O_res_by_css;
+    	   Object O_using, O_res_by_css;
     	   String  S_msg_1, S_msg_2, S_msg_3, S_tag_name, S_prefix, S_selector, AS_selectors[];
     	   int i1, I_nbr_selectors_f1;
     	    
     	   ByCssS O_retval_by_css = null;
-    	   T_clazz              = Loc.class;
+    	   T_clazz                = Loc.class;
     
     	   try {
-    	      if (locator == null) {
-    		     S_msg_1 = "First argument of type \'" + Locator.class.getSimpleName() + "\' must not be null";
-    		     E_cause = new NullPointerException(S_msg_1);
-    	         throw E_cause;
+    	      if (PI_E_locator == null) {
+    	    	  E_locator = Locator.cssSelector;
+//    		     S_msg_1 = "First argument of type \'" + Locator.class.getSimpleName() + "\' must not be null";
+//    		     E_cause = new NullPointerException(S_msg_1);
+//    	         throw E_cause;
     	         }
+    	      else {
+    	    	  E_locator = PI_E_locator; 
+    	      }
     	      
     	      LocatorRegularity E_act_loc_regularity;
     	      int I_act_regularity;
     	      
-    	      E_act_loc_regularity = locator.E_regularity;
+    	      E_act_loc_regularity = E_locator.E_regularity;
     	      I_act_regularity = E_act_loc_regularity.ordinal();
     	      
     		  if (I_act_regularity < I_min_regularity) {
@@ -3370,74 +3375,79 @@ public abstract class ByCssS extends By {
     				") less than minimum required regularity: \'" + E_min_loc_regularity.name() + "\'"+
     				"(" + I_min_regularity + ").";
     			  E_assert = new AssertionError(S_msg_1);
-    			  S_msg_2 = "Implementation restriction: Operation \'" + locator.name() + "\' not (yet) eligible for regular class generation.";
+    			  S_msg_2 = "Implementation restriction: Operation \'" + E_locator.name() + "\' not (yet) eligible for regular class generation.";
     			  E_cause = new IllegalArgumentException(S_msg_2, E_assert);
     			  throw E_cause;
     		      }
     		   
-    		   if (variant == null) {
+    		   if (PI_E_locator_variant == null) {
     			   E_locator_variant = LocatorVariant.regular;
     		       }
     	       else {
-    	    	   E_locator_variant = variant;
+    	    	   E_locator_variant = PI_E_locator_variant;
     	           }
     		   
-    		   if ((expectedTagName == null) || (expectedTagName.length() == 0)) {
+    		   if (PI_O_using == null) {  // TODO
+    			   O_using = CssSGenerators.ALL_ELEMS;
+    		      }
+    		   else {
+//    			  S_msg_1 = "Argument for selector(s) must not be null"; 
+//		    	  E_cause = new NullPointerException(S_msg_1); 
+//		    	  throw E_cause;
+    			  O_using = PI_O_using;
+    		      }
+		    	    
+		       if (O_using instanceof String) {
+    			  S_selector = (String)O_using; 
+    			  AS_selectors = new String[1];
+    			  AS_selectors[0] = S_selector;
+    			  M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_s2_o1_i1_ao_s1);
+                  }
+		       else {
+		          AS_selectors = (String[])O_using;
+		          M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_o1_i1_ao_s1);
+		          }
+		        if (M_ctor == null) {
+		    	   S_msg_1 = "Unable to get new constructor of class \'" + T_clazz.getName() + "\'."; 
+		    	   E_np = new NullPointerException(S_msg_1);
+		    	   throw E_np;
+		           }
+    		   
+    		   if ((PI_S_expected_tag_name == null) || (PI_S_expected_tag_name.length() == 0)) {
     			   S_tag_name = CssSGenerators.DEFAULT_TAG; 
     		      }
-    		   else if (StringUtils.isBlank(expectedTagName)) {
-    			   S_msg_1 = "Invalid tag name: \'" + expectedTagName + "\'";
+    		   else if (StringUtils.isBlank(PI_S_expected_tag_name)) {
+    			   S_msg_1 = "Invalid tag name: \'" + PI_S_expected_tag_name + "\'";
     			   E_cause = new IllegalArgumentException(S_msg_1);
   		    	   throw E_cause;  
     		       }
     		   else {
-  		          S_tag_name = expectedTagName;
+  		          S_tag_name = PI_S_expected_tag_name;
     		      }
-  		       
-  		       if ((prefix == null) || (prefix.length() == 0)) { 
-  			      S_prefix = CssSGenerators.DEFAULT_PREFIX; 
-  		          }
-  		       else if (StringUtils.isBlank(prefix)) {
-  			      S_msg_1 = "Invalid prefix: \'" + prefix + "\'";
-  			      E_cause = new IllegalArgumentException(S_msg_1);
-		          throw E_cause;  
-  		          }
-  		       else {
-		          S_prefix = prefix;
-  		          }
-		       
-		       if (using == null) {
-		    	  S_msg_1 = "Argument for selector(s) must not be null"; 
-		    	  E_cause = new NullPointerException(S_msg_1); 
-		    	  throw E_cause;
-		             }
-		       if (using instanceof String) {
-    			   S_selector = (String)using; 
-    			   AS_selectors = new String[1];
-    			   AS_selectors[0] = S_selector;
-    			   M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_s2_o1_i1_ao_s1);
-                   }
-		       else {
-		          AS_selectors = (String[])using;
-		          M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, AT_e2_as_s1_o1_i1_ao_s1);
-		          }
-		        
+  		        
 		       I_nbr_selectors_f1 = AS_selectors.length;
 		       for (i1 = 0; i1 < I_nbr_selectors_f1; i1++) {
 		    	   S_selector = AS_selectors[i1];
 	    		   if (StringUtils.isBlank(S_selector)) {
-	    			   S_msg_1 = "Invalid selector at index: " + i1 + "\'" + using + "\'";
+	    			   S_msg_1 = "Invalid selector at index: " + i1 + "\'" + O_using + "\'";
 	    			   E_cause = new IllegalArgumentException(S_msg_1);
 	  		    	   throw E_cause;  
 	    		       }
 		            }
 		     
-		       if (M_ctor == null) {
-		    	   S_msg_1 = "Unable to get new constructor of class \'" + T_clazz.getName() + "\'."; 
-		    	   E_np = new NullPointerException(S_msg_1);
-		    	   throw E_np;
-		           }
-		       O_res_by_css = M_ctor.newInstance(locator, E_locator_variant, using, S_tag_name, linkText, index, domOffsets, S_prefix);
+		       if ((PI_S_prefix == null) || (PI_S_prefix.length() == 0)) { 
+  			      S_prefix = CssSGenerators.DEFAULT_PREFIX; 
+  		          }
+  		       else if (StringUtils.isBlank(PI_S_prefix)) {
+  			      S_msg_1 = "Invalid prefix: \'" + PI_S_prefix + "\'";
+  			      E_cause = new IllegalArgumentException(S_msg_1);
+		          throw E_cause;  
+  		          }
+  		       else {
+		          S_prefix = PI_S_prefix;
+  		          }
+		       
+		       O_res_by_css = M_ctor.newInstance(E_locator, E_locator_variant, O_using, S_tag_name, PI_O_lnk_txt, PI_I_idx, PI_AO_dom_offsets, S_prefix);
 		       if (O_res_by_css == null) {
 		    	   S_msg_1 = "Unable to get new instance of class \'" + T_clazz.getName() + "\'";
 		    	   E_np = new NullPointerException(S_msg_1);

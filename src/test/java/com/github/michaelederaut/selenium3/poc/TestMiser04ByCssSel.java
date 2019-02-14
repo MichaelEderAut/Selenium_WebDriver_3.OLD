@@ -45,18 +45,20 @@ public class TestMiser04ByCssSel {
 		
 		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
-					O_web_element_miser_loc_5,
+					O_web_element_miser_loc_5, O_web_element_miser_loc_6,
 		            O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
 		Object O_res_execute_1, O_res_web_element, O_res_vectors;
         ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
-        String S_txt, S_tag;
+     
 
 		Class O_clazz;
 		Logger O_logger;
 		
-		String S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
+		LinkText O_lnk_txt;
+		String S_txt, S_tag,
+		S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof;
 		long L_nbr_elems_f1;
@@ -116,10 +118,16 @@ public class TestMiser04ByCssSel {
 			(DomOffset[])null,
 			(String)null));  // prefix
 	
-	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
 	
+	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_5);
+	
+	O_lnk_txt = new LinkText("Deutschland");
+	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt));
+	
+	Assert.assertNotNull(O_web_element_miser_loc_6);
 	 
+	
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
 			  "var i1, I_nbr_elems_f1, O_elem, S_clickable_typeof; " + 
 			  "var AO_elems = []; " +
