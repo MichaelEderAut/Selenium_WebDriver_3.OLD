@@ -40,6 +40,7 @@ public class CssSGenerators {
 //	public static final String S_re_end_criterion_where = "^(.*?)\\(python.exe)";
 //	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
 //	
+	public static final String ALL_ELEMS      = "*";
 	public static final String DEFAULT_TAG    = "";
 	public static final String DEFAULT_PREFIX = "";
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
@@ -743,7 +744,7 @@ public class CssSGenerators {
 	   break; // default
 	      }
     if (S_csss.equals("")) {
-	   S_csss = "*";
+	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
 	if (B_identity == true) {
