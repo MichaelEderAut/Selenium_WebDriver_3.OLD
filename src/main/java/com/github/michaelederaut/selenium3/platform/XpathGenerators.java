@@ -398,7 +398,7 @@ public static class DomOffset {
 		@Override
 		public String toString() {
 			String S_retval;
-			S_retval = "[" + this.I_idx_any_tag_f0 + "," + this.S_node_name + "]";
+			S_retval = "[" + this.I_idx_any_tag_f0 + "," + this.S_node_name + "," + I_idx_same_tag_f0 + "]";
 		    return S_retval;
 		}
 	}

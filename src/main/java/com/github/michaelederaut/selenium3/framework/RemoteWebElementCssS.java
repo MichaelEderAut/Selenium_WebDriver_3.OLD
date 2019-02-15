@@ -644,16 +644,16 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 				S_lnk_txt_comp_operation = "S_lnk_txt === S_comp_patt";
 			    }
 			else if (E_locator_variant == LocatorVariant.prefix) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.startsWith('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.startsWith(S_comp_patt)";
 			    }
 			else if (E_locator_variant == LocatorVariant.regexp) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.match('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.match(S_comp_patt)";
 			    }
 			else if (E_locator_variant == LocatorVariant.partial) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.includes('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.includes(S_comp_patt)";
 			    }
 			else if (E_locator_variant == LocatorVariant.suffix) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.endsWith('S_comp_patt')";
+				S_lnk_txt_comp_operation = "S_lnk_txt.endsWith(S_comp_patt)";
 			   }
 		    }
 		if (NavigationUtils.O_rem_drv instanceof InternetExplorerDriver) {
@@ -693,37 +693,49 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	                   "};}");
 			      }
 		       }
+		if (O_lnk_txt != null) {
+			SB_cmd_js_multiple.append("var S_comp_patt = '" + O_lnk_txt.S_selector + "'; " );
+		    }
 		SB_cmd_js_multiple.append(
 			"var HS_retval = {'elemcount' : 0 , 'vector' : []}; " +
 		    "var I_req_idx_f0 = arguments[0]; " +
 			"var AAA_vectors = []; " +
 		    "var AA_vectors_interim = []; " +
 			"var AA_offs_vector, AAS_comp_styles, AAS_styles, AO_attrs; " +
-		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_iterim, " + 
+		    "var i1, I_nbr_elems_f1, I_nbr_elems_interim_f1, I_nbr_elems_interim_f0, AO_vector_interim, " + 
 			    "I_nbr_prev_any_tag_f1, I_nbr_prev_same_tag_f1, I_node_type, " +
 		        "B_add_this_node, B_cont_loop_prv, " +
 		        "S_lnk_txt, S_node_name, S_tag_name, S_tag_name_prv, S_inner_txt, S_inner_html, S_txt_content, " + 
 		        "O_elem, O_node_retval, O_node_retval, O_node_prev; " +
 			"var AO_elems; " + 
-		    "I_nbr_elemens_f1 = 0; " + 
-			"I_nbr_elemens_interim_f1 = 0; " +
+		    "I_nbr_elems_f1 = 0; " + 
+			"I_nbr_elems_interim_f1 = 0; " +
 		    "AO_elems = " + (
 			     B_single_node_only ? 
 			       "[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); " 
 			     : 
 				 SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); ")  +
 			"if (AO_elems) {" +
-	            "I_nbr_elemens_interim_f1 = AO_elems.length;} " +
+	            "I_nbr_elems_interim_f1 = AO_elems.length;} " +
 			"else { " +
-	            "I_nbr_elemens_f1 = 0; " +
+	            "I_nbr_elems_f1 = 0; " +
 			    "} " + 
-	         "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
+	         "console.log('I_nbr_elems_interim_f1.1:' + I_nbr_elems_interim_f1); " +
+	         "LOOP_NODES: for (i1 = 0; i1 < I_nbr_elems_interim_f1; i1++) { " +
 				  "O_elem = AO_elems[i1]; " +
+	              "if (!O_elem) {" +
+				     "continue LOOP_NODES;} " + 
+	              "I_node_type = O_elem.nodeType; " +
+		          "if (I_node_type != 1) {"  +
+		              "console.log('i1: ' + i1 + ' - Node Type 1: ' + I_node_type); " +   
+		              "continue LOOP_NODES; } " +
 	              "S_lnk_txt = O_elem.text; " +
+		          "console.log('i1: ' + i1 + ' - S_lnk_txt: ' + S_lnk_txt); " +    
 				  "B_add_this_node = true; "); 
 		if (O_lnk_txt != null) {
 			SB_cmd_js_multiple.append(
 					"if (!(" + S_lnk_txt_comp_operation + ")) {" +
+//			            "console.log('skip - i1: ' + i1); " +
 		                "B_add_this_node = false; } ");
 		     }   
 		            SB_cmd_js_multiple.append(
@@ -731,22 +743,24 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		                "AA_vectors_interim.push([O_elem, S_lnk_txt]); " +
 			        "}}" +
 		         "I_nbr_elems_interim_f1 = AA_vectors_interim.length; " + 
+			     "console.log('I_nbr_elems_interim_f1.2: ' + I_nbr_elems_interim_f1); " +   
 			     "I_nbr_elems_interim_f0 = I_nbr_elems_interim_f1 - 1; " +
-			     "for (i1 = 0; i1 < I_nbr_elemens_interim_f1; i1++) { " +
+			     "for (i1 = 0; i1 < I_nbr_elems_interim_f1; i1++) { " +
 		             "B_add_this_node = false;" +
 			         "if (I_req_idx_f0 >= 0) { " +
-		             "if (i1 == I_req_idx_f0) {" +
-		                 "B_add_this_node = true; }" +
+		                 "if (i1 == I_req_idx_f0) {" +
+		                    "B_add_this_node = true; }" +
 		                 "}" +
 		             "else if (I_req_idx_f0 == " + XpathGenerators.ALL_IDX + ") { " + 
-		                     "B_add_this_node = true; }" +
+		                   "B_add_this_node = true; }" +
 		             "else if (I_req_idx_f0 == " + XpathGenerators.LAST_IDX + ") { " + 
-		                 "if (i1 == I_nbr_elemens_interim_f1) { " +
-		                 "B_add_this_node = true; }}" +
-		             "if (B_add_this_node) {" +         
-		                 "AO_vector_iterim = AA_vectors_interim[i1]; " +
-			             "O_node_retval = AO_vector_iterim[0]; " +
-		                 "S_lnk_txt = AO_vector_iterim[1]; " +
+		                 "if (i1 == I_nbr_elemens_interim_f0) { " +
+		                     "B_add_this_node = true; }}" +
+		             "if (B_add_this_node) {" +   
+		                 "AO_vector_interim = AA_vectors_interim[i1]; " +
+		                 "console.log('I_nbr_elems_interim_f1.3: ' + I_nbr_elems_interim_f1 + ' - i1: ' + i1 + ' - AO_vec_interim.1: ' + AO_vector_interim); " +
+			             "O_node_retval = AO_vector_interim[0]; " +
+		                 "S_lnk_txt = AO_vector_interim[1]; " +
 		                 "AA_offs_vector = []; " +
 		                 "AAS_styles = []; " +
                          "AAS_comp_styles = []; " +
@@ -802,7 +816,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 //        	                  "console.log('Number of comp-styles: ' + I_nbr_styles_f1); " + 
                          "AAS_comp_styles = []; " +
         	             "for (i2 = 0; i2 < I_nbr_styles_f1; i2++) { " +
-        	                     "S_style_key = O_comp_style[i2]; " +
+        	                    "S_style_key = O_comp_style[i2]; " +
 //         	                     "console.log('Style-Key: ' + S_style_key); " + 
         	                    "S_style_val = O_comp_style.getPropertyValue(S_style_key); " +
 //     	                        "console.log('name comp: ' + S_style_key + ' - value: ' + S_style_val); " +
@@ -822,7 +836,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
                                  "}} " +
 		                 "AAA_vectors.push([O_node_retval, AA_offs_vector, S_tag_name, S_inner_txt, S_txt_content, S_lnk_txt, S_inner_html, AAS_attrs, AAS_comp_styles, AAS_styles]); " +
 		                 "}} " +
-			 "HS_retval = {'"+  RemoteWebElementXp.S_key_name_elemcount + "' : I_nbr_elemens_interim_f1, '" + RemoteWebElementXp.S_key_name_vectors + "' : AAA_vectors}; " +
+			 "HS_retval = {'"+  RemoteWebElementXp.S_key_name_elemcount + "' : I_nbr_elems_interim_f1, '" + RemoteWebElementXp.S_key_name_vectors + "' : AAA_vectors}; " +
 			 "return HS_retval;") ; 
 
 		
@@ -850,7 +864,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 				L_dom_idx_any_tag_f0 = (Long)(A_DOM_offset.get(0));
 				I_dom_idx_f0_any_tag = (int)L_dom_idx_any_tag_f0;
 				S_dom_node_name = (String)(A_DOM_offset.get(1));
-				O_DOM_offset_received = new DomOffset(I_dom_idx_f0_any_tag, S_dom_node_name);
+				L_dom_idx_same_tag_f0 = (Long)(A_DOM_offset.get(2));  // absolute xpath
+				I_dom_idx_f0_same_tag = (int)L_dom_idx_same_tag_f0;
+				O_DOM_offset_received = new DomOffset(I_dom_idx_f0_any_tag, S_dom_node_name, I_dom_idx_f0_same_tag);
 				AO_DOM_offset_vector_received[i2_down] = O_DOM_offset_received;
 				i2_down--;
 				}
