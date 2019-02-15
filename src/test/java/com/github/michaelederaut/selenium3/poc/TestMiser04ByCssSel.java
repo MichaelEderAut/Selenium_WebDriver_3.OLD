@@ -122,7 +122,8 @@ public class TestMiser04ByCssSel {
 	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_5);
 	
-	O_lnk_txt = new LinkText("Deutschland");
+//	O_lnk_txt = new LinkText("Deutschland");
+	O_lnk_txt = new LinkText("Proshop.at");
 	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt));
 	
 	Assert.assertNotNull(O_web_element_miser_loc_6);
