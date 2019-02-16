@@ -45,7 +45,7 @@ public class TestMiser04ByCssSel {
 		
 		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
-					O_web_element_miser_loc_5, O_web_element_miser_loc_6,
+					O_web_element_miser_loc_5, O_web_element_miser_loc_6, O_web_element_miser_loc_7, O_web_element_miser_loc_8,
 		            O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
@@ -56,7 +56,7 @@ public class TestMiser04ByCssSel {
 		Class O_clazz;
 		Logger O_logger;
 		
-		LinkText O_lnk_txt;
+		LinkText O_lnk_txt_6, O_lnk_txt_8;
 		String S_txt, S_tag,
 		S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
@@ -118,15 +118,22 @@ public class TestMiser04ByCssSel {
 			(DomOffset[])null,
 			(String)null));  // prefix
 	
-	
+
 	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_5);
 	
-//	O_lnk_txt = new LinkText("Deutschland");
-	O_lnk_txt = new LinkText("Proshop.at");
-	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt));
+//	O_lnk_txt_6 = new LinkText("D", LocatorVariant.prefix);
+//	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_6));
+//	Assert.assertNotNull(O_web_element_miser_loc_6);
 	
-	Assert.assertNotNull(O_web_element_miser_loc_6);
+    O_web_element_miser_loc_7 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.linkText, "Deutschland"));
+    // S_txt_content == "Deutschland"
+	
+	O_lnk_txt_8 = new LinkText("Deutschland");
+//	O_lnk_txt_8 = new LinkText("Proshop.at");
+	O_web_element_miser_loc_8 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_8));
+	
+	Assert.assertNotNull(O_web_element_miser_loc_8);
 	 
 	
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
