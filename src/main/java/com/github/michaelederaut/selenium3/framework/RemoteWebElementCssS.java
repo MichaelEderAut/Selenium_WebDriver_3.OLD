@@ -606,7 +606,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
 		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
-		boolean B_single_node_only;
+		boolean B_single_node_only, B_is_pure_css;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -629,6 +629,12 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			I_requested_idx_f0 = 0;
 		    }
 		IO_requested_idx_f0 = Integer.valueOf(I_requested_idx_f0);
+		if ((!B_single_node_only) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
+		   B_is_pure_css = true;
+		    }
+		else {
+		   B_is_pure_css = false;
+		   }
 		
 		// https://www.w3schools.com/jsref/prop_anchor_text.asp
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
@@ -641,19 +647,24 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		if (O_lnk_txt != null) {
 			E_locator_variant = O_lnk_txt.E_variant; 
 			if (E_locator_variant == LocatorVariant.regular) {
-				S_lnk_txt_comp_operation = "S_lnk_txt === S_comp_patt";
+			   S_lnk_txt_comp_operation = 
+			  "(S_lnk_txt && (S_comp_patt === S_lnk_txt)) || (S_txt_content && (S_comp_patt === S_txt_content))";
 			    }
 			else if (E_locator_variant == LocatorVariant.prefix) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.startsWith(S_comp_patt)";
-			    }
+			   S_lnk_txt_comp_operation = 
+			   "(S_lnk_txt && S_lnk_txt.startsWith(S_comp_patt)) || (S_txt_content && S_txt_content.startsWith(S_comp_patt))";
+			   }
 			else if (E_locator_variant == LocatorVariant.regexp) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.match(S_comp_patt)";
-			    }
+			   S_lnk_txt_comp_operation = 
+			   "(S_lnk_txt && S_lnk_txt.match(S_comp_patt)) || (S_txt_content && S_txt_content.match(S_comp_patt))";
+			   }
 			else if (E_locator_variant == LocatorVariant.partial) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.includes(S_comp_patt)";
-			    }
+			   S_lnk_txt_comp_operation = 
+			   "(S_lnk_txt && S_lnk_txt.includes(S_comp_patt)) || (S_txt_content && S_txt_content.includes(S_comp_patt))";
+			   }
 			else if (E_locator_variant == LocatorVariant.suffix) {
-				S_lnk_txt_comp_operation = "S_lnk_txt.endsWith(S_comp_patt)";
+			   S_lnk_txt_comp_operation = 
+			   "(S_lnk_txt && (S_lnk_txt.endsWith(S_comp_patt)) || (S_txt_content && (S_txt_content.endsWith(S_comp_patt))";
 			   }
 		    }
 		if (NavigationUtils.O_rem_drv instanceof InternetExplorerDriver) {
@@ -729,18 +740,20 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		          "if (I_node_type != 1) {"  +
 		              "console.log('i1: ' + i1 + ' - Node Type 1: ' + I_node_type); " +   
 		              "continue LOOP_NODES; } " +
-	              "S_lnk_txt = O_elem.text; " +
-		          "console.log('i1: ' + i1 + ' - S_lnk_txt: ' + S_lnk_txt); " +    
+		          "S_txt_content = O_elem.textContent;" +  // Selenium: linkText, html >xxxxx< - but doesn't work for html-functions
+	              "S_lnk_txt = O_elem.text; " +  
 				  "B_add_this_node = true; "); 
 		if (O_lnk_txt != null) {
 			SB_cmd_js_multiple.append(
-					"if (!(" + S_lnk_txt_comp_operation + ")) {" +
+//					"if (!(S_lnk_txt && " + S_lnk_txt_comp_operation + ")) {" +
+					"if (!(" + S_lnk_txt_comp_operation + ")) { " +
+		                "console.log('i1: ' + i1 + ' - txt_content: ' + S_txt_content + ' - lnk_txt: ' + S_lnk_txt); " +  
 //			            "console.log('skip - i1: ' + i1); " +
 		                "B_add_this_node = false; } ");
 		     }   
 		            SB_cmd_js_multiple.append(
 			        "if (B_add_this_node) {" +
-		                "AA_vectors_interim.push([O_elem, S_lnk_txt]); " +
+		                "AA_vectors_interim.push([O_elem, S_txt_content, S_lnk_txt]); " +
 			        "}}" +
 		         "I_nbr_elems_interim_f1 = AA_vectors_interim.length; " + 
 			     "console.log('I_nbr_elems_interim_f1.2: ' + I_nbr_elems_interim_f1); " +   
@@ -760,14 +773,14 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		                 "AO_vector_interim = AA_vectors_interim[i1]; " +
 		                 "console.log('I_nbr_elems_interim_f1.3: ' + I_nbr_elems_interim_f1 + ' - i1: ' + i1 + ' - AO_vec_interim.1: ' + AO_vector_interim); " +
 			             "O_node_retval = AO_vector_interim[0]; " +
-		                 "S_lnk_txt = AO_vector_interim[1]; " +
+		                 "S_txt_content = AO_vector_interim[1]; " + // Selenium: linkText, html >xxxxx< - but doesn't work for html-functions
+		                 "S_lnk_txt = AO_vector_interim[2]; " +
 		                 "AA_offs_vector = []; " +
 		                 "AAS_styles = []; " +
                          "AAS_comp_styles = []; " +
 		                 "O_node_current = O_node_retval; " +
                          "S_tag_name    = O_node_current.tagName; " +
 		                 "S_inner_txt   = O_node_current.innerText; " +
-		                 "S_txt_content = O_node_current.textContent; " + // Selenium: lintText, html >xxxxx< - but doesn't work for html-functions
 		                 "S_inner_html  = O_node_current.innerHTML; " +
 		                 "AO_attrs      = O_node_current.attributes; " +
 		                 "O_comp_style  = window.getComputedStyle(O_node_current); " +
@@ -847,7 +860,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
         O_res_exec_elements_extended  =  HO_res_exec.get(RemoteWebElementXp.S_key_name_vectors);
         AO_res_exec_elements_extended = (ArrayList<Object>)O_res_exec_elements_extended ;
         I_nbr_returned_elems_f1 = AO_res_exec_elements_extended.size();
-        S_found_by = null;
+        
+        S_found_by          = null;
+        S_web_driver_parent = null;
         for (i1 = 0; i1 < I_nbr_returned_elems_f1; i1++) {
         	O_res_extended_element = AO_res_exec_elements_extended.get(i1);
         	AO_extended_element = (ArrayList<Object>)O_res_extended_element;
@@ -871,16 +886,17 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 				i2_down--;
 				}
 			if (i1 == 0) {
-	        	O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
+				O_web_driver_parent = RemoteWebElementXp.FO_get_parent_driver(O_res_web_element);
 				S_web_driver_parent = O_web_driver_parent.toString();
-        		if ((!B_single_node_only) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
-				    S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathGenerators.S_css_sel, S_css_unindexed);
-        	        }
-        		else {
-        			S_abs_xpath = XpathGenerators.FS_generate_abs_xpath(AO_DOM_offset_vector_received);
-        			S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, S_abs_xpath);
-        		    }
-        	    }
+				if (B_is_pure_css) {
+					S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathGenerators.S_css_sel, S_css_unindexed);
+				    }
+			    }
+			 if (!B_is_pure_css) {
+        		S_abs_xpath = XpathGenerators.FS_generate_abs_xpath(AO_DOM_offset_vector_received);
+        		S_found_by = String.format("[%s] -> %s: %s", S_web_driver_parent, XpathConcatenator.S_xpath, S_abs_xpath);
+        		}
+        	    
 			RemoteWebElementXp.FV_set_found_by(O_res_web_element, S_found_by);
     		S_tag_received = (String)AO_extended_element.get(2);
     		S_inner_txt    = (String)AO_extended_element.get(3);
