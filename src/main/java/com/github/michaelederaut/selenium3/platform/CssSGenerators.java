@@ -56,6 +56,8 @@ public class CssSGenerators {
 	protected static File F_pna_py, F_dna_parent_script;
 	protected static String S_pna_py_scr;
 	
+	protected enum ParsingState {init, dot1, dot2, slash, invalid};
+	
 //	public static final EndCriterion O_end_crit_where = 
 //			new EndCriterion(EndCriterion.L_timeout_dflt, P_end_criterion_where);
 	
@@ -64,18 +66,28 @@ public class CssSGenerators {
 		public LocatorVariant E_variant;
 		
 		public LinkText() {
-			this.E_variant      = LocatorVariant.regular;
-			return;
-		}
+		   this (null, LocatorVariant.regular);
+           return;
+		   }
 		
 		public LinkText (final String using) {
-			this.S_selector     = using;
-			this.E_variant      = LocatorVariant.regular;
-		    }
+		   this (using, LocatorVariant.regular);
+		   return;
+		   }
 		
 		public LinkText (
-				final String using,
-				final LocatorVariant PI_E_variant) {
+		   final String         using,
+		   final LocatorVariant PI_E_variant) {
+			
+			RuntimeException E_rt;
+			String S_msg_1;
+			
+			if ((using == null) || using.equals(""))  {
+			// if ((using != null) && using.equals("")) 	
+			   S_msg_1 = "Empty String for link-text not (yet) implemented.";
+			   E_rt = new RuntimeException(S_msg_1);
+			   throw E_rt;
+			   }
 			this.S_selector     = using;
 			this.E_variant      = PI_E_variant;
 		    }
@@ -83,7 +95,8 @@ public class CssSGenerators {
 	
 		
 	public static class ExtendedCssSelector extends DomVectorExtendedSelector {
-		public boolean  B_identity; // equivalent to xpath "."
+	//	public boolean  B_identity; // equivalent to xpath "."
+		public int I_dom_element_hier_ups_f0 = -1;
 	    public LinkText O_lnk_txt;
 	   
 	   public ExtendedCssSelector() {
@@ -317,9 +330,11 @@ public class CssSGenerators {
 	    Locator        E_locator;
 	    LocatorVariant E_locator_variant;
 	    ExtendedCssSelector SBO_retval_csss;
-	    boolean B_has_valid_tag_name, B_identity;
+	    boolean B_has_valid_tag_name;
+	    int I_nbr_hierarchy_ups_f1;
+	    boolean B_simple_xpath;
 	    
-	    B_identity = false;
+	  //  B_identity = false;
 	    
 	    if (PI_O_locator_enums == null) {
 	    	E_locator         = Locator.domOffsets;
@@ -345,6 +360,8 @@ public class CssSGenerators {
                }
 	       }
 
+	 B_simple_xpath         = false;
+	 I_nbr_hierarchy_ups_f1 = 0;
 	 if (PI_O_locator_enums.E_locator == E_locator.domOffsets) {
 		SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
 		return SBO_retval_csss;
@@ -553,14 +570,67 @@ public class CssSGenerators {
 		   List<String> AAS_retvals[], AS_retvals;
 		   URL O_url_script;
 		   File F_pna_script;
+		   char C_using;
+		   int I_len_using_f1;
 		   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
+		   ParsingState E_parsing_state; 
 		   
 		   S_using = PI_AS_using[0];
-		   if (StringUtils.equals(S_using, ".")) {
-			  B_identity = true;
-			  S_csss = "";
-			  break; 
-		      }
+//		   if (StringUtils.equals(S_using, ".")) {
+//			  B_identity = true;
+//			  S_csss = "";
+//			  break; 
+//		      }
+		   if (S_using != null) {
+			   I_len_using_f1 = S_using.length();
+			   E_parsing_state = ParsingState.init;
+			   LOOP_CHARS: for (i1 = 0; i1 < I_len_using_f1; i1++) {
+				   C_using = S_using.charAt(i1);
+				   if (E_parsing_state == ParsingState.init) {
+					   if (C_using == '.') {
+						   E_parsing_state = ParsingState.dot1;
+					      }
+					   else {
+						  E_parsing_state = ParsingState.invalid; 
+						  break LOOP_CHARS;
+					   }}
+				   else if (E_parsing_state == ParsingState.dot1) {
+					    if (C_using == '.') {
+						   E_parsing_state = ParsingState.dot2;
+					       I_nbr_hierarchy_ups_f1++;
+					       }
+					    else if (C_using == '/') {
+					    	E_parsing_state = ParsingState.slash; 
+					         }
+					    else {
+					    	E_parsing_state = ParsingState.invalid; 
+						    break LOOP_CHARS;
+					    }}
+					else if (E_parsing_state == ParsingState.dot2) {
+						if (C_using == '/') {
+							E_parsing_state = ParsingState.slash; 
+						    }
+						else {
+					    	E_parsing_state = ParsingState.invalid; 
+						    break LOOP_CHARS;
+					        }
+					    }
+					else if (E_parsing_state == ParsingState.slash) {
+						if (C_using == '.') {
+							E_parsing_state = ParsingState.dot1;
+						    }
+						else {
+							E_parsing_state = ParsingState.invalid; 
+						    break LOOP_CHARS;
+						}
+				   }
+			   }
+			   if ((E_parsing_state == ParsingState.dot1) || (E_parsing_state == ParsingState.dot2)) {
+				   S_csss = "";
+				   B_simple_xpath = true;
+				   break;
+			       }
+		       }
 		   if (S_dna_parent_py == null) {
 			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
@@ -725,7 +795,7 @@ public class CssSGenerators {
 		       }
 		    else {  // and OR regular
 			   SB_csss = new TextStringBuilder(PI_S_prefix + S_tag_name);
-		      }
+		       }
 		    for (i1 = 0; i1 < I_nbr_selectors_f1; i1++) {
 		       S_using = PI_AS_using[i1];
 		     
@@ -747,8 +817,8 @@ public class CssSGenerators {
 	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
-	if (B_identity == true) {
-		SBO_retval_csss.B_identity = B_identity;
+	if (B_simple_xpath) {
+		SBO_retval_csss.I_dom_element_hier_ups_f0 = I_nbr_hierarchy_ups_f1;
 	    }
 	return SBO_retval_csss;
 	}

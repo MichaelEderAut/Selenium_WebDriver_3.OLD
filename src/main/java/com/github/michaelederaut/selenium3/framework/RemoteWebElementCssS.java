@@ -3,6 +3,7 @@ package com.github.michaelederaut.selenium3.framework;
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -581,32 +582,33 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	public static List<WebElement> FAO_find_elements_by_css(
 			final ByCssS PI_O_locator) {
 		
+		RuntimeException E_rt;
+		
 	    LocatorSelectorCss O_by_locator_css;
 	    LinkText O_lnk_txt;
 	    XpathGenerators.LocatorVariant E_locator_variant;
-		DomOffset  AO_DOM_offset_vector_requested[];
+		DomOffset  AO_DOM_offset_vector_orig[], AO_DOM_offset_vector_requested[];
 		/* DomVectorExtendedSelector */  ExtendedCssSelector SB_css_equivalent;
 		AbstractMap<String, ? extends Object> HO_res_exec;
 		
-			
 		StringBuilder     SB_document_root;	
 	    String S_cmd_js_multiple, S_css_unindexed;
-		Stack<WebElement> AO_retval_web_element = new Stack<WebElement>();
 		
 		RemoteWebDriver O_web_driver_parent;
 		RemoteWebElement O_res_web_element;
 		RemoteWebElementCssS O_res_web_element_css;
 		StringBuilder SB_cmd_js_multiple;
 		
-		String S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation, S_dom_node_name,
+		String S_msg_1, S_web_driver_parent, S_found_by, S_lnk_txt_comp_operation, S_dom_node_name,
 		       S_tag_received,  S_inner_txt, S_txt_content, S_lnk_txt, S_inner_html;
 		Object O_res_exec, O_res_exec_elements_extended, O_res_extended_element, O_res_DOM_offset_vector, S_abs_xpath,
 		       O_res_attrs, O_res_comp_style, O_res_style;
 		Integer IO_requested_idx_f0;
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
-		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag;
-		boolean B_single_node_only, B_is_pure_css;
+		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag,
+		    I_nbr_dom_elem_hier_ups, I_size_DOM_offset_vector_orig_f1, I_size_DOM_offset_vector_requested_f1;
+		boolean /* B_single_node_only, */ B_is_pure_css;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -614,22 +616,42 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		ArrayList<ArrayList<String>> AAS_attrs, AAS_comp_style, AAS_style;
 		DomOffset AO_DOM_offset_vector_received[], O_DOM_offset_received;
 		
+		Stack<WebElement> AO_retval_web_element = new Stack<WebElement>();
+		
 		O_by_locator_css = PI_O_locator.O_loc_sel_css;
 		O_lnk_txt = O_by_locator_css.O_lnk_txt;
-		AO_DOM_offset_vector_requested = O_by_locator_css.SBO_using.AO_dom_offsets;
-		
-		SB_cmd_js_multiple = new StringBuilder();
-		SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
 		
 		SB_css_equivalent = (ExtendedCssSelector)O_by_locator_css.SBO_using;
-		B_single_node_only = SB_css_equivalent.B_identity;
+		SB_cmd_js_multiple = new StringBuilder();
+	//	B_single_node_only = SB_css_equivalent.B_identity;
+		
+	    AO_DOM_offset_vector_orig = O_by_locator_css.SBO_using.AO_dom_offsets;
+	    I_nbr_dom_elem_hier_ups = SB_css_equivalent.I_dom_element_hier_ups_f0;
+	    if (I_nbr_dom_elem_hier_ups <= 0) { // pures css or xpath identity ("."), which is not supported by css;
+	    	AO_DOM_offset_vector_requested = AO_DOM_offset_vector_orig;
+	        }
+	    else { // xpath hierarchy up some elements e.g. ".././.." (not supported by css)
+	    	I_size_DOM_offset_vector_orig_f1 = AO_DOM_offset_vector_orig.length;
+	    	if (I_nbr_dom_elem_hier_ups > I_size_DOM_offset_vector_orig_f1) {
+	    	   S_msg_1 = I_nbr_dom_elem_hier_ups + " ups the DOM hierarchy exceeds maximum possible number of " + I_size_DOM_offset_vector_orig_f1 + ".";
+	    	   E_rt = new RuntimeException(S_msg_1);
+	    	   throw E_rt;
+	    	   }
+	    	I_size_DOM_offset_vector_requested_f1 = I_size_DOM_offset_vector_orig_f1 - I_nbr_dom_elem_hier_ups;
+	    	AO_DOM_offset_vector_requested = new DomOffset[I_size_DOM_offset_vector_requested_f1];
+	    	for (i1 = 0; i1 < I_size_DOM_offset_vector_requested_f1; i1++) {
+	    	   AO_DOM_offset_vector_requested[i1] = AO_DOM_offset_vector_orig[i1];
+	    	   }
+	        }
+	    
+		SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
 		I_requested_idx_f0 = O_by_locator_css.I_idx_f0;
 		if (I_requested_idx_f0 == XpathGenerators.IGNORED_IDX) {
 			I_requested_idx_f0 = 0;
 		    }
 		IO_requested_idx_f0 = Integer.valueOf(I_requested_idx_f0);
-		if ((!B_single_node_only) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
+		if ((I_nbr_dom_elem_hier_ups < 0) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
 		   B_is_pure_css = true;
 		    }
 		else {
@@ -648,8 +670,8 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			E_locator_variant = O_lnk_txt.E_variant; 
 			if (E_locator_variant == LocatorVariant.regular) {
 			   S_lnk_txt_comp_operation = 
-			  "(S_lnk_txt && (S_comp_patt === S_lnk_txt)) || (S_txt_content && (S_comp_patt === S_txt_content))";
-			    }
+			   "(S_lnk_txt && (S_comp_patt === S_lnk_txt)) || (S_txt_content && (S_comp_patt === S_txt_content))";
+			   }
 			else if (E_locator_variant == LocatorVariant.prefix) {
 			   S_lnk_txt_comp_operation = 
 			   "(S_lnk_txt && S_lnk_txt.startsWith(S_comp_patt)) || (S_txt_content && S_txt_content.startsWith(S_comp_patt))";
@@ -722,10 +744,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		    "I_nbr_elems_f1 = 0; " + 
 			"I_nbr_elems_interim_f1 = 0; " +
 		    "AO_elems = " + (
-			     B_single_node_only ? 
-			       "[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); " 
+			     (I_nbr_dom_elem_hier_ups >= 0) ? 
+			       "[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); "  // easy parsable xpath only e.g. .././..
 			     : 
-				 SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); ")  +
+				 SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); ")  +  // conventional css
 			"if (AO_elems) {" +
 	            "I_nbr_elems_interim_f1 = AO_elems.length;} " +
 			"else { " +

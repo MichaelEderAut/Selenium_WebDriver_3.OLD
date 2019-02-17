@@ -3479,7 +3479,7 @@ public abstract class ByCssS extends By {
 			 final String using) {
 			 
 			  this(loc, LocatorVariant.regular, using);
-			  this.O_loc_sel_css.M_ctor =  ConstructorUtils.getAccessibleConstructor(T_clazz, ByXp.AT_e1_s1);
+			  this.O_loc_sel_css.M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, ByXp.AT_e1_s1);
 			  return;
 		      }
 		 
