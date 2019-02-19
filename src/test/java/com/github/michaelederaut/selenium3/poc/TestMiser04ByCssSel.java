@@ -118,13 +118,12 @@ public class TestMiser04ByCssSel {
 			(DomOffset[])null,
 			(String)null));  // prefix
 	
-
 	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_5);
 	
-//	O_lnk_txt_6 = new LinkText("D", LocatorVariant.prefix);
-//	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_6));
-//	Assert.assertNotNull(O_web_element_miser_loc_6);
+	O_lnk_txt_6 = new LinkText("D", LocatorVariant.prefix);
+	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_6));
+	Assert.assertNotNull(O_web_element_miser_loc_6);
 	
     O_web_element_miser_loc_7 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.linkText, "Deutschland"));
     // S_txt_content == "Deutschland"

@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.xml.xpath.XPathException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +19,8 @@ import com.github.michaelederaut.basics.ExecUtils.ExecResult;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
-import com.github.michaelederaut.selenium3.framework.ByCssS;
+import com.github.michaelederaut.basics.xpath2cssselector.Cssify;
+// import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
@@ -24,7 +28,7 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBu
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
-import com.ibm.icu.impl.TimeZoneGenericNames.Pattern;
+// import com.ibm.icu.impl.TimeZoneGenericNames.Pattern;
 
 // import regexodus.Pattern;
 import static org.apache.commons.lang3.StringUtils.LF;
@@ -57,6 +61,8 @@ public class CssSGenerators {
 	protected static String S_pna_py_scr;
 	
 	protected enum ParsingState {init, dot1, dot2, slash, invalid};
+	
+	public static ConversionResults HS_conversion_results = new ConversionResults();
 	
 //	public static final EndCriterion O_end_crit_where = 
 //			new EndCriterion(EndCriterion.L_timeout_dflt, P_end_criterion_where);
@@ -92,7 +98,6 @@ public class CssSGenerators {
 			this.E_variant      = PI_E_variant;
 		    }
 	}
-	
 		
 	public static class ExtendedCssSelector extends DomVectorExtendedSelector {
 	//	public boolean  B_identity; // equivalent to xpath "."
@@ -283,6 +288,48 @@ public class CssSGenerators {
 		        }	
 	}
 	
+//	public static class ConversionResult {
+//		
+//		 String S_value;
+//		 String S_err_msg;
+//		 
+//		public ConversionResult(final String PI_S_value) {
+//			this(PI_S_value, (String)null);
+//				return;
+//			}
+//		 
+//	    public ConversionResult(final String PI_S_value, final String PI_S_err_msg) {
+//	    	this.S_value   = PI_S_value;
+//	    	this.S_err_msg = PI_S_err_msg;
+//	     }
+//	}
+	
+	public static class ConversionResults extends LinkedHashMap<String, Cssify.ConversionResult>  {
+		public static final int I_init_capacity = 16;
+		public static final int I_max_nbr_elements_dflt = 1024;
+		public static       int I_max_nbr_elements;
+		
+		protected boolean RemoveEldestEntry(Map.Entry<String, Cssify.ConversionResult> PI_O_eledest) {
+			
+			boolean B_retval_remove;
+			if (this.size() > I_max_nbr_elements) {
+			   B_retval_remove = true; }
+			else {
+			   B_retval_remove = false;
+			   }
+			return B_retval_remove;
+		}
+		
+		public ConversionResults() {
+			 this(I_max_nbr_elements_dflt);
+		     }
+		
+		public ConversionResults(final int PI_I_capacity) {
+			super(PI_I_capacity < I_init_capacity ? PI_I_capacity : I_init_capacity, (float)0.75, true);
+			I_max_nbr_elements = PI_I_capacity;
+		    }	
+	}
+	
 	public static /* DomVectorExtendedSelector */ ExtendedCssSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
 		final String    PI_S_using, 
@@ -332,9 +379,7 @@ public class CssSGenerators {
 	    ExtendedCssSelector SBO_retval_csss;
 	    boolean B_has_valid_tag_name;
 	    int I_nbr_hierarchy_ups_f1;
-	    boolean B_simple_xpath;
-	    
-	  //  B_identity = false;
+	    boolean B_simple_unsupported_xpath;
 	    
 	    if (PI_O_locator_enums == null) {
 	    	E_locator         = Locator.domOffsets;
@@ -360,8 +405,8 @@ public class CssSGenerators {
                }
 	       }
 
-	 B_simple_xpath         = false;
-	 I_nbr_hierarchy_ups_f1 = 0;
+	 B_simple_unsupported_xpath = false;
+	 I_nbr_hierarchy_ups_f1     = 0;
 	 if (PI_O_locator_enums.E_locator == E_locator.domOffsets) {
 		SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
 		return SBO_retval_csss;
@@ -400,6 +445,7 @@ public class CssSGenerators {
 	   case className:
 		  ArrayList<String>        AS_class_names;
 		  TextStringBuilder        SB_csss;
+		//  LinkedHashMap<String, String>  HS_css;
 		  int                      I_idx_old_f0;  
 		
 		  if (I_nbr_selectors_f1 == 1) {
@@ -565,6 +611,7 @@ public class CssSGenerators {
 			 break;  
 			 
 	   case xpath:
+		   Cssify.ConversionResult O_conversion_result;
 		   XPathException E_xp;
 		   ExecResult O_exec_res;
 		   List<String> AAS_retvals[], AS_retvals;
@@ -576,61 +623,71 @@ public class CssSGenerators {
 		   ParsingState E_parsing_state; 
 		   
 		   S_using = PI_AS_using[0];
-//		   if (StringUtils.equals(S_using, ".")) {
-//			  B_identity = true;
-//			  S_csss = "";
-//			  break; 
-//		      }
-		   if (S_using != null) {
-			   I_len_using_f1 = S_using.length();
-			   E_parsing_state = ParsingState.init;
-			   LOOP_CHARS: for (i1 = 0; i1 < I_len_using_f1; i1++) {
-				   C_using = S_using.charAt(i1);
-				   if (E_parsing_state == ParsingState.init) {
-					   if (C_using == '.') {
-						   E_parsing_state = ParsingState.dot1;
-					      }
-					   else {
-						  E_parsing_state = ParsingState.invalid; 
-						  break LOOP_CHARS;
-					   }}
-				   else if (E_parsing_state == ParsingState.dot1) {
-					    if (C_using == '.') {
-						   E_parsing_state = ParsingState.dot2;
-					       I_nbr_hierarchy_ups_f1++;
-					       }
-					    else if (C_using == '/') {
-					    	E_parsing_state = ParsingState.slash; 
-					         }
-					    else {
-					    	E_parsing_state = ParsingState.invalid; 
-						    break LOOP_CHARS;
-					    }}
-					else if (E_parsing_state == ParsingState.dot2) {
-						if (C_using == '/') {
-							E_parsing_state = ParsingState.slash; 
-						    }
-						else {
-					    	E_parsing_state = ParsingState.invalid; 
-						    break LOOP_CHARS;
-					        }
+
+		   if (S_using == null) {
+			//  SBO_retval_csss = new ExtendedCssSelector(null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets); 
+			//  return SBO_retval_csss;
+			    S_csss = null;
+			    break;
+		      } 
+		   I_len_using_f1 = S_using.length();
+		   E_parsing_state = ParsingState.init;
+		   LOOP_CHARS: for (i1 = 0; i1 < I_len_using_f1; i1++) {
+		      C_using = S_using.charAt(i1);
+			  if (E_parsing_state == ParsingState.init) {
+			     if (C_using == '.') {
+				    E_parsing_state = ParsingState.dot1;
+					}
+				 else {
+					E_parsing_state = ParsingState.invalid; 
+					break LOOP_CHARS;
+					}}
+				 else if (E_parsing_state == ParsingState.dot1) {
+				    if (C_using == '.') {
+					   E_parsing_state = ParsingState.dot2;
+					   I_nbr_hierarchy_ups_f1++;
+					   }
+					 else if (C_using == '/') {
+					   	E_parsing_state = ParsingState.slash; 
 					    }
-					else if (E_parsing_state == ParsingState.slash) {
-						if (C_using == '.') {
-							E_parsing_state = ParsingState.dot1;
-						    }
-						else {
-							E_parsing_state = ParsingState.invalid; 
-						    break LOOP_CHARS;
-						}
+					 else {
+					   	E_parsing_state = ParsingState.invalid; 
+					    break LOOP_CHARS;
+					    }}
+				else if (E_parsing_state == ParsingState.dot2) {
+				   if (C_using == '/') {
+					   E_parsing_state = ParsingState.slash; 
+					   }
+					else {
+					   	E_parsing_state = ParsingState.invalid; 
+					    break LOOP_CHARS;
+					    }
+					  }
+				else if (E_parsing_state == ParsingState.slash) {
+				   if (C_using == '.') {
+					  E_parsing_state = ParsingState.dot1;
+				      }
+				  else {
+					 E_parsing_state = ParsingState.invalid; 
+					 break LOOP_CHARS;
+					 }
 				   }
 			   }
 			   if ((E_parsing_state == ParsingState.dot1) || (E_parsing_state == ParsingState.dot2)) {
 				   S_csss = "";
-				   B_simple_xpath = true;
+				   B_simple_unsupported_xpath = true;
 				   break;
 			       }
-		       }
+			   
+		   //-----------------------
+			if ((O_conversion_result = HS_conversion_results.get(S_using)) != null) {
+				S_csss = O_conversion_result.S_value;
+				break;
+			}
+			   
+			   
+		   //-----------------------	   
+			   
 		   if (S_dna_parent_py == null) {
 			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
@@ -737,6 +794,8 @@ public class CssSGenerators {
 		    }
 		   
 		   S_csss = O_exec_res.AAS_retvals[0].get(0);
+		   O_conversion_result = new Cssify.ConversionResult(S_csss);
+		   HS_conversion_results.put(S_using, O_conversion_result);
 		   break; // xpath.
 	   default:
 		   String S_locator, S_op;
@@ -817,7 +876,7 @@ public class CssSGenerators {
 	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
-	if (B_simple_xpath) {
+	if (B_simple_unsupported_xpath) {
 		SBO_retval_csss.I_dom_element_hier_ups_f0 = I_nbr_hierarchy_ups_f1;
 	    }
 	return SBO_retval_csss;
