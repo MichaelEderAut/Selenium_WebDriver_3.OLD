@@ -492,7 +492,7 @@ public static StringBuilder FS_generate_abs_xpath(final DomOffset[] PI_AO_dom_of
 			    }
 			
 			I_idx_same_tag_f1 = I_idx_same_tag_f0 + 1;
-			S_elem = "/" + S_tag + "[" +  "I_idx_same_tag_f1" + "]";
+			S_elem = "/" + S_tag + "[" +  I_idx_same_tag_f1 + "]";
 			SB_retval_abs_xpath.append(S_elem);
 		    }
 		

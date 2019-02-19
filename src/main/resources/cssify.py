@@ -25,7 +25,7 @@ validation_re = (
         ")\])?"
         "(\[(?P<nth>\d)\])?"
       ")"
-    ")" % sub_regexes
+    ")" %sub_regexes
 )
 
 prog = re.compile(validation_re)
