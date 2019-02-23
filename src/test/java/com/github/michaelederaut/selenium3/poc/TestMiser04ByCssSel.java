@@ -29,7 +29,8 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 
-import junit.framework.Assert;
+// import junit.framework.Assert;
+import org.junit.Assert;
 
 public class TestMiser04ByCssSel {
    
@@ -43,6 +44,8 @@ public class TestMiser04ByCssSel {
 		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
 		FirefoxBinary O_ff_bin;
 		
+		List<WebElement> AO_web_element_miser_loc_1_01, AO_web_element_miser_loc_1_02,
+		                 AO_web_element_miser_loc_1_03, AO_web_element_miser_loc_1_04;
 		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
 					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
 					O_web_element_miser_loc_5, O_web_element_miser_loc_6, O_web_element_miser_loc_7, O_web_element_miser_loc_8,
@@ -101,6 +104,18 @@ public class TestMiser04ByCssSel {
 
 	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.cssSelector(".gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_1);
+	
+	AO_web_element_miser_loc_1_01 = NavigationUtils.O_rem_drv.findElements(By.className("m"));
+	Assert.assertNotNull(AO_web_element_miser_loc_1_01);
+	
+	AO_web_element_miser_loc_1_02 = NavigationUtils.O_rem_drv.findElements(By.cssSelector(".m"));
+	Assert.assertNotNull(AO_web_element_miser_loc_1_02);
+	
+	AO_web_element_miser_loc_1_03 = NavigationUtils.O_rem_drv.findElements(By.className("n"));
+	Assert.assertNotNull(AO_web_element_miser_loc_1_03);
+	
+	AO_web_element_miser_loc_1_04 = NavigationUtils.O_rem_drv.findElements(By.cssSelector(".n"));
+	Assert.assertNotNull(AO_web_element_miser_loc_1_04);
 	
 	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_2);

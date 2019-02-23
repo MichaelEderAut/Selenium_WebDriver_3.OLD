@@ -20,7 +20,7 @@ import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
 import com.github.michaelederaut.basics.xpath2cssselector.Cssify;
-// import com.github.michaelederaut.selenium3.framework.ByCssS;
+import com.github.michaelederaut.basics.xpath2cssselector.CssifyCached;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
@@ -28,9 +28,7 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBu
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
-// import com.ibm.icu.impl.TimeZoneGenericNames.Pattern;
 
-// import regexodus.Pattern;
 import static org.apache.commons.lang3.StringUtils.LF;
 import static com.github.michaelederaut.basics.ToolsBasics.FS;
 
@@ -62,7 +60,9 @@ public class CssSGenerators {
 	
 	protected enum ParsingState {init, dot1, dot2, slash, invalid};
 	
-	public static ConversionResults HS_conversion_results = new ConversionResults();
+	public static CssifyCached O_cssify_cached = null;
+	
+	// public static ConversionResults HS_conversion_results = new ConversionResults();
 	
 //	public static final EndCriterion O_end_crit_where = 
 //			new EndCriterion(EndCriterion.L_timeout_dflt, P_end_criterion_where);
@@ -304,31 +304,32 @@ public class CssSGenerators {
 //	     }
 //	}
 	
-	public static class ConversionResults extends LinkedHashMap<String, Cssify.ConversionResult>  {
-		public static final int I_init_capacity = 16;
-		public static final int I_max_nbr_elements_dflt = 1024;
-		public static       int I_max_nbr_elements;
-		
-		protected boolean RemoveEldestEntry(Map.Entry<String, Cssify.ConversionResult> PI_O_eledest) {
-			
-			boolean B_retval_remove;
-			if (this.size() > I_max_nbr_elements) {
-			   B_retval_remove = true; }
-			else {
-			   B_retval_remove = false;
-			   }
-			return B_retval_remove;
-		}
-		
-		public ConversionResults() {
-			 this(I_max_nbr_elements_dflt);
-		     }
-		
-		public ConversionResults(final int PI_I_capacity) {
-			super(PI_I_capacity < I_init_capacity ? PI_I_capacity : I_init_capacity, (float)0.75, true);
-			I_max_nbr_elements = PI_I_capacity;
-		    }	
-	}
+//	@Deprecated
+//	public static class ConversionResults extends LinkedHashMap<String, Cssify.ConversionResult>  {
+//		public static final int I_init_capacity = 16;
+//		public static final int I_max_nbr_elements_dflt = 1024;
+//		public static       int I_max_nbr_elements;
+//		
+//		protected boolean RemoveEldestEntry(Map.Entry<String, Cssify.ConversionResult> PI_O_eledest) {
+//			
+//			boolean B_retval_remove;
+//			if (this.size() > I_max_nbr_elements) {
+//			   B_retval_remove = true; }
+//			else {
+//			   B_retval_remove = false;
+//			   }
+//			return B_retval_remove;
+//		}
+//		
+//		public ConversionResults() {
+//			 this(I_max_nbr_elements_dflt);
+//		     }
+//		
+//		public ConversionResults(final int PI_I_capacity) {
+//			super(PI_I_capacity < I_init_capacity ? PI_I_capacity : I_init_capacity, (float)0.75, true);
+//			I_max_nbr_elements = PI_I_capacity;
+//		    }	
+//	}
 	
 	public static /* DomVectorExtendedSelector */ ExtendedCssSelector FSBO_get_csss(
 		final LocatorEnums PI_O_locator_enums,
@@ -678,13 +679,15 @@ public class CssSGenerators {
 				   B_simple_unsupported_xpath = true;
 				   break;
 			       }
-			   
-		   //-----------------------
-			if ((O_conversion_result = HS_conversion_results.get(S_using)) != null) {
-				S_csss = O_conversion_result.S_value;
-				break;
-			}
-			   
+
+//			if ((O_conversion_result = HS_conversion_results.get(S_using)) != null) {
+//				S_csss = O_conversion_result.S_value;
+//				break;
+//			}
+			if (CssSGenerators.O_cssify_cached == null) {
+				CssSGenerators.O_cssify_cached = new CssifyCached();
+			   }
+			O_conversion_result = CssSGenerators.O_cssify_cached.FO_convert(S_using);
 			   
 		   //-----------------------	   
 			   
@@ -795,7 +798,7 @@ public class CssSGenerators {
 		   
 		   S_csss = O_exec_res.AAS_retvals[0].get(0);
 		   O_conversion_result = new Cssify.ConversionResult(S_csss);
-		   HS_conversion_results.put(S_using, O_conversion_result);
+//		   HS_conversion_results.put(S_using, O_conversion_result);
 		   break; // xpath.
 	   default:
 		   String S_locator, S_op;
