@@ -688,6 +688,7 @@ public class CssSGenerators {
 				CssSGenerators.O_cssify_cached = new CssifyCached();
 			   }
 			O_conversion_result = CssSGenerators.O_cssify_cached.FO_convert(S_using);
+			S_csss = O_conversion_result.S_value;
 			   
 		   //-----------------------	   
 			   
