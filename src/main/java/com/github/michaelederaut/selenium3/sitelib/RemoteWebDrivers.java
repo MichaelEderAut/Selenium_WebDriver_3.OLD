@@ -159,7 +159,7 @@ public class RemoteWebDrivers /* extends RemoteWebDriver */ {
 			// new FirefoxOptions().setBinary(binary).setProfile(profile)
 			O_ff_opts = new FirefoxOptions();
 			O_ff_opts.setBinary(O_ff_bin);
-			O_ff_opts.setLogLevel(FirefoxDriverLogLevel.INFO);  // TRACE is most detailed.
+		//	O_ff_opts.setLogLevel(FirefoxDriverLogLevel.ERROR);  // TRACE is most detailed.
 			O_ff_opts.setProfile(O_ff_prf);  // FireFox Profile
 			O_ff_drv_srv = GeckoDriverService.createDefaultService();
 		

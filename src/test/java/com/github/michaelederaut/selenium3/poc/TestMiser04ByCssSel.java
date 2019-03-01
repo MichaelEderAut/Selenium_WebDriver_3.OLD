@@ -85,7 +85,7 @@ public class TestMiser04ByCssSel {
 			
 	    E_browser_type = BrowserTypes.FireFox;
 //		E_browser_type = BrowserTypes.InternetExplorer;
-	    O_nav_utils = new NavigationUtils(E_browser_type);  // Explorer/Popup 1
+	    O_nav_utils = new NavigationUtils(E_browser_type); 
 	    
 	    O_nav_utils.FO_get_fluent(
 	    		S_url_miser,
