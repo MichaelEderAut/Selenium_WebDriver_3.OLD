@@ -1007,7 +1007,8 @@ public String FS_get_style(final String PI_S_style_key) {
     	AO_retval_remote_web_ele_xp = (List<RemoteWebElementXp>)(List<? extends WebElement>)PI_AO_web_elems;
     	return AO_retval_remote_web_ele_xp;
 	    }
-		
+	
+@Deprecated		
 	public static StringBuilder FS_get_root_element (final int PI_AI_DOM_offset_vector[]) {
 		
 		StringBuilder SB_retval_document_root = new StringBuilder("document.body");
@@ -1037,6 +1038,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		return SB_retval_document_root;
 	}
 	
+@Deprecated
 	public static StringBuilder FS_generate_root_element (final DomOffset PI_AO_dom_offsets[]) {
 		StringBuilder SB_retval_document_root;
 		int AI_DOM_offsets[];
