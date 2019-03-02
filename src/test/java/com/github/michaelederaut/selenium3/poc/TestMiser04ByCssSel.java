@@ -12,7 +12,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.InvalidSelectorException;
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -46,9 +50,24 @@ public class TestMiser04ByCssSel {
 		
 		List<WebElement> AO_web_element_miser_loc_1_01, AO_web_element_miser_loc_1_02,
 		                 AO_web_element_miser_loc_1_03, AO_web_element_miser_loc_1_04;
-		WebElement  O_web_element_miser_loc_1, O_web_element_miser_loc_2,
-					O_web_element_miser_loc_3, O_web_element_miser_loc_4,
-					O_web_element_miser_loc_5, O_web_element_miser_loc_6, O_web_element_miser_loc_7, O_web_element_miser_loc_8,
+		WebElement  O_web_element_miser_loc_01, O_web_element_miser_loc_02,
+					O_web_element_miser_loc_03, O_web_element_miser_loc_04,
+					O_web_element_miser_loc_05, O_web_element_miser_loc_06, O_web_element_miser_loc_07,
+					O_web_element_miser_loc_08,
+					O_web_element_miser_loc_09, O_web_element_miser_loc_10,
+					O_web_element_miser_loc_11_1, O_web_element_miser_loc_11_2, 
+					O_web_element_miser_loc_11_3, O_web_element_miser_loc_11_4,
+					O_web_element_miser_loc_11_5, O_web_element_miser_loc_11_6,
+					O_web_element_miser_loc_11_7, O_web_element_miser_loc_11_8,
+					O_web_element_miser_loc_12_1, O_web_element_miser_loc_12_2,
+					O_web_element_miser_loc_13, O_web_element_miser_loc_14, O_web_element_miser_loc_15,
+					
+					O_web_element_miser_loc_16_1, O_web_element_miser_loc_16_2, O_web_element_miser_loc_16_3,
+					O_web_element_miser_loc_16_4, 
+					O_web_element_miser_loc_17_1,
+					O_web_element_miser_loc_18_1,
+					O_web_element_miser_loc_19_1, O_web_element_miser_loc_20_1, O_web_element_miser_loc_21_1,
+					O_web_element_miser_loc_22_1, O_web_element_miser_loc_23_1,
 		            O_web_element;
 		AbstractMap<String, ? extends Object> HO_res_exec, HS_elem;
 //		JavascriptExecutor O_js_exexutor;
@@ -63,6 +82,7 @@ public class TestMiser04ByCssSel {
 		String S_txt, S_tag,
 		S_msg_1, S_msg_2, S_line_out, S_url_actual, S_parent_wdw_handle, S_sub_wdw_handle,
 		       S_parent_wdw_title, S_cmd_1,
+		       S_xpath,
 		       S_clazz_name_short, S_clazz_name_full, S_res_xpath, S_xpath_class_names, S_clickable_typeof;
 		long L_nbr_elems_f1;
 		int i1;
@@ -99,11 +119,11 @@ public class TestMiser04ByCssSel {
 
 	List <WebElement> AO_web_elements;
 
-	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.className("gh_loc_bt"));
-	Assert.assertNotNull(O_web_element_miser_loc_1);
+	O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(By.className("gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_01);
 
-	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(By.cssSelector(".gh_loc_bt"));
-	Assert.assertNotNull(O_web_element_miser_loc_1);
+	O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(By.cssSelector(".gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_01);
 	
 	AO_web_element_miser_loc_1_01 = NavigationUtils.O_rem_drv.findElements(By.className("m"));
 	Assert.assertNotNull(AO_web_element_miser_loc_1_01);
@@ -117,13 +137,13 @@ public class TestMiser04ByCssSel {
 	AO_web_element_miser_loc_1_04 = NavigationUtils.O_rem_drv.findElements(By.cssSelector(".n"));
 	Assert.assertNotNull(AO_web_element_miser_loc_1_04);
 	
-	O_web_element_miser_loc_2 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
-	Assert.assertNotNull(O_web_element_miser_loc_2);
+	O_web_element_miser_loc_02 = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_02);
 	
-	O_web_element_miser_loc_3 = NavigationUtils.O_rem_drv.findElement(ByCssS.className("gh_loc_bt"));
-	Assert.assertNotNull(O_web_element_miser_loc_3);
+	O_web_element_miser_loc_03 = NavigationUtils.O_rem_drv.findElement(ByCssS.className("gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_03);
 	
-	O_web_element_miser_loc_4 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+	O_web_element_miser_loc_04 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
 			Locator.className, 
 			LocatorVariant.regular, 
 			"gh_loc_bt", 
@@ -133,22 +153,164 @@ public class TestMiser04ByCssSel {
 			(DomOffset[])null,
 			(String)null));  // prefix
 	
-	O_web_element_miser_loc_5 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
-	Assert.assertNotNull(O_web_element_miser_loc_5);
+	O_web_element_miser_loc_05 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(Locator.className, "gh_loc_bt"));
+	Assert.assertNotNull(O_web_element_miser_loc_05);
 	
 	O_lnk_txt_6 = new LinkText("D", LocatorVariant.prefix);
-	O_web_element_miser_loc_6 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_6));
-	Assert.assertNotNull(O_web_element_miser_loc_6);
+	O_web_element_miser_loc_06 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_6));
+	Assert.assertNotNull(O_web_element_miser_loc_06);
 	
-    O_web_element_miser_loc_7 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.linkText, "Deutschland"));
+    O_web_element_miser_loc_07 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.linkText, "Deutschland"));
     // S_txt_content == "Deutschland"
 	
 	O_lnk_txt_8 = new LinkText("Deutschland");
 //	O_lnk_txt_8 = new LinkText("Proshop.at");
-	O_web_element_miser_loc_8 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_8));
-	
-	Assert.assertNotNull(O_web_element_miser_loc_8);
+	O_web_element_miser_loc_08 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc((Locator)null, (String)null, (String)null, O_lnk_txt_8));
+	Assert.assertNotNull(O_web_element_miser_loc_08);
 	 
+	try {
+		O_web_element_miser_loc_10 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+				Locator.xpath, LocatorVariant.regular, "//a[@title=Geizhals]"));  // to-csss conversion ERROR Geizhals has no surrounding quotes
+	} catch (RuntimeException PI_E_rt) {
+		System.out.println("error trying xpath: " + "//a[@title=Geizhals]");
+		PI_E_rt.printStackTrace(System.err);
+	    }
+		
+	try {
+		O_web_element_miser_loc_11_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[title=Geizhals]"));     // @ missing before attr-name
+	} catch (NoSuchElementException | IllegalArgumentException PI_E_nse) {
+		System.out.println("error trying xpath: " + "//a[title=Geizhals]");
+		PI_E_nse.printStackTrace(System.err);
+	}
+	try {
+		O_web_element_miser_loc_11_2 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title=Geizhals]"));    // missing quotes 
+	} catch (NoSuchElementException PI_E_nse) {
+		System.out.println("error trying xpath: " + "//a[@title=Geizhals]");
+		PI_E_nse.printStackTrace(System.err);
+	    }
+	
+	try {
+		O_web_element_miser_loc_11_3 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[title='Geizhals']"));     // @ missing before attr-name
+	} catch (NoSuchElementException PI_E_nse) {
+		System.out.println("error trying xpath: " + "//a[title=Geizhals]");
+		PI_E_nse.printStackTrace(System.err);
+	    }
+	O_web_element_miser_loc_11_4 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title='Geizhals']"));    // OK 
+
+	try {
+		O_web_element_miser_loc_11_5 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[title=\"Geizhals\"]"));   // @ missing before attr-name
+	} catch (NoSuchElementException PI_E_nse) {
+			System.out.println("error trying xpath: " + "//a[title=\"Geizhals\"]");
+		    PI_E_nse.printStackTrace(System.err);
+	    }
+	O_web_element_miser_loc_11_6 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title=\"Geizhals\"]"));  // OK 
+	
+	try {
+		O_web_element_miser_loc_11_7 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title=\'Geizhals\"]"));  // different left and right quotes 
+	} catch (InvalidSelectorException PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "//a[@title=\'Geizhals\"]");
+		PI_E_inv_sel.printStackTrace(System.err);
+	    }
+	
+	O_web_element_miser_loc_12_1 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+			Locator.xpath, LocatorVariant.regular, "//a[@title='Geizhals']"));   // OK
+	
+	try {
+		O_web_element_miser_loc_12_2 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc( // should crash here, bcs xpath is invalid, missing @ before attr-name
+				Locator.xpath, LocatorVariant.regular, "//a[title='Geizhals']"));
+	} catch (RuntimeException PI_E_rt) {
+		System.out.println("error trying xpath: " + "//a[title='Geizhals']");
+		PI_E_rt.printStackTrace();
+	    } 
+	
+	O_web_element_miser_loc_13 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+			Locator.xpath, LocatorVariant.regular, "//a[@title=\"Geizhals\"]")); 
+	
+	try {
+		O_web_element_miser_loc_14 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc( // should crash here, bcs xpath is invalid, different left and right quotes
+				Locator.xpath, LocatorVariant.regular, "//a[@title='Geizhals\"]"));
+	} catch (RuntimeException PI_E_rt) {
+		System.out.println("error trying xpath: " + "//a[@title='Geizhals\"]");
+		PI_E_rt.printStackTrace();
+	    } 
+	
+	try {
+		O_web_element_miser_loc_15 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc( // should crash here, bcs xpath is invalid, different left and right quotes
+				Locator.xpath, LocatorVariant.regular, "//a[@title=\"Geizhals']"));
+	} catch (RuntimeException PI_E_rt) {
+		System.out.println("error trying xpath: " + "//a[@title=\"Geizhals']");
+		PI_E_rt.printStackTrace();
+	} 
+	
+	try {
+		O_web_element_miser_loc_16_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("id(fs)"));  // crashes fs is not surrounded by quotes
+	} catch (NoSuchElementException PI_E_nse) {
+		System.out.println("error trying xpath: " + "id(fs)");
+		PI_E_nse.printStackTrace();
+	    }
+	
+	O_web_element_miser_loc_16_2 = NavigationUtils.O_rem_drv.findElement(By.xpath("id('fs')"));  // OK
+	
+	try {
+		O_web_element_miser_loc_16_3 = NavigationUtils.O_rem_drv.findElement(By.xpath("id(gh_searchform)"));  // crashes here
+	} catch (NoSuchElementException PI_E_nse) {
+		System.out.println("error trying xpath: " + "id(gh_searchform)");
+		PI_E_nse.printStackTrace();
+	    }
+
+	O_web_element_miser_loc_16_4 = NavigationUtils.O_rem_drv.findElement(By.xpath("id('gh_searchform')"));  // OK
+	
+	
+	// should crash here, bcs xpath is invalid, name('...')
+	try {
+		O_web_element_miser_loc_17_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("name('sform')"));
+	} catch (InvalidSelectorException PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "name('sform')");
+		PI_E_inv_sel.printStackTrace();
+	}
+	
+	// should crash here, bcs xpath is invalid, class('...')
+	try {
+		O_web_element_miser_loc_18_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("class('gh_loc_bt')"));
+	} catch (InvalidSelectorException PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "class('gh_loc_bt')");
+		PI_E_inv_sel.printStackTrace();
+	}
+	
+	try {
+		O_web_element_miser_loc_19_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("[@id='gh_searchform']"));
+	} catch (InvalidSelectorException PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "[@id='gh_searchform']");
+		PI_E_inv_sel.printStackTrace(System.err);
+	    }
+	
+	S_xpath = "//[@id='gh_searchform']";
+	try {
+		O_web_element_miser_loc_19_1 = NavigationUtils.O_rem_drv.findElement(By.xpath(S_xpath));
+	} catch (InvalidSelectorException PI_E_inv_sel) {
+		System.out.println("Error trying xpath: \'" + S_xpath + "\'");
+		PI_E_inv_sel.printStackTrace(System.err);
+	    }
+	
+	S_xpath = "*[@id='gh_searchform']";
+	try {
+		O_web_element_miser_loc_20_1 = NavigationUtils.O_rem_drv.findElement(By.xpath(S_xpath));
+	} catch (NoSuchElementException PI_E_nse) {
+        System.out.println("Error trying xpath: \'" + S_xpath + "\'");
+		PI_E_nse.printStackTrace(System.err);
+	    }
+	
+	O_web_element_miser_loc_21_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("//*[@id='gh_searchform']"));  // OK
+	
+    O_web_element_miser_loc_22_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("//form[@id='gh_searchform']"));  // OK
+    
+    S_xpath = "//xxxyz[@id='gh_searchform']";
+    try {
+		O_web_element_miser_loc_23_1 = NavigationUtils.O_rem_drv.findElement(By.xpath(S_xpath));
+	} catch (NoSuchElementException PI_E_nse) {
+		System.out.println("Error trying xpath: \'" + S_xpath + "\'");
+		PI_E_nse.printStackTrace(System.err);
+	}  
 	
 	S_cmd_1 = "var HS_retval = {'elemcount' : 0 , 'AA_vectors' : []}; " +
 			  "var i1, I_nbr_elems_f1, O_elem, S_clickable_typeof; " + 
@@ -192,13 +354,13 @@ public class TestMiser04ByCssSel {
 		System.out.println(S_line_out);
 	    }
 	
-	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_1);
+	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_01);
 	System.out.println("Xpath 1:       " + S_res_xpath);
 	
 //	O_web_element_miser_loc = NavigationUtils.O_rem_drv.findElement(ByXp.className("gh_loc_bt", "div"));
-	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.className, "gh_loc_bt", "div"));
-	Assert.assertNotNull(O_web_element_miser_loc_1);
-	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_1);
+	O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.className, "gh_loc_bt", "div"));
+	Assert.assertNotNull(O_web_element_miser_loc_01);
+	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_01);
 	System.out.println("Xpath 1 (div): " + S_res_xpath);
     
 
@@ -206,19 +368,19 @@ public class TestMiser04ByCssSel {
 	S_xpath_class_names = ".//*[contains(concat(' ',normalize-space(@class),' '),' gh_loc_bt ') and " + 
 	                          "contains(concat(' ',normalize-space(@class),' '),' mid ')]";
 	
-	O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(ByXp.xpath(S_xpath_class_names));
-	Assert.assertNotNull(O_web_element_miser_loc_1);
-	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_1);
+	O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(ByXp.xpath(S_xpath_class_names));
+	Assert.assertNotNull(O_web_element_miser_loc_01);
+	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_01);
 	System.out.println("Xpath 2:       " + S_res_xpath);
 	
 //	O_web_element_miser_loc = NavigationUtils.O_rem_drv.findElement(ByXp.className(new String[]{"gh_loc_bt", "mid"}, "div"));
-    O_web_element_miser_loc_1 = NavigationUtils.O_rem_drv.findElement(
+    O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(
     		ByXp.loc(
     		  Locator.className, 
     		  new String[]{"gh_loc_bt", "mid"}, 
     		  "div"));
-	Assert.assertNotNull(O_web_element_miser_loc_1);
-	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_1);
+	Assert.assertNotNull(O_web_element_miser_loc_01);
+	S_res_xpath = NavigationUtils.FS_get_xpath(O_web_element_miser_loc_01);
 	System.out.println("Xpath 2:       " + S_res_xpath);
 	
 	O_logger.traceExit();

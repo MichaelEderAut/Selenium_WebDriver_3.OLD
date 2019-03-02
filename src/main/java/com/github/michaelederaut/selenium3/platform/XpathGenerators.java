@@ -367,6 +367,7 @@ public class XpathGenerators {
 	 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;DomOffset">Mr. Michael Eder</a>
 	 * 
 	 **/
+@Deprecated	
 public static class DomOffset {
 		
 		public int    I_idx_any_tag_f0;			  // for DOM root-node
@@ -403,6 +404,7 @@ public static class DomOffset {
 		}
 	}
 
+@Deprecated
 public static int[] FAI_reduce_DOM_offset_vector (final DomOffset PI_AO_dom_offsets[]) {
 	int AI_retval_DOM_offsets[] = null;
 	

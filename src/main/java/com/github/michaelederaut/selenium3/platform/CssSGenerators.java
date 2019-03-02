@@ -2,20 +2,14 @@ package com.github.michaelederaut.selenium3.platform;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.xml.xpath.XPathException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
+//import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.text.TextStringBuilder;
 
-import com.github.michaelederaut.basics.ExecUtils;
-import com.github.michaelederaut.basics.ExecUtils.ExecResult;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
@@ -30,7 +24,7 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 
 import static org.apache.commons.lang3.StringUtils.LF;
-import static com.github.michaelederaut.basics.ToolsBasics.FS;
+// import static com.github.michaelederaut.basics.ToolsBasics.FS;
 
 /**
 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;CssSelector-Generators">Mr. Michael Eder</a>
@@ -38,25 +32,12 @@ import static com.github.michaelederaut.basics.ToolsBasics.FS;
 */
 public class CssSGenerators {
 	
-//	
-//	public static final String S_re_end_criterion_where = "^(.*?)\\(python.exe)";
-//	public static final regexodus.Pattern P_end_criterion_where = regexodus.Pattern.compile(S_re_end_criterion_where);
-//	
 	public static final String ALL_ELEMS      = "*";
 	public static final String DEFAULT_TAG    = "";
 	public static final String DEFAULT_PREFIX = "";
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
 	public static final String S_re_tag_name = "^(\\*|[a-z]*)$";
 	public static final regexodus.Pattern P_tag_name = regexodus.Pattern.compile(S_re_tag_name);
-	public static final String S_bn_python = "python.exe";
-	public static final String S_bn_script = "cssify.py";
-	public static final String S_bnr_script = "/" + S_bn_script;
-	public static final EndCriterion O_dflt_end_criterion = new EndCriterion();
-	
-	protected static String S_dna_parent_py;
-	protected static String S_pna_py;
-	protected static File F_pna_py, F_dna_parent_script;
-	protected static String S_pna_py_scr;
 	
 	protected enum ParsingState {init, dot1, dot2, slash, invalid};
 	
@@ -614,10 +595,7 @@ public class CssSGenerators {
 	   case xpath:
 		   Cssify.ConversionResult O_conversion_result;
 		   XPathException E_xp;
-		   ExecResult O_exec_res;
-		   List<String> AAS_retvals[], AS_retvals;
-		   URL O_url_script;
-		   File F_pna_script;
+
 		   char C_using;
 		   int I_len_using_f1;
 		   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
@@ -685,120 +663,17 @@ public class CssSGenerators {
 //				break;
 //			}
 			if (CssSGenerators.O_cssify_cached == null) {
-				CssSGenerators.O_cssify_cached = new CssifyCached();
+			    S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
+					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
+			      E_ill_arg = new IllegalArgumentException(S_msg_1);
+			      E_ill_arg.printStackTrace(System.out);  	
+			     CssSGenerators.O_cssify_cached = new CssifyCached();
 			   }
 			O_conversion_result = CssSGenerators.O_cssify_cached.FO_convert(S_using);
 			S_csss = O_conversion_result.S_value;
 			   
 		   //-----------------------	   
 			   
-		   if (S_dna_parent_py == null) {
-			  S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
-					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
-			      E_ill_arg = new IllegalArgumentException(S_msg_1);
-			      E_ill_arg.printStackTrace(System.out);  
-			  S_dna_parent_py = ExecUtils.FS_get_parent_of_executable(S_bn_python);
-			  try {
-				if (S_dna_parent_py == null) {
-					 S_msg_1 = "Unable to find: \'" + S_bn_python + "\'.";
-					 E_io = new IOException(S_msg_1);
-					 throw E_io;
-				     }
-				   S_pna_py = S_dna_parent_py + FS + S_bn_python;
-				   F_pna_py = new File(S_pna_py);
-				   if (!F_pna_py.canExecute()) {
-					   S_msg_1 = "Unable to execute: \'" + S_pna_py + "\'."; 
-					   E_io = new IOException(S_msg_1);
-					   throw E_io;
-				      }
-				   O_url_script = CssSGenerators.class.getResource(S_bnr_script);
-				   if (O_url_script == null) {
-					  S_msg_1 = "Unable to find script: \'" + S_bn_script + "\'.";
-					  E_io = new IOException(S_msg_1);
-					  throw E_io;
-				     }
-				   S_pnr_script = O_url_script.getPath();
-				   if (S_pnr_script.startsWith("/")) {
-					  S_pna_py_scr = S_pnr_script.substring(1);
-				       }
-				   else {
-					  S_pna_py_scr = S_pnr_script;
-				      }
-				  if (SystemUtils.IS_OS_WINDOWS) {
-					 S_pna_py_scr =  StringUtils.replaceChars(S_pna_py_scr, "/", "\\");
-				     }
-				   F_pna_script = new File(S_pna_py_scr);
-				   if (!F_pna_script.canRead()) {
-					   S_msg_1 = "Unable to open script file: \"" + S_pna_py_scr + "\" for reading."; 
-					   E_io = new IOException(S_msg_1);
-					   throw E_io;
-				      }
-				   F_dna_parent_script =  F_pna_script.getParentFile();
-			} catch (IOException PI_E_io) {
-				 S_msg_2 = "Unable to convert an xpath to css-selector";
-				 E_rt = new RuntimeException(S_msg_2, PI_E_io);
-				 throw E_rt;
-			   }
-			//  O_exec_res = ExecUtils.FAAS_exec_sync(PI_S_cmd, PI_AS_envp, PI_F_wd);
-			 
-		   } // end if script part not yet initilized;
-		   
-		   AS_cmd = new String[] {S_pna_py, S_pna_py_scr, S_using};
-		   O_exec_res = ExecUtils.FAAS_exec_sync(AS_cmd, (String[])null, F_dna_parent_script, O_dflt_end_criterion);
-		   AAS_retvals = O_exec_res.AAS_retvals;
-		   try {
-			 if (O_exec_res.I_exit_value != 0) {
-				 S_msg_1 = "Exit code returned from script interperter: \"" + S_pna_py + "\" : " + O_exec_res.I_exit_value + ".";
-				 E_io = new IOException(S_msg_1);
-				 throw E_io;
-			 }
-			 if (AAS_retvals == null) {
-				   S_msg_1 = "Unable to get any result from script interperter: \"" + S_pna_py + "\" on stdout and stederr.";
-				   E_np = new NullPointerException(S_msg_1);
-				   throw E_np;
-			       }
-			if (AAS_retvals.length == 0) {
-				 S_msg_1 = "Unable to get any result from script interperter: \"" + S_pna_py + "\" on stdout.";
-				 E_ind_out_of_boundary = new IndexOutOfBoundsException(S_msg_1);
-				 throw E_ind_out_of_boundary;
-			     }
-			AS_retvals = AAS_retvals[0];
-			if (AS_retvals == null) {
-				 S_msg_1 = "Unable to get any lines from script interperter: \"" + S_pna_py + "\" on stdout.";
-				 E_np = new NullPointerException(S_msg_1);
-				 throw E_np;
-			    }
-			if (AS_retvals.size() == 0) {
-				 S_msg_1 = "Unable to get any lines from script interperter: \"" + S_pna_py + "\" on stdout.";
-				 E_ind_out_of_boundary = new IndexOutOfBoundsException(S_msg_1);
-				 throw E_ind_out_of_boundary; 
-			     }
-			S_csss = AS_retvals.get(0);
-			if (StringUtils.isBlank(S_csss)) {
-				S_msg_1 = "Invalid first line " 
-						   + "\'" + S_csss + "\'" +
-						   "returned by script interperter: \"" + S_pna_py + "\" on stdout.";
-				E_assert = new AssertionError(S_msg_1);
-				throw E_assert;
-			}
-			if (S_csss.startsWith("Invalid or unsupported Xpath:")) {
-				S_msg_1 = "Error occurred during conversion" + LF +
-						  S_csss;
-				E_xp = new XPathException(S_msg_1);
-//				S_msg_2 = "Unable to convert xpath:" + LF + 
-//						  "\t" + S_using + LF +
-//						   "to a css-selector.";
-//				E_rt = new RuntimeException(S_msg_2, E_xp);
-				throw E_xp;		
-			}
-		} catch (AssertionError|IndexOutOfBoundsException|IOException|NullPointerException|XPathException PI_E_assert) {
-			S_msg_2 = "Unable to convert: " + S_using + "' to a valid css-selector";
-			E_rt = new RuntimeException(S_msg_2, PI_E_assert);
-			throw E_rt;
-		    }
-		   
-		   S_csss = O_exec_res.AAS_retvals[0].get(0);
-		   O_conversion_result = new Cssify.ConversionResult(S_csss);
 //		   HS_conversion_results.put(S_using, O_conversion_result);
 		   break; // xpath.
 	   default:
@@ -876,7 +751,8 @@ public class CssSGenerators {
 		   
 	   break; // default
 	      }
-    if (S_csss.equals("")) {
+ 
+	if (StringUtils.equals(S_csss, "")) {
 	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
