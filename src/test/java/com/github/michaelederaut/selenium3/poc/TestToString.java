@@ -5,8 +5,7 @@ import java.lang.reflect.Constructor;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
-// import static com.github.michaelederaut.basics.PropertyContainerUtils.AT_s1;
-
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
@@ -17,7 +16,7 @@ import com.github.michaelederaut.selenium3.framework.ByXp.Loc;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 
 public class TestToString {
 	

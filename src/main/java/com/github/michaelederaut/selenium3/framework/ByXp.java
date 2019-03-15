@@ -17,6 +17,9 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
+
 import static com.github.michaelederaut.selenium3.platform.XpathGenerators.IGNORED_IDX;
 import static com.github.michaelederaut.basics.props.PropertyContainerUtils.AT_s2;
 import static com.github.michaelederaut.selenium3.platform.XpathGenerators.DEFAULT_PREFIX;
@@ -24,13 +27,13 @@ import static com.github.michaelederaut.selenium3.platform.XpathGenerators.DEFAU
 import static com.github.michaelederaut.selenium3.platform.XpathGenerators.DEFAULT_TAG_LINK;
 
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelectorXp;
-
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorRegularity;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 
 import regexodus.Pattern;
@@ -1310,7 +1313,7 @@ public abstract class ByXp extends By {
           	   DomOffset AO_dom_offsets[];
           	   ByXp O_retval_by_xp;
           	   
-          	   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+          	   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
           	   O_retval_by_xp = loc(
           			   locator,
           			   LocatorVariant.regular,
@@ -1358,7 +1361,7 @@ public abstract class ByXp extends By {
             	   DomOffset AO_dom_offsets[];
           	   ByXp O_retval_by_xp;
           	   
-          	   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+          	   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
           	   O_retval_by_xp = loc(
           			   locator,
           			   LocatorVariant.regular,
@@ -1407,7 +1410,7 @@ public abstract class ByXp extends By {
            	   DomOffset AO_dom_offsets[];
            	   ByXp O_retval_by_xp;
            	   
-           	   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+           	   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
            	   O_retval_by_xp = loc(
            			   locator,
            			   variant,
@@ -1456,7 +1459,7 @@ public abstract class ByXp extends By {
         	   DomOffset AO_dom_offsets[];
            	   ByXp O_retval_by_xp;
         	   
-        	   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+        	   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
            	   O_retval_by_xp = loc(
            			   locator,
            			   variant,
@@ -2404,7 +2407,7 @@ public abstract class ByXp extends By {
 		    		return;
 		    	    }
 		    
-		    	this.domOffsets = XpathGenerators.FAO_create_DOM_offsets(PI_AI_DOM_offset_vector);
+		    	this.domOffsets = DomRootElements.FAO_create_DOM_offsets(PI_AI_DOM_offset_vector);
 		    	this.O_loc_sel_xp = this.FO_get_loc_sel_xp();	
 		    	this.O_loc_sel_xp.M_ctor = ConstructorUtils.getAccessibleConstructor(T_clazz, int[].class);
 		    	this.O_loc_sel_xp.SBO_using = new DomVectorExtendedSelector(".");

@@ -36,11 +36,13 @@ import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerArrArrStr;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorVariant;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
@@ -1008,46 +1010,47 @@ public String FS_get_style(final String PI_S_style_key) {
     	return AO_retval_remote_web_ele_xp;
 	    }
 	
-@Deprecated		
-	public static StringBuilder FS_get_root_element (final int PI_AI_DOM_offset_vector[]) {
-		
-		StringBuilder SB_retval_document_root = new StringBuilder("document.body");
-		if (PI_AI_DOM_offset_vector == null) {
-			return SB_retval_document_root;
-		    }
-		
-		InvalidArgumentException E_ill_arg;
-    	/* WebDriverException */ RuntimeException E_rt;
-		
-		String S_msg_1, S_msg_2;
-		int i1, I_len_offset_vector_f1, I_dom_idx_f0;
-		
-		I_len_offset_vector_f1 = PI_AI_DOM_offset_vector.length;
-		for (i1 = 0; i1 < I_len_offset_vector_f1; i1++) {
-			 
-			   I_dom_idx_f0 = PI_AI_DOM_offset_vector[i1];
-			   if (I_dom_idx_f0 < 0) {
-				   S_msg_1 = "Invalid negative offset: " + I_dom_idx_f0 + " at index: " + i1;
-	    		   E_ill_arg = new InvalidArgumentException(S_msg_1);
-	    		   S_msg_2 = "Unable to evaluate parameter of type array of \'" + int.class.getName() + "\'";
-	    		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
-	    		   throw E_rt;
-			       }
-			   SB_retval_document_root.append(".children[" + I_dom_idx_f0 + "]");
-			   }
-		return SB_retval_document_root;
-	}
+//@Deprecated		
+//	public static StringBuilder FS_get_root_element (final int PI_AI_DOM_offset_vector[]) {
+//		
+//		StringBuilder SB_retval_document_root = new StringBuilder("document.body");
+//		if (PI_AI_DOM_offset_vector == null) {
+//			return SB_retval_document_root;
+//		    }
+//		
+//		InvalidArgumentException E_ill_arg;
+//    	/* WebDriverException */ RuntimeException E_rt;
+//		
+//		String S_msg_1, S_msg_2;
+//		int i1, I_len_offset_vector_f1, I_dom_idx_f0;
+//		
+//		I_len_offset_vector_f1 = PI_AI_DOM_offset_vector.length;
+//		for (i1 = 0; i1 < I_len_offset_vector_f1; i1++) {
+//			 
+//			   I_dom_idx_f0 = PI_AI_DOM_offset_vector[i1];
+//			   if (I_dom_idx_f0 < 0) {
+//				   S_msg_1 = "Invalid negative offset: " + I_dom_idx_f0 + " at index: " + i1;
+//	    		   E_ill_arg = new InvalidArgumentException(S_msg_1);
+//	    		   S_msg_2 = "Unable to evaluate parameter of type array of \'" + int.class.getName() + "\'";
+//	    		   E_rt = new RuntimeException(S_msg_2, E_ill_arg);
+//	    		   throw E_rt;
+//			       }
+//			   SB_retval_document_root.append(".children[" + I_dom_idx_f0 + "]");
+//			   }
+//		return SB_retval_document_root;
+//	}
 	
-@Deprecated
-	public static StringBuilder FS_generate_root_element (final DomOffset PI_AO_dom_offsets[]) {
-		StringBuilder SB_retval_document_root;
-		int AI_DOM_offsets[];
-		
-		AI_DOM_offsets = XpathGenerators.FAI_reduce_DOM_offset_vector(PI_AO_dom_offsets);
-		SB_retval_document_root = FS_get_root_element(AI_DOM_offsets);
-		
-		return SB_retval_document_root;
-	}
+//@Deprecated
+//	public static StringBuilder FS_generate_root_element (final DomOffset PI_AO_dom_offsets[]) {
+//		StringBuilder SB_retval_document_root;
+//		int AI_DOM_offsets[];
+//		
+//		AI_DOM_offsets = XpathGenerators.FAI_reduce_DOM_offset_vector(PI_AO_dom_offsets);
+//		// SB_retval_document_root = FS_get_root_element(AI_DOM_offsets);
+//		SB_retval_document_root = DomRootElements.FS_get_context_node(AI_DOM_offsets);
+//		
+//		return SB_retval_document_root;
+//	}
 	
 	public static List<WebElement> FAO_find_elements_by_xpath(
 			final ByXp PI_O_locator) {
@@ -1082,7 +1085,7 @@ public String FS_get_style(final String PI_S_style_key) {
 		
 		O_by_locator_xp = PI_O_locator.O_loc_sel_xp;
 		AO_DOM_offset_vector_requested = O_by_locator_xp.SBO_using.AO_dom_offsets;
-		SB_document_root = FS_generate_root_element(AO_DOM_offset_vector_requested);
+		SB_document_root = DomRootElements.FS_get_context_node(AO_DOM_offset_vector_requested);
 		
 		SB_xpath_equivalent =  O_by_locator_xp.SBO_using;
 		S_xpath_unindexed = XpathConcatenator.FS_unindex(SB_xpath_equivalent);

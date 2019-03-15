@@ -19,7 +19,9 @@ import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorS
 import com.github.michaelederaut.selenium3.platform.CssSGenerators;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
@@ -1375,7 +1377,8 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+//		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1401,7 +1404,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1429,7 +1432,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1457,7 +1460,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -1484,7 +1487,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1512,7 +1515,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1541,7 +1544,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1568,7 +1571,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1596,7 +1599,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -1625,7 +1628,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -1654,7 +1657,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1682,7 +1685,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1709,7 +1712,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   
 		   DomOffset AO_dom_offsets[];
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1736,7 +1739,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1766,7 +1769,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -1794,7 +1797,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -1823,7 +1826,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);		   
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);		   
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1851,7 +1854,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1879,7 +1882,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1907,7 +1910,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -1936,7 +1939,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1966,7 +1969,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -1997,7 +2000,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2026,7 +2029,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2577,7 +2580,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2604,7 +2607,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -2633,7 +2636,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -2662,7 +2665,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -2690,7 +2693,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2719,7 +2722,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -2749,7 +2752,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2777,7 +2780,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2806,7 +2809,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -2836,7 +2839,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -2865,7 +2868,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2894,7 +2897,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2922,7 +2925,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   
 		   DomOffset AO_dom_offsets[];
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -2950,7 +2953,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -2981,7 +2984,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -3011,7 +3014,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   variant,
@@ -3041,7 +3044,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);		   
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);		   
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -3070,7 +3073,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -3099,7 +3102,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -3129,7 +3132,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -3159,7 +3162,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -3190,7 +3193,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   
 		   O_retval_by_css = loc(
 				   locator,
@@ -3222,7 +3225,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -3252,7 +3255,7 @@ public abstract class ByCssS extends By {
 		   ByCssS O_retval_by_css;
 		   DomOffset AO_dom_offsets[];
 		   
-		   AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+		   AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 		   O_retval_by_css = loc(
 				   locator,
 				   LocatorVariant.regular,
@@ -4064,7 +4067,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-		      AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+		      AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4103,7 +4106,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4143,7 +4146,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4183,7 +4186,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets   = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets   = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4223,7 +4226,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4265,7 +4268,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4308,7 +4311,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4351,7 +4354,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4393,7 +4396,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4435,7 +4438,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4478,7 +4481,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4520,7 +4523,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets); 
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets); 
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4564,7 +4567,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);   
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);   
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4609,7 +4612,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);
@@ -4655,7 +4658,7 @@ public abstract class ByCssS extends By {
 			  LocatorEnums O_loc_enums;
 			  DomOffset AO_dom_offsets[];
 		   
-              AO_dom_offsets = XpathGenerators.FAO_create_DOM_offsets(domOffsets);
+              AO_dom_offsets = DomRootElements.FAO_create_DOM_offsets(domOffsets);
 			  this.O_selector  = using;
 			  O_loc_enums = new LocatorEnums(loc, variant);
 			  this.O_loc_sel_css = this.FO_get_loc_sel_css(O_loc_enums);

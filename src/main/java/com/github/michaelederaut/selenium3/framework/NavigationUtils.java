@@ -24,7 +24,9 @@ import org.apache.commons.lang3.mutable.MutableObject;
 
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
@@ -565,8 +567,9 @@ public class NavigationUtils {
 		 S_xpath = FS_get_xpath(PI_O_web_element);
 	     }
 	  
-	  SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector); 
-	
+	 // SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector); 
+	    SB_document_root = DomRootElements.FS_get_context_node(AO_DOM_offset_vector);
+	  
 	  if (StringUtils.isEmpty(S_xpath)) {
 		  S_xpath = ".";
 	     }
