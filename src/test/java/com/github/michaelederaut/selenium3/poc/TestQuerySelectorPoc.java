@@ -24,6 +24,7 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.github.michaelederaut.basics.joox.selector.CSS2XPath;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.NavigationUtils;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators;
@@ -32,7 +33,8 @@ import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
 import com.github.michaelederaut.selenium3.platform.WaiterFactory;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
@@ -41,6 +43,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import junit.framework.Assert;
 
+@Deprecated
 public class TestQuerySelectorPoc {
 
 		public static final String S_url_miser = "https://geizhals.at/?cat=gra16_512";

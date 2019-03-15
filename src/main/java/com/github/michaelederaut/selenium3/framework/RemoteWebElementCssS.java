@@ -19,6 +19,8 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
+import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.FoundBy;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
@@ -27,7 +29,7 @@ import com.github.michaelederaut.selenium3.platform.XpathConcatenator;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.ExtendedCssSelector;
 import com.github.michaelederaut.selenium3.platform.CssSGenerators.LinkText;
-import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
@@ -644,7 +646,8 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 	    	   }
 	        }
 	    
-		SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
+	//	SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
+	    SB_document_root = DomRootElements.FS_get_context_node(AO_DOM_offset_vector_requested);
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
 		I_requested_idx_f0 = O_by_locator_css.I_idx_f0;
 		if (I_requested_idx_f0 == XpathGenerators.IGNORED_IDX) {
