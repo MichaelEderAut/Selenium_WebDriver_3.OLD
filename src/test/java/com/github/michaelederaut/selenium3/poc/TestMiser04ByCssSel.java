@@ -162,7 +162,7 @@ public class TestMiser04ByCssSel {
 	Assert.assertNotNull(O_web_element_miser_loc_06);
 	
     O_web_element_miser_loc_07 = NavigationUtils.O_rem_drv.findElement(ByXp.loc(Locator.linkText, "Deutschland"));
-    // S_txt_content == "Deutschland"
+    Assert.assertNotNull(O_web_element_miser_loc_07);
 	
 	O_lnk_txt_8 = new LinkText("Deutschland");
 //	O_lnk_txt_8 = new LinkText("Proshop.at");
@@ -197,6 +197,7 @@ public class TestMiser04ByCssSel {
 		PI_E_nse.printStackTrace(System.err);
 	    }
 	O_web_element_miser_loc_11_4 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title='Geizhals']"));    // OK 
+	Assert.assertNotNull(O_web_element_miser_loc_11_4);
 
 	try {
 		O_web_element_miser_loc_11_5 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[title=\"Geizhals\"]"));   // @ missing before attr-name
@@ -205,7 +206,7 @@ public class TestMiser04ByCssSel {
 		    PI_E_nse.printStackTrace(System.err);
 	    }
 	O_web_element_miser_loc_11_6 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title=\"Geizhals\"]"));  // OK 
-	
+	Assert.assertNotNull(O_web_element_miser_loc_11_4);
 	try {
 		O_web_element_miser_loc_11_7 = NavigationUtils.O_rem_drv.findElement(By.xpath("//a[@title=\'Geizhals\"]"));  // different left and right quotes 
 	} catch (InvalidSelectorException PI_E_inv_sel) {

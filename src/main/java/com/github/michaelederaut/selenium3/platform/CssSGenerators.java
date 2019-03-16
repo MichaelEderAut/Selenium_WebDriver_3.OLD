@@ -15,6 +15,7 @@ import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
 import com.github.michaelederaut.basics.xpath2cssselector.Cssify;
 import com.github.michaelederaut.basics.xpath2cssselector.CssifyCached;
+import com.github.michaelederaut.basics.xpath2cssselector.DomNavigator;
 import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 // import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
@@ -82,8 +83,8 @@ public class CssSGenerators {
 	}
 		
 	public static class ExtendedCssSelector extends DomVectorExtendedSelector {
-	//	public boolean  B_identity; // equivalent to xpath "."
-		public int I_dom_element_hier_ups_f0 = -1;
+		public DomNavigator O_dom_navigator = null;
+	//	public int I_dom_element_hier_ups_f0 = -1;
 	    public LinkText O_lnk_txt;
 	   
 	   public ExtendedCssSelector() {
@@ -361,8 +362,9 @@ public class CssSGenerators {
 	    LocatorVariant E_locator_variant;
 	    ExtendedCssSelector SBO_retval_csss;
 	    boolean B_has_valid_tag_name;
-	    int I_nbr_hierarchy_ups_f1;
-	    boolean B_simple_unsupported_xpath;
+	    int I_nbr_dom_navi_elems_f1;
+	    DomNavigator O_dom_navigator;
+	    boolean B_to_dom_convertible_xpath;
 	    
 	    if (PI_O_locator_enums == null) {
 	    	E_locator         = Locator.domOffsets;
@@ -388,8 +390,8 @@ public class CssSGenerators {
                }
 	       }
 
-	 B_simple_unsupported_xpath = false;
-	 I_nbr_hierarchy_ups_f1     = 0;
+	 B_to_dom_convertible_xpath = false;
+	 O_dom_navigator = null;
 	 if (PI_O_locator_enums.E_locator == E_locator.domOffsets) {
 		SBO_retval_csss = new ExtendedCssSelector((String)null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);  
 		return SBO_retval_csss;
@@ -610,65 +612,27 @@ public class CssSGenerators {
 			    S_csss = null;
 			    break;
 		      } 
-		   I_len_using_f1 = S_using.length();
-		   E_parsing_state = ParsingState.init;
-		   LOOP_CHARS: for (i1 = 0; i1 < I_len_using_f1; i1++) {
-		      C_using = S_using.charAt(i1);
-			  if (E_parsing_state == ParsingState.init) {
-			     if (C_using == '.') {
-				    E_parsing_state = ParsingState.dot1;
-					}
-				 else {
-					E_parsing_state = ParsingState.invalid; 
-					break LOOP_CHARS;
-					}}
-				 else if (E_parsing_state == ParsingState.dot1) {
-				    if (C_using == '.') {
-					   E_parsing_state = ParsingState.dot2;
-					   I_nbr_hierarchy_ups_f1++;
-					   }
-					 else if (C_using == '/') {
-					   	E_parsing_state = ParsingState.slash; 
-					    }
-					 else {
-					   	E_parsing_state = ParsingState.invalid; 
-					    break LOOP_CHARS;
-					    }}
-				else if (E_parsing_state == ParsingState.dot2) {
-				   if (C_using == '/') {
-					   E_parsing_state = ParsingState.slash; 
-					   }
-					else {
-					   	E_parsing_state = ParsingState.invalid; 
-					    break LOOP_CHARS;
-					    }
-					  }
-				else if (E_parsing_state == ParsingState.slash) {
-				   if (C_using == '.') {
-					  E_parsing_state = ParsingState.dot1;
-				      }
-				  else {
-					 E_parsing_state = ParsingState.invalid; 
-					 break LOOP_CHARS;
-					 }
-				   }
-			   }
-			   if ((E_parsing_state == ParsingState.dot1) || (E_parsing_state == ParsingState.dot2)) {
-				   S_csss = "";
-				   B_simple_unsupported_xpath = true;
-				   break;
-			       }
+		   O_dom_navigator = DomNavigator.FO_create(S_using);
+		   I_nbr_dom_navi_elems_f1 = O_dom_navigator.AO_ele_types.size();
+		   if (I_nbr_dom_navi_elems_f1 > 0) {
+			   S_csss = "";
+			   B_to_dom_convertible_xpath = true;
+			   break;
+		   }
 
-//			if ((O_conversion_result = HS_conversion_results.get(S_using)) != null) {
-//				S_csss = O_conversion_result.S_value;
-//				break;
-//			}
+//		   if ((E_parsing_state == ParsingState.dot1) || (E_parsing_state == ParsingState.dot2)) {
+//				   S_csss = "";
+//				   B_simple_unsupported_xpath = true;
+//				   break;
+//			       }
+
+
 			if (CssSGenerators.O_cssify_cached == null) {
 			    S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
-					    "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
-			      E_ill_arg = new IllegalArgumentException(S_msg_1);
-			      E_ill_arg.printStackTrace(System.out);  	
-			     CssSGenerators.O_cssify_cached = new CssifyCached();
+			          	  "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
+			    E_ill_arg = new IllegalArgumentException(S_msg_1);
+			    E_ill_arg.printStackTrace(System.out);  	
+			    CssSGenerators.O_cssify_cached = new CssifyCached();
 			   }
 			O_conversion_result = CssSGenerators.O_cssify_cached.FO_convert(S_using);
 			S_csss = O_conversion_result.S_value;
@@ -757,8 +721,9 @@ public class CssSGenerators {
 	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
-	if (B_simple_unsupported_xpath) {
-		SBO_retval_csss.I_dom_element_hier_ups_f0 = I_nbr_hierarchy_ups_f1;
+	if (B_to_dom_convertible_xpath) {
+		//SBO_retval_csss.I_dom_element_hier_ups_f0 = I_nbr_hierarchy_ups_f1;
+		SBO_retval_csss.O_dom_navigator = O_dom_navigator;
 	    }
 	return SBO_retval_csss;
 	}
