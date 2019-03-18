@@ -235,7 +235,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final IndexedStrBuilder    PI_SB_xpath_equivalent) {
 	
 		LocatorSelectorCss O_by_locator_css;
-		String S_xpath_cummulated_old, S_xpath_cummulated_new;
+	//	String S_xpath_cummulated_old, S_xpath_cummulated_new;
 		
 		O_by_locator_css = new LocatorSelectorCss(
 				PI_S_locator, PI_E_locator_variant, PI_O_using, PI_S_tag_expected, PI_O_lnk_txt, PI_I_idx_f0, PI_S_prefix, PI_M_ctor);
@@ -434,8 +434,9 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 	    RemoteWebElement   O_remote_web_elem;
 		Object             O_intermediary;
-		String S_msg_1, S_msg_2;
-		int i1;
+		String  S_msg_1, S_msg_2;
+		boolean B_to_dom_convertible_xpath;
+		int     i1;
 	    
 		E_cause = null;
 		if (PI_O_web_elem == null) {
@@ -617,10 +618,11 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		Integer IO_requested_idx_f0;
 		long L_nbr_elems_f1, L_dom_idx_any_tag_f0, L_dom_idx_same_tag_f0;
 		int i1, i2_up, i2_down, I_requested_idx_f0, I_nbr_returned_elems_f1, 
-		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag,
-		    I_nbr_dom_elem_hier_ups, I_size_DOM_offset_vector_orig_f1, I_size_DOM_offset_vector_requested_f1;
+		    I_len_offset_vector_f1, I_dom_idx_f0_any_tag, I_dom_idx_f0_same_tag
+	//	    I_nbr_dom_elem_hier_ups, I_size_DOM_offset_vector_orig_f1, I_size_DOM_offset_vector_requested_f1
+		    ;
 		MutableBoolean O_is_multiple_results;
-		boolean /* B_single_node_only, */ B_is_pure_css, B_is_multiple_results;
+		boolean /* B_single_node_only, */ B_to_dom_convertible_xpath, B_is_pure_css, B_is_multiple_results;
 		
 		ArrayList<Object> AO_res_exec_elements_extended, AO_res_vectors;
 		ArrayList<Object> A_DOM_offset, AO_extended_element;
@@ -635,30 +637,10 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		
 		SB_css_equivalent = (ExtendedCssSelector)O_by_locator_css.SBO_using;
 		SB_cmd_js_multiple = new StringBuilder();
-		O_is_multiple_results = new MutableBoolean();
-	//	B_single_node_only = SB_css_equivalent.B_identity;
-		
+		O_is_multiple_results = new MutableBoolean();		
 	    AO_DOM_offset_vector_orig = O_by_locator_css.SBO_using.AO_dom_offsets;
-//	    I_nbr_dom_elem_hier_ups = SB_css_equivalent.I_dom_element_hier_ups_f0;
+
 	    O_dom_navigator = SB_css_equivalent.O_dom_navigator;
-//	    if (O_dom_navigator == null) { // pures css or xpath identity ("."), which is not supported by css;
-//	    	AO_DOM_offset_vector_requested = AO_DOM_offset_vector_orig;
-//	        }
-//	    else { // xpath hierarchy up some elements e.g. ".././.." (not supported by css)
-//	    	I_size_DOM_offset_vector_orig_f1 = AO_DOM_offset_vector_orig.length;
-//	    	if (I_nbr_dom_elem_hier_ups > I_size_DOM_offset_vector_orig_f1) {
-//	    	   S_msg_1 = I_nbr_dom_elem_hier_ups + " ups the DOM hierarchy exceeds maximum possible number of " + I_size_DOM_offset_vector_orig_f1 + ".";
-//	    	   E_rt = new RuntimeException(S_msg_1);
-//	    	   throw E_rt;
-//	    	   }
-//	    	I_size_DOM_offset_vector_requested_f1 = I_size_DOM_offset_vector_orig_f1 - I_nbr_dom_elem_hier_ups;
-//	    	AO_DOM_offset_vector_requested = new DomOffset[I_size_DOM_offset_vector_requested_f1];
-//	    	for (i1 = 0; i1 < I_size_DOM_offset_vector_requested_f1; i1++) {
-//	    	   AO_DOM_offset_vector_requested[i1] = AO_DOM_offset_vector_orig[i1];
-//	    	   }
-//	        }
-	    
-	//	SB_document_root = RemoteWebElementXp.FS_generate_root_element(AO_DOM_offset_vector_requested);
 	    SB_document_root = DomRootElements.FS_get_context_node(AO_DOM_offset_vector_orig, O_dom_navigator, O_is_multiple_results);
 		S_css_unindexed = SB_css_equivalent.FS_get_buffer();
 		I_requested_idx_f0 = O_by_locator_css.I_idx_f0;
@@ -666,9 +648,13 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			I_requested_idx_f0 = 0;
 		    }
 		IO_requested_idx_f0 = Integer.valueOf(I_requested_idx_f0);
-		if ((O_dom_navigator == null) && (O_lnk_txt == null) && ((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX)) ) {
+		B_to_dom_convertible_xpath = ((O_dom_navigator != null) && (O_dom_navigator.AO_ele_types.size() > 0));
+//		if (((O_dom_navigator == null) || O_dom_navigator.AO_ele_types.size() == 0)  && 
+		if ((!B_to_dom_convertible_xpath) &&
+			(O_lnk_txt == null) && 
+			((I_requested_idx_f0 == 0) || (I_requested_idx_f0 == XpathGenerators.ALL_IDX))) {
 		   B_is_pure_css = true;
-		    }
+		   }
 		else {
 		   B_is_pure_css = false;
 		   }
@@ -766,15 +752,15 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		    "I_nbr_elems_f1 = 0; " + 
 			"I_nbr_elems_interim_f1 = 0; " +
 		    		                 
-             "AO_elems = " + ( 
-            	(O_dom_navigator == null) ?
-            	  SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); "	
-            	: (
+            "AO_elems = " + ( 
+            	B_to_dom_convertible_xpath ?
+            	 (  // use DOM base-element for navigation/searching
             	  B_is_multiple_results	?	 
             		SB_document_root + "; "
-            	   :
-            	    "[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); ")) +   	
-             
+            	   : 
+            	    ("[]; O_elem = " + SB_document_root + "; AO_elemens.push(O_elem); ")) : 
+            	  // use Css-Selector for searching elements  	
+            	  (SB_document_root + ".querySelectorAll(\"" + S_css_unindexed  + "\"); " )) +	
 			"if (AO_elems) {" +
 	            "I_nbr_elems_interim_f1 = AO_elems.length;} " +
 			"else { " +
@@ -970,7 +956,8 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 						O_by_locator_css.S_prefix,
 						O_by_locator_css.M_ctor,
 						AO_DOM_offset_vector_received,
-					    SB_css_equivalent.O_dom_navigator.O_xpath_parsing_failure,
+					//    SB_css_equivalent.O_dom_navigator.O_xpath_parsing_failure,
+						(SB_css_equivalent.O_dom_navigator == null) ? null : SB_css_equivalent.O_dom_navigator.O_xpath_parsing_failure,
 						(int)L_nbr_elems_f1,
 						S_tag_received,
 						S_inner_txt,
