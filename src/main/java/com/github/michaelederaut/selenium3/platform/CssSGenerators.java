@@ -596,45 +596,38 @@ public class CssSGenerators {
 			 break;  
 			 
 	   case xpath:
-		   Cssify.ConversionResult O_conversion_result;
+	//	   Cssify.ConversionResult O_conversion_result;
+		   Cssify.DomNavExtendedConversionResult O_conversion_result;
 		   XPathException E_xp;
 
 		   char C_using;
-		   int I_len_using_f1;
-		   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
+		//   int I_len_using_f1;
+		//   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
 		   ParsingState E_parsing_state; 
 		   
 		   S_using = PI_AS_using[0];
 
 		   if (S_using == null) {
-			//  SBO_retval_csss = new ExtendedCssSelector(null, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets); 
-			//  return SBO_retval_csss;
 			    S_csss = null;
 			    break;
 		      } 
-		   O_dom_navigator = DomNavigator.FO_create(S_using);
-		   I_nbr_dom_navi_elems_f1 = O_dom_navigator.AO_ele_types.size();
-		   if (I_nbr_dom_navi_elems_f1 > 0) {
-			   S_csss = "";
-			   B_to_dom_convertible_xpath = true;
-			   break;
-		   }
-
-//		   if ((E_parsing_state == ParsingState.dot1) || (E_parsing_state == ParsingState.dot2)) {
-//				   S_csss = "";
-//				   B_simple_unsupported_xpath = true;
-//				   break;
-//			       }
-
+//		   O_dom_navigator = DomNavigator.FO_create(S_using);
+//		   I_nbr_dom_navi_elems_f1 = O_dom_navigator.AO_ele_types.size();
+//		   if (I_nbr_dom_navi_elems_f1 > 0) {
+//			   S_csss = "";
+//			   B_to_dom_convertible_xpath = true;
+//			   break;
+//		       }
 
 			if (CssSGenerators.O_cssify_cached == null) {
 			    S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 			          	  "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
 			    E_ill_arg = new IllegalArgumentException(S_msg_1);
 			    E_ill_arg.printStackTrace(System.out);  	
-			    CssSGenerators.O_cssify_cached = new CssifyCached();
+			    CssSGenerators.O_cssify_cached = new CssifyCached(true); // try to convert to DOM path first == true
 			   }
-			O_conversion_result = CssSGenerators.O_cssify_cached.FO_convert(S_using);
+			O_conversion_result = (Cssify.DomNavExtendedConversionResult)CssSGenerators.O_cssify_cached.FO_convert(S_using);
+			O_dom_navigator = O_conversion_result.O_dom_navgator;
 			S_csss = O_conversion_result.S_value;
 			   
 		   //-----------------------	   
@@ -721,10 +714,9 @@ public class CssSGenerators {
 	   S_csss = ALL_ELEMS;
 	   }   
 	SBO_retval_csss = new ExtendedCssSelector(S_csss, PI_O_link_text, PI_I_idx_f0, PI_AO_dom_offsets);
-	if (B_to_dom_convertible_xpath) {
-		//SBO_retval_csss.I_dom_element_hier_ups_f0 = I_nbr_hierarchy_ups_f1;
-		SBO_retval_csss.O_dom_navigator = O_dom_navigator;
-	    }
+//	if (B_to_dom_convertible_xpath) {
+	SBO_retval_csss.O_dom_navigator = O_dom_navigator;
+	//    }
 	return SBO_retval_csss;
 	}
 
