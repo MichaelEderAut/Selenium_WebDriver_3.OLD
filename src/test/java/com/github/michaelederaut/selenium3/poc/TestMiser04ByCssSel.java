@@ -44,11 +44,7 @@ public class TestMiser04ByCssSel {
 	// @Test
 	public static void main(String[] args) {
 		IOException E_io;
-		
-		RuntimeException E_rt;
-		RemoteWebDriver /*RemoteWebDriver */  O_rem_web_drv;
-		FirefoxBinary O_ff_bin;
-		
+			
 		List<WebElement> AO_web_element_miser_loc_1_01, AO_web_element_miser_loc_1_02,
 		                 AO_web_element_miser_loc_1_03, AO_web_element_miser_loc_1_04;
 		WebElement  O_web_element_miser_loc_01, O_web_element_miser_loc_02,
@@ -64,7 +60,7 @@ public class TestMiser04ByCssSel {
 					O_web_element_miser_loc_13, O_web_element_miser_loc_14, O_web_element_miser_loc_15,
 					
 					O_web_element_miser_loc_16_1, O_web_element_miser_loc_16_2, O_web_element_miser_loc_16_3,
-					O_web_element_miser_loc_16_4, 
+					O_web_element_miser_loc_16_4, O_web_element_miser_loc_16_5, O_web_element_miser_loc_16_6,
 					O_web_element_miser_loc_17_1,
 					O_web_element_miser_loc_18_1,
 					O_web_element_miser_loc_19_1, O_web_element_miser_loc_20_1, O_web_element_miser_loc_21_1,
@@ -120,6 +116,9 @@ public class TestMiser04ByCssSel {
 
 	List <WebElement> AO_web_elements;
 
+	O_web_element_miser_loc_12_1 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+			Locator.xpath, LocatorVariant.regular, "//a[@title='Geizhals']"));   // OK
+	
 	O_web_element_miser_loc_01 = NavigationUtils.O_rem_drv.findElement(By.className("gh_loc_bt"));
 	Assert.assertNotNull(O_web_element_miser_loc_01);
 
@@ -262,7 +261,19 @@ public class TestMiser04ByCssSel {
 
 	O_web_element_miser_loc_16_4 = NavigationUtils.O_rem_drv.findElement(By.xpath("id('gh_searchform')"));  // OK
 	
+	try {
+		O_web_element_miser_loc_16_5 = NavigationUtils.O_rem_drv.findElement(By.xpath("//id('gh_searchform')"));
+	} catch (Exception PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "//id('gh_searchform')");
+		PI_E_inv_sel.printStackTrace();
+	    }  
 	
+	try {
+	     O_web_element_miser_loc_16_6 = NavigationUtils.O_rem_drv.findElement(By.xpath("//*id('gh_searchform')"));  // OK
+	} catch (Exception PI_E_inv_sel) {
+		System.out.println("error trying xpath: " + "//*id('gh_searchform')");
+		PI_E_inv_sel.printStackTrace();
+	    }  
 	// should crash here, bcs xpath is invalid, name('...')
 	try {
 		O_web_element_miser_loc_17_1 = NavigationUtils.O_rem_drv.findElement(By.xpath("name('sform')"));
