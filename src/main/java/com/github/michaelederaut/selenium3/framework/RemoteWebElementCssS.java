@@ -21,7 +21,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import com.github.michaelederaut.basics.props.PropertyContainer;
 import com.github.michaelederaut.basics.props.PropertyContainerUtils;
 import com.github.michaelederaut.basics.xpath2cssselector.DomNavigator;
-import com.github.michaelederaut.basics.xpath2cssselector.DomNavigator.XpathParsingFailure;
+import com.github.michaelederaut.basics.xpath2cssselector.DomNavigator.Xpath2DomParsingFailure;
 import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements;
 import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOffset;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementCssS.LocatorSelectorCss;
@@ -44,7 +44,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 //	public StringBuffer SB_xpath_cummulated = new StringBuffer();
 	public FoundBy      O_found_by;
 	public int          I_nbr_duplicates_f1; // nbr elems with idential xpath
-	public XpathParsingFailure O_xpath_parsing_failure;
+	public Xpath2DomParsingFailure O_xpath2dom_parsing_failure;
 	public String       S_tag_received;
 	public String       S_inner_txt;
 	public String       S_txt_content; // Selenium: lintText, html >xxxxx<
@@ -361,7 +361,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final String          PI_S_prefix,
 			final Constructor<? extends ByCssS> PI_M_ctor,
 			final DomOffset PI_AO_dom_offset_vector[],
-			final XpathParsingFailure PI_O_xpath_parsing_failure,
+			final Xpath2DomParsingFailure PI_O_xpath_parsing_failure,
 			final int       PI_I_nbr_duplicates_f1,
 			final String    PI_S_tag_received,
 			final String    PI_S_inner_txt,
@@ -412,7 +412,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 			final String             PI_S_prefix,
 			final Constructor<? extends ByCssS> PI_M_ctor, 
 			final DomOffset PI_AO_dom_offset_vector[],
-			final XpathParsingFailure PI_O_xpath_parsing_failure,
+			final Xpath2DomParsingFailure PI_O_xpath_parsing_failure,
 			final int       PI_I_nbr_duplicates_f1,
 			final String    PI_S_tag_received,
 			final String    PI_S_inner_txt,
@@ -538,7 +538,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 		 PO_O_rem_web_elem_css.setParent(O_parent);
 		 RemoteWebElementXp.FV_set_found_by(PO_O_rem_web_elem_css, S_found_by);
 	     PO_O_rem_web_elem_css.SBO_xpath             = new DomVectorExtendedSelector(PI_AO_dom_offset_vector);
-	     PO_O_rem_web_elem_css.O_xpath_parsing_failure = PI_O_xpath_parsing_failure;
+	     PO_O_rem_web_elem_css.O_xpath2dom_parsing_failure = PI_O_xpath_parsing_failure;
 		
 	//	 PO_O_rem_web_elem_css.SB_xpath_cummulated  = new StringBuffer(PI_O_using.FS_get_buffer());
 		 
@@ -957,7 +957,7 @@ public class RemoteWebElementCssS extends RemoteWebElement {
 						O_by_locator_css.M_ctor,
 						AO_DOM_offset_vector_received,
 					//    SB_css_equivalent.O_dom_navigator.O_xpath_parsing_failure,
-						(SB_css_equivalent.O_dom_navigator == null) ? null : SB_css_equivalent.O_dom_navigator.O_xpath_parsing_failure,
+						(SB_css_equivalent.O_dom_navigator == null) ? (Xpath2DomParsingFailure)null : SB_css_equivalent.O_dom_navigator.O_xpath2dom_parsing_failure,
 						(int)L_nbr_elems_f1,
 						S_tag_received,
 						S_inner_txt,
