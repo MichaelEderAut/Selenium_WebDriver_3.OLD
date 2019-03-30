@@ -16,7 +16,7 @@ public class TestMiser05ByCssSel {
 	public static final String S_url_miser = "https://geizhals.at/?cat=gra16_512";
 
 	public static void main(String[] args) {
-		WebElement  O_web_element_miser_loc_01_1;
+		WebElement  O_web_element_miser_loc_01_1, O_web_element_miser_loc_02_1;
 		List<WebElement> AO_web_element_miser_loc_1_01;
 		
 		BrowserTypes  E_browser_type;
@@ -32,11 +32,17 @@ public class TestMiser05ByCssSel {
 	    		WaiterFactory.I_timeout_long, 
 	    		WaiterFactory.I_poll_std);
 	    
+	    S_xpath = "//*[@id='gh_searchform']";
+	    O_web_element_miser_loc_02_1 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
+	    Locator.xpath, LocatorVariant.regular, S_xpath));   // OK
+	    Assert.assertNotNull(O_web_element_miser_loc_02_1);
+	    
 	    S_xpath = "//a[@title='Geizhals']";
 	    O_web_element_miser_loc_01_1 = NavigationUtils.O_rem_drv.findElement(ByCssS.loc(
-			Locator.xpath, LocatorVariant.regular, S_xpath));   // OK
+		Locator.xpath, LocatorVariant.regular, S_xpath));   // OK
 	    Assert.assertNotNull(O_web_element_miser_loc_01_1);
 	    
+	 
 	    return;
 	}
 

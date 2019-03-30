@@ -63,7 +63,7 @@ public class TestRootNode {
 	
 	RuntimeException E_rt;	
 	XPathExpr            O_xpath_expr;
-	DefaultAbsoluteLocationPath O_root_expr;
+//	DefaultAbsoluteLocationPath O_root_expr;
 	LocationPath                O_location_path;
 	ContextSupport O_context_support;
 	FunctionContext O_xpath_function_context;

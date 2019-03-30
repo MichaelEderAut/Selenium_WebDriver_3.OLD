@@ -1,0 +1,43 @@
+/**
+ * 
+ */
+/**
+ * @author Lee
+ *
+ */
+module Selenium_WebDriver_3 {
+	exports com.github.michaelederaut.selenium3.sitelib;
+	exports com.github.michaelederaut.selenium3.apps;
+	exports com.github.michaelederaut.selenium3.framework;
+	exports com.github.michaelederaut.selenium3.platform;
+	exports com.github.michaelederaut.selenium3.poc;
+
+	requires basics;
+	requires com.google.common;
+	requires commons.io;
+	requires dom4j;
+	requires java.desktop;
+	requires java.scripting;
+	requires java.xml;
+	requires jaxen;
+	requires jdk.scripting.nashorn;
+	requires jna;
+	requires jna.platform;
+	requires jsoup;
+	requires junit;
+	requires log4j.api;
+	requires org.apache.commons.lang3;
+	requires org.apache.commons.text;
+	requires org.openqa.selenium.chrome;
+	requires org.openqa.selenium.core;
+	requires org.openqa.selenium.edge;
+	requires org.openqa.selenium.firefox;
+	requires org.openqa.selenium.ie;
+	requires org.openqa.selenium.remote;
+	requires plexus.utils;
+	requires regexodus;
+	requires saxon.xpath;
+	requires selenium.support;
+	requires xalan;
+	requires xml.apis;
+}

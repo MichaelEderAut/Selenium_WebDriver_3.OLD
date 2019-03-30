@@ -7,3 +7,5 @@
 .git.old/
 /.classpath.old
 /.classpath.OLD
+pom.xml.old
+pom.xml.OLD

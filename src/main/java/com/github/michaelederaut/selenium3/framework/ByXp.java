@@ -49,12 +49,12 @@ public abstract class ByXp extends By {
 	public static final Class<?>[] AT_s1 = new Class<?>[] {String.class};
 	
 	/**
-	 * {@link String} selector - attribute name, {@link String} html tag, <tt>int</tt> index
+	 * {@link String} selector - attribute name, {@link String} html tag, <tt>int</code> index
 	 */
 //	public static final Class<?>[] AT_strings_3 = new Class<?>[] {String.class, String.class, int.class};
 	
 	/**
-	 * {@link String} selector - attribute name, {@link String} html tag, <tt>int</tt> index, {@link String}, xpath prefix
+	 * {@link String} selector - attribute name, {@link String} html tag, <tt>int</code> index, {@link String}, xpath prefix
 	 */
 //	public static final Class<?>[] AT_strings_4 = new Class<?>[] {String.class, String.class, int.class, String.class};
 	
@@ -71,7 +71,7 @@ public abstract class ByXp extends By {
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s1 = new Class<?>[] {Locator.class, String.class};
@@ -101,7 +101,7 @@ public abstract class ByXp extends By {
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_as = new Class<?>[] {Locator.class, String[].class};
@@ -136,7 +136,7 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_s1 = new Class<?>[] {Locator.class, LocatorVariant.class, String.class};
@@ -174,7 +174,7 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_as = new Class<?>[] {Locator.class, LocatorVariant.class, String[].class};
@@ -187,7 +187,7 @@ public abstract class ByXp extends By {
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
 	 * </ul>
 	 */	
@@ -203,7 +203,7 @@ public abstract class ByXp extends By {
 	/**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
 	 * </ul>
 	 */	
@@ -219,7 +219,7 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
 	 * </ul>
 	 */	
@@ -240,7 +240,7 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
 	 * </ul>
 	 */	
@@ -253,9 +253,9 @@ public abstract class ByXp extends By {
    /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s2_i1 = new Class<?>[] {
@@ -275,9 +275,9 @@ public abstract class ByXp extends By {
 /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_as_s1_i1 = new Class<?>[] {
@@ -297,9 +297,9 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_s2_i1 = new Class<?>[] {
@@ -321,9 +321,9 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_as_s1_i1 = new Class<?>[] {
@@ -337,9 +337,9 @@ public abstract class ByXp extends By {
    /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
 	 * </ul>
 	 */	
@@ -354,9 +354,9 @@ public abstract class ByXp extends By {
  /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
 	 * </ul>
 	 */	
@@ -370,11 +370,11 @@ public abstract class ByXp extends By {
  /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
-	 * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
+	 * <li><tt>{@link DomOffset}[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_as_s1_i1_s1_ao = new Class<?>[] {
@@ -388,9 +388,9 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
 	 * </ul>
 	 */	
@@ -406,9 +406,9 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
 	 * </ul>
 	 */	
@@ -423,11 +423,11 @@ public abstract class ByXp extends By {
    /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
-	 * <li><tt>int[]</tt> dom offsets for the context node</li>
+	 * <li><tt>int[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s2_i1_s1_ai = new Class<?>[] {
@@ -442,11 +442,11 @@ public abstract class ByXp extends By {
     /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
-	 * <li><tt>int[]</tt> dom offsets for the context node</li>
+	 * <li><tt>int[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s1_as_i1_s1_ai = new Class<?>[] {
@@ -462,11 +462,11 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
-     * <li><tt>int[]</tt> dom offsets for the context node</li>
+     * <li><tt>int[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_s2_i1_s1_ai = new Class<?>[] {
@@ -482,11 +482,11 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
-     * <li><tt>int[]</tt> dom offsets for the context node</li>
+     * <li><tt>int[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_as_s1_i1_s1_ai = new Class<?>[] {
@@ -503,11 +503,11 @@ public abstract class ByXp extends By {
 	 /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
-    * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
+    * <li><tt>{@link DomOffset}[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_s2_i1_s1_ao = new Class<?>[] {
@@ -522,11 +522,11 @@ public abstract class ByXp extends By {
    /**
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
-	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String}[] selectors used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
 	 * <li>{@link String} xpath prefix</li>
-    * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
+    * <li><tt>{@link DomOffset}[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e1_as_i1_s1_ao = new Class<?>[] {
@@ -541,11 +541,11 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
-     * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
+     * <li><tt>{@link DomOffset}[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_s2_i1_s1_ao = new Class<?>[] {
@@ -573,11 +573,11 @@ public abstract class ByXp extends By {
 	 * <ul>
 	 * <li>{@link Locator} method or attribute-name used for locating the html element</li>
 	 * <li>{@link LocatorVariant} searching for <i>plain</i>, <i>partial</i>, the <i>prefix</i> or the <i>suffix</i> of the selector</li>
-	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</tt>)</li>
+	 * <li>{@link String} selector used for locating the html element (<i>Selenium</i> parameter <tt>using</code>)</li>
 	 * <li>{@link String} html tag</li>
-	 * <li><tt>int</tt> index of the returned element</li>
+	 * <li><tt>int</code> index of the returned element</li>
      * <li>{@link String} xpath prefix</li>
-     * <li><tt>{@link DomOffset}[]</tt> dom offsets for the context node</li>
+     * <li><tt>{@link DomOffset}[]</code> dom offsets for the context node</li>
 	 * </ul>
 	 */	
 	public static final Class<?>[] AT_e2_as_s1_i1_s1_ao = new Class<?>[] {
@@ -711,7 +711,7 @@ public abstract class ByXp extends By {
       /**
   	   * 
   	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-  	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+  	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
   	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
   	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
   	   * 
@@ -741,7 +741,7 @@ public abstract class ByXp extends By {
      /**
   	   * 
   	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-  	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+  	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
   	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br> 
   	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
   	   * 
@@ -771,7 +771,7 @@ public abstract class ByXp extends By {
  	  /**
   	   * 
   	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-  	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+  	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
   	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
   	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
   	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
@@ -803,7 +803,7 @@ public abstract class ByXp extends By {
  	  /**
   	   * 
   	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-  	   *   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+  	   *   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
   	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
   	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br> 
   	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
@@ -835,9 +835,9 @@ public abstract class ByXp extends By {
      /**
    	   * 
    	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-   	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+   	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
    	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
+   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
    	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
    	   * 
    	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -867,9 +867,9 @@ public abstract class ByXp extends By {
      /**
    	   * 
    	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-   	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+   	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
    	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
+   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
    	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
    	   * 
    	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -899,10 +899,10 @@ public abstract class ByXp extends By {
          /**
       	   * 
       	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-      	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+      	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
       	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
       	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-      	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
+      	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
       	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
       	   * 
       	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -933,10 +933,10 @@ public abstract class ByXp extends By {
          /**
       	   * 
       	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-      	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+      	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
       	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
       	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-      	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
+      	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
       	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
       	   * 
       	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -967,10 +967,10 @@ public abstract class ByXp extends By {
      /**
    	   * 
    	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-   	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+   	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
    	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
-   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-   	   * @param index &colon; <tt>int</tt> <ul>
+   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+   	   * @param index &colon; <tt>int</code> <ul>
    	   * <li>&ge; 0 for all regular indices</li> 
    	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
    	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
@@ -1007,10 +1007,10 @@ public abstract class ByXp extends By {
      /**
    	   * 
    	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-   	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+   	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
    	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-   	   * @param index &colon; <tt>int</tt> <ul>
+   	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+   	   * @param index &colon; <tt>int</code> <ul>
    	   * <li>&ge; 0 for all regular indices</li> 
    	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
    	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
@@ -1046,11 +1046,11 @@ public abstract class ByXp extends By {
     	  /**
        	   * 
        	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-       	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+       	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
        	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
        	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br> 
-       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-       	   * @param index &colon; <tt>int</tt> <ul>
+       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+       	   * @param index &colon; <tt>int</code> <ul>
        	   * <li>&ge; 0 for all regular indices</li> 
        	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
        	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
@@ -1088,11 +1088,11 @@ public abstract class ByXp extends By {
  /**
    * 
    * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
    * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
    * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-   * @param index &colon; <tt>int</tt> <ul>
+   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+   * @param index &colon; <tt>int</code> <ul>
    * <li>&ge; 0 for all regular indices</li> 
    * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
    * <li>{@link XpathGenerators#ALL_IDX all index}</li>
@@ -1129,16 +1129,16 @@ public abstract class ByXp extends By {
      	  /**
        	   * 
        	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
        	   * @param using &colon; {@link String} selector
-       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-       	   * @param index &colon; <tt>int</tt> <ul>
+       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+       	   * @param index &colon; <tt>int</code> <ul>
        	   * <li>&ge; 0 for all regular indices</li> 
        	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
        	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
        	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
        	   * </ul>
-       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
        	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
        	   * 
        	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1171,16 +1171,16 @@ public abstract class ByXp extends By {
          /**
        	   * 
        	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
        	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-       	   * @param index &colon; <tt>int</tt> <ul>
+       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+       	   * @param index &colon; <tt>int</code> <ul>
        	   * <li>&ge; 0 for all regular indices</li> 
        	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
        	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
        	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
        	   * </ul>
-       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
        	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
        	   * 
        	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1199,17 +1199,17 @@ public abstract class ByXp extends By {
       	  /**
        	   * 
        	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
        	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
        	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
-       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-       	   * @param index &colon; <tt>int</tt> <ul>
+       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+       	   * @param index &colon; <tt>int</code> <ul>
        	   * <li>&ge; 0 for all regular indices</li> 
        	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
        	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
        	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
        	   * </ul>
-       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
        	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
        	   * 
        	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1241,17 +1241,17 @@ public abstract class ByXp extends By {
  
          /** 
        	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+       	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
        	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
        	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-       	   * @param index &colon; <tt>int</tt> <ul>
+       	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+       	   * @param index &colon; <tt>int</code> <ul>
        	   * <li>&ge; 0 for all regular indices</li> 
        	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
        	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
        	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
        	   * </ul>
-       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+       	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
        	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
        	   * 
        	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1283,19 +1283,19 @@ public abstract class ByXp extends By {
       	  /**
     	   * 
     	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-    	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+    	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
            * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
-    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-    	   * @param index &colon; <tt>int</tt> <ul>
+    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+    	   * @param index &colon; <tt>int</code> <ul>
     	   * <li>&ge; 0 for all regular indices</li> 
     	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
     	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
     	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
     	   * </ul>
-    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
-    	   * @param domOffsets &colon; Array of <tt>int</tt>, number of prev. siblings for this element and all its parents.<br>
+    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
+    	   * @param domOffsets &colon; Array of <tt>int</code>, number of prev. siblings for this element and all its parents.<br>
     	   *      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
     	   * 
     	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
     	   * 
@@ -1331,19 +1331,19 @@ public abstract class ByXp extends By {
      	  /**
     	   * 
     	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
-    	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</tt>(<tt>s</tt>) <tt>(By.</tt> ...<tt>)</tt>
+    	   *     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>findElement</code>(<tt>s</code>) <tt>(By.</code> ...<tt>)</code>
            * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-    	   * @param index &colon; <tt>int</tt> <ul>
+    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+    	   * @param index &colon; <tt>int</code> <ul>
     	   * <li>&ge; 0 for all regular indices</li> 
     	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
     	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
     	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
     	   * </ul>
-    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
-    	   * @param domOffsets &colon; Array of <tt>int</tt>, number of prev. siblings for this element and all its parents.<br>
+    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
+    	   * @param domOffsets &colon; Array of <tt>int</code>, number of prev. siblings for this element and all its parents.<br>
     	   *      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
     	   * 
     	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
     	   * 
@@ -1382,17 +1382,17 @@ public abstract class ByXp extends By {
     	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
     	   *  @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
     	   *  @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
-    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-    	   * @param index &colon; <tt>int</tt> <ul>
+    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+    	   * @param index &colon; <tt>int</code> <ul>
     	   * <li>&ge; 0 for all regular indices</li> 
     	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
     	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
     	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
     	   * </ul>
-    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>".
-    	   * @param domOffsets &colon; Array of <tt>int</tt>, number of prev. siblings for this element and all its parents.<br>
+    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>".
+    	   * @param domOffsets &colon; Array of <tt>int</code>, number of prev. siblings for this element and all its parents.<br>
     	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
     	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
     	   * 
     	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1431,17 +1431,17 @@ public abstract class ByXp extends By {
     	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
     	   *  @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
     	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
-    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-    	   * @param index &colon; <tt>int</tt> <ul>
+    	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+    	   * @param index &colon; <tt>int</code> <ul>
     	   * <li>&ge; 0 for all regular indices</li> 
     	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
     	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
     	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
     	   * </ul>
-    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>".
-    	   * @param domOffsets &colon; Array of <tt>int</tt>, number of prev. siblings for this element and all its parents.<br>
+    	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>".
+    	   * @param domOffsets &colon; Array of <tt>int</code>, number of prev. siblings for this element and all its parents.<br>
     	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+    	   *      For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
     	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
     	   * 
     	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1479,17 +1479,17 @@ public abstract class ByXp extends By {
          	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
          	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
          	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
-         	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-         	   * @param index &colon; <tt>int</tt> <ul>
+         	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+         	   * @param index &colon; <tt>int</code> <ul>
          	   * <li>&ge; 0 for all regular indices</li>
          	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
          	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
          	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
          	   * </ul>
-         	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+         	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
          	   * @param domOffsets &colon; Array of {@link DomOffset DomOffsets}, tags and number of prev. siblings for this element and all its parents.<br>
          	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+    	       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
          	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
          	   * 
                * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1525,17 +1525,17 @@ public abstract class ByXp extends By {
  	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
  	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
  	   * @param using &colon; {@link String}[] Selectors - attribute values used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}
- 	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
- 	   * @param index &colon; <tt>int</tt> <ul>
+ 	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+ 	   * @param index &colon; <tt>int</code> <ul>
  	   * <li>&ge; 0 for all regular indices</li>
  	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
  	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
  	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
  	   * </ul>
- 	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+ 	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
  	   * @param domOffsets &colon; Array of {@link DomOffset DomOffsets}, tags and number of prev. siblings for this element and all its parents.<br>
  	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
  	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
  	   * 
        * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1571,17 +1571,17 @@ public abstract class ByXp extends By {
  	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
  	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
  	   * @param using &colon; {@link String} Selector - attribute value used to search for one or more {@link RemoteWebElement RemoteWebElement(s)} 
- 	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
- 	   * @param index &colon; <tt>int</tt> <ul>
+ 	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+ 	   * @param index &colon; <tt>int</code> <ul>
  	   * <li>&ge; 0 for all regular indices</li>
  	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
  	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
  	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
  	   * </ul>
- 	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+ 	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
  	   * @param domOffsets &colon; Array of {@link DomOffset DomOffsets}, tags and number of prev. siblings for this element and all its parents.<br>
  	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
  	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
  	   * 
        * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1615,17 +1615,17 @@ public abstract class ByXp extends By {
      	   * @param locator &colon; {@link Locator} Attribute name used to search for one or more {@link RemoteWebElement RemoteWebElement(s)}<br>
      	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
      	   * @param using &colon; {@link String} selector
-     	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-     	   * @param index &colon; <tt>int</tt> <ul>
+     	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+     	   * @param index &colon; <tt>int</code> <ul>
      	   * <li>&ge; 0 for all regular indices</li>
      	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
      	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
      	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
      	   * </ul>
-     	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+     	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
      	   * @param domOffsets &colon; Array of {@link DomOffset DomOffsets}, tags and number of prev. siblings for this element and all its parents.<br>
      	   * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+	       *     For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
      	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
      	   * 
            * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>
@@ -1660,17 +1660,17 @@ public abstract class ByXp extends By {
 	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; findElementBy ...
 	   * @param variant &colon; {@link LocatorVariant} defaults to <i>regular</i>
 	   * @param using &colon; {@link String} selector
-	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</tt>"
-	   * @param index &colon; <tt>int</tt> <ul>
+	   * @param expectedTagName &colon; {@link String} HTML-tag, defaults to "<tt>&#42;</code>"
+	   * @param index &colon; <tt>int</code> <ul>
 	   * <li>&ge; 0 for all regular indices</li> 
 	   * <li>{@link XpathGenerators#IGNORED_IDX ignored index}</li>
 	   * <li>{@link XpathGenerators#ALL_IDX all index}</li>
 	   * <li>{@link XpathGenerators#LAST_IDX last index}</li>
 	   * </ul>
-	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</tt>"
+	   * @param prefix &colon; {@link String} Prefix preceding the HTML-tag, defaults to "<tt>.//</code>"
 	   * @param domOffsets &colon; Array of {@link DomOffset Domoffsets}, tags and number of prev. siblings for this element and all its parents.<br>
 	   *    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       *    For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</tt>
+       *    For second parameter <i>contextNode</i> of method <tt>document.evaluate(...)</code>
 	   * @return {@link ByXp}: Extension of the <a href=https://docs.seleniumhq.org/projects/webdriver/>Selenium</a> {@link By} class.
 	   * 
 	   * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;loc">Mr. Michael Eder</a>

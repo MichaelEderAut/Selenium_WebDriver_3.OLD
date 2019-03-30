@@ -246,7 +246,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	     * @param PI_E_locator_variant {@link LocatorVariant}
 	     * @param PI_O_using {@link String} selector
 	     * @param PI_S_tag_expected {@link String} html tag, defaults to "*"
-	     * @param PI_I_idx_f0 <tt>int</tt> - 0 based index of the returned element, defaults to 0
+	     * @param PI_I_idx_f0 <tt>int</code> - 0 based index of the returned element, defaults to 0
 	     * @param PI_S_prefix {@link String} prefix of the xpath expression, defaults to ".//"
 	     * @param PI_M_ctor {@link Constructor} for subtype of {@link ByXp}
 	     *  the method {@link ConstructorUtils#getAccessibleConstructor(Class, Class[])}<br>
@@ -283,7 +283,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 		     * @param PI_E_locator_variant {@link LocatorVariant}
 		     * @param PI_S_using {@link String} selector
 		     * @param PI_S_tag_expected {@link String} html tag, defaults to "*"
-		     * @param PI_I_idx_f0 <tt>int</tt> - 0 based index of the returned element, defaults to 0
+		     * @param PI_I_idx_f0 <tt>int</code> - 0 based index of the returned element, defaults to 0
 		     * @param PI_S_prefix {@link String} prefix of the xpath expression, defaults to ".//"
 		     * @param PI_M_ctor {@link Constructor} for a subtype of {@link ByXp} obtained by<br>
 		     *  the method {@link ConstructorUtils#getAccessibleConstructor(Class, Class[])}<br>

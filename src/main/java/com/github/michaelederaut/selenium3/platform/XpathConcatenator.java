@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.text.StrBuilder;
 import org.apache.xpath.axes.DescendantIterator;  // xalan/xalan.2.7.2.jar
+// import net.sf.saxon.tree.tiny.DescendantIterator;
+
 import org.apache.xpath.axes.LocPathIterator;
 import org.apache.xpath.axes.UnionPathIterator;   // xalan/xalan.2.7.2.jar
 import org.apache.xpath.axes.WalkingIteratorSorted;
@@ -150,7 +152,7 @@ public static String FS_unparenthese(final String PI_S_xpath) {
 
 /**
  * 
- * @param PI_SB_xpath {@link IndexedStrBuilder} contains the <a href="https://www.w3schools.com/xml/xpath_intro.asp"><tt>xpath-expression</tt></a>, whose trailing index has to be removed.
+ * @param PI_SB_xpath {@link IndexedStrBuilder} contains the <a href="https://www.w3schools.com/xml/xpath_intro.asp"><tt>xpath-expression</code></a>, whose trailing index has to be removed.
  * @return A {@link String} with trailing index [...] and redundant enclosing parentheses removed.
  * 
  * @author Mr. Michael Eder

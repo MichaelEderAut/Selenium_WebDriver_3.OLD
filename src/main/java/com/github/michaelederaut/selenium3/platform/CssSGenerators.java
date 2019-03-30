@@ -3,13 +3,14 @@ package com.github.michaelederaut.selenium3.platform;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.xml.xpath.XPathException;
+// import javax.xml.xpath.XPathException;
 
 import org.apache.commons.lang3.StringUtils;
 //import org.apache.commons.lang3.StringUtils;
 //import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.text.TextStringBuilder;
 
+import regexodus.Pattern;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
@@ -39,7 +40,7 @@ public class CssSGenerators {
 	public static final String DEFAULT_PREFIX = "";
 	public static final String EMPTY_PREFIX = DEFAULT_PREFIX;
 	public static final String S_re_tag_name = "^(\\*|[a-z]*)$";
-	public static final regexodus.Pattern P_tag_name = regexodus.Pattern.compile(S_re_tag_name);
+	public static final /*regexodus.*/Pattern P_tag_name = /*regexodus.*/Pattern.compile(S_re_tag_name);
 	
 	protected enum ParsingState {init, dot1, dot2, slash, invalid};
 	
@@ -596,14 +597,12 @@ public class CssSGenerators {
 			 break;  
 			 
 	   case xpath:
-	//	   Cssify.ConversionResult O_conversion_result;
 		   Cssify.DomNavExtendedConversionResult O_conversion_result;
-		   XPathException E_xp;
+		  /* XPathException */ RuntimeException E_xp;
 
 		   char C_using;
 		//   int I_len_using_f1;
 		//   String /* S_pna_script,*/ S_pnr_script, AS_cmd[];
-		   ParsingState E_parsing_state; 
 		   
 		   S_using = PI_AS_using[0];
 
@@ -611,15 +610,8 @@ public class CssSGenerators {
 			    S_csss = null;
 			    break;
 		      } 
-//		   O_dom_navigator = DomNavigator.FO_create(S_using);
-//		   I_nbr_dom_navi_elems_f1 = O_dom_navigator.AO_ele_types.size();
-//		   if (I_nbr_dom_navi_elems_f1 > 0) {
-//			   S_csss = "";
-//			   B_to_dom_convertible_xpath = true;
-//			   break;
-//		       }
 
-			if (CssSGenerators.O_cssify_cached == null) {
+		    if (CssSGenerators.O_cssify_cached == null) {
 			    S_msg_1 = "Locator " + E_locator.name() + " is discouraged in this context " + LF +
 			          	  "Use " + ByXp.Loc.class.getName() + " to use the native xpath browser api, instead.";
 			    E_ill_arg = new IllegalArgumentException(S_msg_1);

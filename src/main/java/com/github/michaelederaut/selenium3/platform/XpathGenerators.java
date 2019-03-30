@@ -84,7 +84,7 @@ public class XpathGenerators {
 	 * <ul>
 	 * <li><i>regular</i>: search for attribute value as it is</li> 
 	 * <li><i>partial</i>: search for substring of an attribute value</li> 
-	 * <li><i>prefix</i>: search for a leading string of an attribute value <tt>starts-with(...</tt></li> 
+	 * <li><i>prefix</i>: search for a leading string of an attribute value <tt>starts-with(...</code></li> 
 	 * <li><i>suffix</i>: search for a trailing string of an attribute value</li>
 	 * </ul>
 	 * for any of the locators:<ul>
@@ -358,12 +358,12 @@ public class XpathGenerators {
 	/**
 	 * This class can be used to generate a node element in an <a href='https://www.guru99.com/xpath-selenium.html#3'><i>Absolute Xpath</i></a>.<br>
 	 * It  contains 2 attributes for the context node<ul>
-	 * <li><b>I_idx_f0</b>: <tt>int</tt> number of previous sibling elements<br>
+	 * <li><b>I_idx_f0</b>: <tt>int</code> number of previous sibling elements<br>
 	 *  For second parameter <i>contextNode</i> of method 
-	 *  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate"><tt>document.evaluate(...)</tt></a><br>
-	 *  or the beginning of the only argument of method <a href='https://developer.mozilla.org/de/docs/Web/API/Document/querySelector'><tt>document.QuerySelector(...)</tt></a>.
+	 *  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/evaluate"><tt>document.evaluate(...)</code></a><br>
+	 *  or the beginning of the only argument of method <a href='https://developer.mozilla.org/de/docs/Web/API/Document/querySelector'><tt>document.QuerySelector(...)</code></a>.
 	 *  </li>
-	 * <li><b>S_node_name</b>: {@link String} HTML-tag of this element, defaults to <tt>null</tt>.</li>
+	 * <li><b>S_node_name</b>: {@link String} HTML-tag of this element, defaults to <tt>null</code>.</li>
 	 * </ul>
 	 * 
 	 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;DomOffset">Mr. Michael Eder</a>
@@ -518,7 +518,7 @@ public static StringBuilder FS_generate_abs_xpath(final DomOffset[] PI_AO_dom_of
 		/**
 		 * 
 		 * @param PI_S_value {@link String} xpath
-		 * @param PI_I_starting_pos_of_idx <tt>int</tt> 0 based starting<br>
+		 * @param PI_I_starting_pos_of_idx <tt>int</code> 0 based starting<br>
 		 *         position of the opening bracket of the last index.<br>
 		 *         Defaults to -1.
 		 *         

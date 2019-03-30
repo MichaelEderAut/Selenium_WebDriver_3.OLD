@@ -71,11 +71,10 @@
          <version>0.1.10</version>
       </dependency>
 
-
     <dependency>
 	    <groupId>org.apache.commons</groupId>
 	    <artifactId>commons-lang3</artifactId>
-	    <version>3.8.1</version>    
+	    <version>3.10</version>    
     </dependency> 
    
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
@@ -157,11 +156,12 @@
   </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
-<dependency>
+<!-- bcs of org.w3c.dom.CharacterData -->
+<!-- <dependency>
     <groupId>org.dom4j</groupId>
     <artifactId>dom4j</artifactId>
     <version>2.1.0</version>
-</dependency>
+</dependency> -->
 
 
 <!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-xpath -->
@@ -198,12 +198,19 @@
     <version>1.2.0-atlassian-2</version>
 </dependency>
 
+<!-- bcs of org.w3c.dom.CharacterData -->
 <!-- https://mvnrepository.com/artifact/xalan/xalan -->
-	<dependency>
+<dependency>
 	   <groupId>xalan</groupId>
 	   <artifactId>xalan</artifactId>
 	   <version>2.7.2</version>
-	</dependency>
+	   <exclusions>
+	   <exclusion>
+	      <groupId>xml-apis</groupId>
+           <artifactId>xml-apis</artifactId>
+	   </exclusion>
+	   </exclusions>
+	</dependency> 
  
    <!--  <dependency>
      <groupId>net.sf.saxon</groupId>
