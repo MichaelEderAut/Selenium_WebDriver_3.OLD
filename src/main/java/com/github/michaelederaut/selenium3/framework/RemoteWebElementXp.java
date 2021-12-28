@@ -6,8 +6,9 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
-import regexodus.Pattern;
+// import regexodus.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -58,7 +59,7 @@ public class RemoteWebElementXp extends RemoteWebElement {
 	protected static final String  S_Re_driver_info = "\\A\\s*\\[([^\\]]+)\\]\\s+\\-\\Q>\\E\\s+" +
 			  "(" + NavigationUtils.S_re_locator_alternatives + ")" +
 			  "\\:\\s*(.*?)\\Z";
-	protected static final Pattern P_driver_info = new Pattern(S_Re_driver_info);
+	protected static final Pattern P_driver_info = Pattern.compile(S_Re_driver_info);
 
 	protected static final String S_field_name_found_by      = "foundBy";
 	public    static final String S_field_xpath_expression   = "xpathExpression";
