@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 // import java.util.List;
 import java.util.Vector;
-// import java.util.Stack;
+import java.util.regex.Pattern;
 import java.util.function.BiFunction;
 
 import com.google.common.base.Function;
@@ -36,8 +36,7 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
 import com.github.michaelederaut.selenium3.sitelib.RemoteWebDrivers;
 
-
-import regexodus.Pattern;
+// import regexodus.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

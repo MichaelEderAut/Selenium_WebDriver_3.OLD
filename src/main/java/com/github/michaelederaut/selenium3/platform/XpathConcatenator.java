@@ -1,5 +1,7 @@
 package com.github.michaelederaut.selenium3.platform;
 
+import java.util.regex.Pattern;
+
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +26,7 @@ import com.github.michaelederaut.basics.xpath2cssselector.DomRootElements.DomOff
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.IndexedStrBuilder;
 import com.google.common.base.Strings;
 
-import regexodus.Pattern;
+// import regexodus.Pattern;
 
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;

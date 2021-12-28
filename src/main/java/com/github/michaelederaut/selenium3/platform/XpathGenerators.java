@@ -3,6 +3,7 @@ package com.github.michaelederaut.selenium3.platform;
 import static org.apache.commons.lang3.StringUtils.LF;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -29,9 +30,10 @@ import com.github.michaelederaut.selenium3.framework.ByCssS;
 import com.github.michaelederaut.selenium3.framework.ByXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
-// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
 
-import regexodus.Pattern;
+// import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
+// import regexodus.Pattern;  (obsolete)
+
 
 /**
 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;XpathGenerators">Mr. Michael Eder</a>

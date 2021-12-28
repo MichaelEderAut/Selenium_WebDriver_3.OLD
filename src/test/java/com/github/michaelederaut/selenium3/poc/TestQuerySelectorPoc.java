@@ -38,9 +38,12 @@ import com.github.michaelederaut.selenium3.platform.XpathGenerators.LocatorEnums
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomVectorExtendedSelector;
 import com.github.michaelederaut.selenium3.platform.XpathGenerators.Locator;
 import com.github.michaelederaut.selenium3.sitelib.BrowserTypes;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+// import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+// import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+
 import junit.framework.Assert;
 
 @Deprecated
