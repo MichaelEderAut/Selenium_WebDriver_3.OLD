@@ -44,11 +44,11 @@ public class SearchAms {
 	public static final String S_lnk_txt_e_ams_konto = "eAMS-Konto";
 //	public static final String S_xp_e_ams_konto = "id('content')/x:ul/x:li[2]/x:a/x:strong";
 //	public static final String S_xp_e_ams_konto  = "id('content')/ul/li[2]/a/strong";
-	public static final String S_xp_e_ams_konto = "//a[@title='Link öffnet sich in neuem Fenster']" +
+	public static final String S_xp_e_ams_konto = "//a[@title='Link Ã¶ffnet sich in neuem Fenster']" +
 	                                                  "[@href='https://www.e-ams.at/eamslogin.html']" +
 			                                          "[@target='_blank']";
 	 
-//	 public static final String S_xp_e_ams_konto = "(//a[@title='Link öffnet sich in neuem Fenster']" +
+//	 public static final String S_xp_e_ams_konto = "(//a[@title='Link Ã¶ffnet sich in neuem Fenster']" +
 //                                                      "[@href='https://www.e-ams.at/eamslogin.html']" +
 //                                                      "[@target='_blank'])[1]";
 	public static final String S_xp_username_input = "id('j_username')";

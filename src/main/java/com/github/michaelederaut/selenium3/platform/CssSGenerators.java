@@ -3,6 +3,7 @@ package com.github.michaelederaut.selenium3.platform;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 // import javax.xml.xpath.XPathException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 //import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.text.TextStringBuilder;
 
-import regexodus.Pattern;
+// import regexodus.Pattern;
 import com.github.michaelederaut.basics.RegexpUtils;
 import com.github.michaelederaut.basics.RegexpUtils.GroupMatchResult;
 import com.github.michaelederaut.basics.StreamUtils.EndCriterion;
