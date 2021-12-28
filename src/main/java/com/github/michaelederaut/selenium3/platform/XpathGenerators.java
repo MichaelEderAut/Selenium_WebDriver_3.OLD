@@ -32,8 +32,7 @@ import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp;
 import com.github.michaelederaut.selenium3.framework.RemoteWebElementXp.LocatorSelector;
 
 // import com.github.michaelederaut.selenium3.platform.XpathGenerators.DomOffset;
-// import regexodus.Pattern;  (obsolete)
-
+// import regexodus.Pattern; (obsolete)
 
 /**
 * @author <a href="mailto:michael.eder.vie@gmx.at?subject=github&nbsp;Selenium&nbsp;XpathGenerators">Mr. Michael Eder</a>
